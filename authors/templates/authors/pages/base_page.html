@@ -1,0 +1,17 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block content %}
+    <div class="auth-container">
+        <h2>Faça login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="link">
+            <a href="#">Esqueceu sua senha?</a>
+        </div>
+    </div>
+{% endblock content %}
