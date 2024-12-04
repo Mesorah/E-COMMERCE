@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse('opa')
+    return render(request, 'global/pages/base_page.html')

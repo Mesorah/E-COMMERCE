@@ -1,3 +1,20 @@
 from django.db import models
+from django.conf import settings
 
-# Create your models here.
+
+class Products(models.Model):
+    class Meta:
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
+
+    cover = models.ImageField(
+        upload_to='products/%Y/%m/%d/',
+        blank=True, null=True
+    )
+    name = models.CharField(max_length=55)
+    price = models.IntegerField(blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f'{self.name}'

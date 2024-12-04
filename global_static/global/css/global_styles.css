@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #f9f9f9;
+}
+
+.header {
+    margin: 1vh;
+    text-align: center;
+}
+
+/* Container principal dos itens */
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+}
+
+/* Estilização de cada product */
+.product {
+    width: 200px; /* Tamanho dos itens */
+    border: 1px solid #ddd; /* Borda fina */
+    border-radius: 8px; /* Cantos arredondados */
+    padding: 16px;
+    background-color: #fff; /* Fundo branco */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover para realçar os itens */
+.product:hover {
+    transform: scale(1.05); /* Aumenta levemente */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Sombra mais forte */
+}
+
+/* Estilização de cada elemento do product */
+.product-img {
+    font-size: 100px;
+    color: #ccc; /* Cor para placeholder de imagem */
+    margin-bottom: 8px;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333; /* Texto escuro */
+}
+
+.product-price {
+    font-size: 16px;
+    color: #2ecc71; /* Cor verde para preços */
+    margin-bottom: 12px;
+}
+
+.product-link a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #3498db; /* Azul para links */
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    padding: 4px 8px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.product-link a:hover {
+    background-color: #3498db;
+    color: #fff; /* Texto branco ao hover */
+}
