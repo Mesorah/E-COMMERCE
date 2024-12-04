@@ -4,19 +4,14 @@
 
 {% block content %}
     <div>
-        <div class="products-container">
-            <div class="product">
-                <p class="product-img">IMG</p>
-                <p class="product-name">Nome</p>
-                <p class="product-price">Preço</p>
-                <p class="product-link"><a href="#">Link</a></p>
+        {% for product in products %}
+            <div class="products-container">
+                <div class="product">
+                    <img class="product-img" src="{{ product.cover.url }}" alt="">
+                    <p class="product-name">{{ product.name }}</p>
+                    <p class="product-price">{{ product.price }}</p>
+                    <p class="product-link"><a href="#">Link</a></p>
+                </div>
             </div>
-            <div class="product">
-                <p class="product-img">IMG</p>
-                <p class="product-name">Nome</p>
-                <p class="product-price">Preço</p>
-                <p class="product-link"><a href="#">Link</a></p>
-            </div>
-        </div>
-    </div>
+        {% endfor %}
 {% endblock content %}

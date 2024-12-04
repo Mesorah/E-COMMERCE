@@ -1,10 +1,12 @@
-* {
+* { 
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* Garante que padding e border sejam contabilizados dentro do tamanho total */
 }
 
 body {
     background: #f9f9f9;
+    font-family: Arial, sans-serif; /* Fonte padrão para um visual limpo */
 }
 
 .header {
@@ -14,7 +16,7 @@ body {
 
 /* Container principal dos itens */
 .products-container {
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
     gap: 16px;
     padding: 16px;
@@ -22,7 +24,11 @@ body {
 
 /* Estilização de cada product */
 .product {
-    width: 200px; /* Tamanho dos itens */
+    width: 240px; /* Tamanho fixo da largura */
+    min-height: 300px; /* Altura mínima */
+    display: flex;
+    flex-direction: column; /* Garante que os elementos fiquem em uma coluna */
+    justify-content: space-between; /* Espaça os elementos para evitar sobreposição */
     border: 1px solid #ddd; /* Borda fina */
     border-radius: 8px; /* Cantos arredondados */
     padding: 16px;
@@ -30,6 +36,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden; /* Garante que nada "vaze" do cartão */
 }
 
 /* Hover para realçar os itens */
@@ -41,6 +48,7 @@ body {
 /* Estilização de cada elemento do product */
 .product-img {
     font-size: 100px;
+    width: 100%;
     color: #ccc; /* Cor para placeholder de imagem */
     margin-bottom: 8px;
 }
@@ -48,6 +56,7 @@ body {
 .product-name {
     font-size: 18px;
     font-weight: bold;
+    word-wrap: break-word; /* Permite quebra de palavras */
     margin-bottom: 8px;
     color: #333; /* Texto escuro */
 }
@@ -55,9 +64,11 @@ body {
 .product-price {
     font-size: 16px;
     color: #2ecc71; /* Cor verde para preços */
+    word-wrap: break-word;
     margin-bottom: 12px;
 }
 
+/* Links para ações */
 .product-link a {
     text-decoration: none;
     font-size: 14px;

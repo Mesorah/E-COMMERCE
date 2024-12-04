@@ -1,5 +1,10 @@
 from django.shortcuts import render
+from home.models import Products
 
 
 def home(request):
-    return render(request, 'global/pages/base_page.html')
+    products = Products.objects.all()
+
+    return render(request, 'global/pages/base_page.html', context={
+        'products': products
+    })
