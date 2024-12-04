@@ -4,5 +4,6 @@ from authors import views
 app_name = 'authors'
 
 urlpatterns = [
-    path('', views.AuthorLoginView.as_view(), name='index'),
+    path('login/', views.AuthorLoginView.as_view(), name='login'),
+    path('logout/', views.AuthorLogoutView.as_view(), name='logout'),
 ]
