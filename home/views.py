@@ -1,22 +1,27 @@
-from django.shortcuts import render
 from home.models import Products
 from django.http import Http404
+from django.views.generic import ListView, DetailView
 
 
-def home(request):
-    products = Products.objects.all()
-
-    return render(request, 'global/pages/base_page.html', context={
-        'products': products
-    })
+class HomeListView(ListView):
+    template_name = 'global/pages/base_page.html'
+    model = Products
+    context_object_name = 'products'
 
 
-def view_page(request, id):
-    product = Products.objects.filter(id=id).first()
+class ViewPageDetailView(DetailView):
+    template_name = 'home/pages/view_page.html'
+    model = Products
+    context_object_name = 'product'
 
-    if not product:
-        raise Http404()
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
 
-    return render(request, 'home/pages/view_page.html', context={
-        'product': product
-    })
+        queryset = queryset.filter(
+            pk=self.kwargs.get('pk'),
+        )
+
+        if not queryset:
+            raise Http404()
+
+        return queryset
