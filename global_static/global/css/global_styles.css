@@ -214,7 +214,8 @@ body {
 }
 
 .auth-container input[type="text"],
-.auth-container input[type="password"] {
+.auth-container input[type="password"],
+.auth-container input[type="email"] {
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -223,7 +224,8 @@ body {
 }
 
 .auth-container input[type="text"]:focus,
-.auth-container input[type="password"]:focus {
+.auth-container input[type="password"]:focus,
+.auth-container input[type="email"]:focus {
     border-color: #3498db;
     outline: none;
 }

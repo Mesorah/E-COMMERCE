@@ -11,14 +11,25 @@ class TestAuthorLoginView(TestCase):
         self.user = register_user()
         self.profile = register_user_profile(self.user)
 
-        return super().setUp()
-
-    def test_if_the_correct_login_is_redirected(self):
-        data = {
+        self.data = {
             'username': 'Test',
             'password': 'Test'
         }
 
-        response = self.client.post(reverse('authors:login'), data=data)
+        return super().setUp()
+
+    def test_if_the_correct_login_is_redirected(self):
+        response = self.client.post(reverse('authors:login'), data=self.data)
 
         self.assertEqual(response.status_code, 302)
+
+    def test_if_login_context_is_correct(self):
+        response = self.client.get(reverse('authors:login'), data=self.data)
+
+        context = response.context
+
+        self.assertIn('title', context)
+        self.assertIn(context['title'], 'Login')
+
+        self.assertIn('msg', context)
+        self.assertIn(context['msg'], 'Logue-se')
