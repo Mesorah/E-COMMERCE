@@ -13,6 +13,7 @@ def validate_cpf(value):
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
+
     cpf = forms.CharField(
         min_length=11,
         max_length=11,

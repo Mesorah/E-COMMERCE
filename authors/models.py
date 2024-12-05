@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from validate_docbr import CPF
+from django.core.exceptions import ValidationError
 
 
 def validate_cpf(value):
     cpf = CPF()
     if not cpf.validate(value):
-        raise models.ValidationError('CPF inválido.')
+        raise ValidationError('CPF inválido.')
 
 
 class UserProfile(models.Model):

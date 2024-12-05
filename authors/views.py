@@ -1,11 +1,11 @@
 # from django.shortcuts import render
 from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic.edit import FormView
 from authors.forms import CustomUserCreationForm
 from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
 
 
-class AuthorRegisterView(FormView):
+class AuthorRegisterView(CreateView):
     template_name = "authors/pages/base_page.html"
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('authors:login')
