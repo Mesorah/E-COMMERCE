@@ -1,20 +1,15 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
-from authors.models import UserProfile
 from django.core.exceptions import ValidationError
+from utils.for_tests.base_for_authentication import (
+    register_user,
+    register_user_profile
+)
 
 
 class TestModelUserProfile(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
-            username='Test',
-            password='Test'
-        )
-
-        self.profile = UserProfile.objects.create(
-            user=self.user,
-            cpf='04887398026'
-        )
+        self.user = register_user()
+        self.profile = register_user_profile(self.user)
 
         return super().setUp()
 

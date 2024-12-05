@@ -1,25 +1,15 @@
 from django.test import TestCase
-from home.models import Products
-from django.contrib.auth.models import User
+from utils.for_tests.base_for_authentication import register_user
+from utils.for_tests.base_for_create_itens import create_product
 
 
 class TestModelProducts(TestCase):
     def setUp(self):
-        credentials = {
-            'username': 'Test',
-            'password': 'Test'
-        }
+        self.user = register_user()
 
-        self.user = User.objects.create_user(**credentials)
+        self.client.login(username='Test', password='Test')
 
-        self.client.login(**credentials)
-
-        self.product = Products.objects.create(
-            name='Test Product',
-            price=150,
-            description='Test',
-            user=self.user
-        )
+        self.product = create_product(self.user)
 
         return super().setUp()
 
