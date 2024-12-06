@@ -260,3 +260,90 @@ body {
 .auth-container .link a:hover {
     text-decoration: underline;
 }
+
+/* Contêiner principal do formulário de adicionar produto */
+.add-product-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do título do formulário de adicionar produto */
+.add-product-title {
+    text-align: center;
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Formulário de adicionar produto */
+.add-product-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo dos parágrafos dentro do formulário */
+.add-product-form p {
+    margin: 15px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Estilo dos campos de entrada dentro do formulário */
+.add-product-form input,
+.add-product-form select,
+.add-product-form textarea {
+    padding: 12px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    background-color: #f9f9f9;
+}
+
+/* Estilo específico para o campo de descrição (textarea) */
+.add-product-form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Estilo do botão de envio do formulário */
+.add-product-form button {
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+}
+
+/* Efeito de hover no botão */
+.add-product-form button:hover {
+    background-color: #2980b9;
+}
+
+/* Exibição dos erros de validação do formulário */
+.add-product-form .errorlist {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Estilo dos campos com erro de validação */
+.add-product-form input:invalid,
+.add-product-form select:invalid,
+.add-product-form textarea:invalid {
+    border-color: red;
+}
+
+/* Adiciona padding e margin ao CSRF token */
+.add-product-form input[type="hidden"] {
+    display: none;
+}

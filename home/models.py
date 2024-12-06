@@ -10,11 +10,11 @@ class Products(models.Model):
     cover = models.ImageField(
         upload_to='products/%Y/%m/%d/',
         blank=True, null=True,
-        default='products/default/imagem_default.png'
+        default='default/image_default.png'
     )
     name = models.CharField(max_length=55)
-    price = models.IntegerField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    price = models.IntegerField(null=True)
+    description = models.TextField(null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, null=True)
 

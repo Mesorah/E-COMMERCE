@@ -6,5 +6,11 @@
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>
+
+        {% if is_staff %}
+            <div>
+                <a href="{% url "staff:add_product" %}"><p>Adicionar um novo produto</p></a>
+            </div>
+        {% endif %}
     {% endif %}
 </div>

@@ -8,6 +8,15 @@ class HomeListView(ListView):
     model = Products
     context_object_name = 'products'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context.update({
+            'title': 'Home'
+        })
+
+        return context
+
 
 class ViewPageDetailView(DetailView):
     template_name = 'home/pages/view_page.html'

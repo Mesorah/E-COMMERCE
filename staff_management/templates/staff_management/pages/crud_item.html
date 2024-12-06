@@ -1,0 +1,14 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} Adicionar Produto {% endblock title %}
+
+{% block content %}
+    <div class="add-product-container">
+        <h1 class="add-product-title">Adicionar Produto</h1>
+        <form class="add-product-form" action="{% url 'staff:add_product' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.as_p }}</p>
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+{% endblock content %}
