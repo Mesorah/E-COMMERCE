@@ -51,7 +51,7 @@ body {
 }
 
 /* Estilização de cada elemento do product */
-.product-img {
+.product-img img {
     font-size: 100px;
     width: 100%;
     color: #ccc; /* Cor para placeholder de imagem */

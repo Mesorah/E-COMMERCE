@@ -9,7 +9,8 @@ class Products(models.Model):
 
     cover = models.ImageField(
         upload_to='products/%Y/%m/%d/',
-        blank=True, null=True
+        blank=True, null=True,
+        default='products/default/imagem_default.png'
     )
     name = models.CharField(max_length=55)
     price = models.IntegerField(blank=True, null=True)

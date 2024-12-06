@@ -17,7 +17,7 @@ class TestViewPage(TestCase):
         response = self.client.get(
             reverse(
                 'home:view_page',
-                kwargs={'id': '1'}
+                kwargs={'pk': '1'}
                 )
             )
 
@@ -27,7 +27,7 @@ class TestViewPage(TestCase):
         response = self.client.get(
             reverse(
                 'home:view_page',
-                kwargs={'id': '2'}
+                kwargs={'pk': '2'}
                 )
             )
 
