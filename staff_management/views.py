@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.contrib.auth.decorators import user_passes_test
-from staff_management.forms import AddProduct
+from staff_management.forms import CrudProduct
 from home.models import Products
+from django.urls import reverse
 
 
 def is_staff(user):
@@ -26,7 +27,7 @@ def home(request):
 @user_passes_test(is_staff, login_url='authors:login')
 def add_product(request):
     if request.method == 'POST':
-        form = AddProduct(request.POST, request.FILES)
+        form = CrudProduct(request.POST, request.FILES)
 
         if form.is_valid():
             product = form.save(commit=False)
@@ -41,8 +42,56 @@ def add_product(request):
             return redirect('staff:index')
 
     else:
-        form = AddProduct()
+        form = CrudProduct()
 
     return render(request, 'staff_management/pages/crud_item.html', context={
-        'form': form
+        'form': form,
+        'form_url': reverse('staff:add_product'),
+        'is_staff': True
     })
+
+
+@user_passes_test(is_staff, login_url='authors:login')
+def edit_product(request, id):
+    product = Products.objects.filter(
+            user=request.user,
+            id=id
+        ).first()
+
+    if not product:
+        raise Http404()
+
+    if request.method == 'POST':
+        form = CrudProduct(request.POST, request.FILES, instance=product)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('staff:index')
+
+    else:
+        form = CrudProduct(instance=product)
+
+    return render(request, 'staff_management/pages/crud_item.html', context={
+        'form': form,
+        'form_url': reverse('staff:edit_product', args=[id]),
+        'is_staff': True
+    })
+
+
+@user_passes_test(is_staff, login_url='authors:login')
+def delete_product(request, id):
+    # depois criar uma confirmação
+
+    if request.method == 'POST':
+        product = Products.objects.filter(
+                user=request.user,
+                id=id
+            ).first()
+
+        product.delete()
+
+        return redirect('staff:index')
+
+    else:
+        raise Http404()

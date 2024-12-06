@@ -262,7 +262,7 @@ body {
 }
 
 /* Contêiner principal do formulário de adicionar produto */
-.add-product-container {
+.crud-product-container {
     max-width: 800px;
     margin: 50px auto;
     background-color: #ffffff;
@@ -272,7 +272,7 @@ body {
 }
 
 /* Estilo do título do formulário de adicionar produto */
-.add-product-title {
+.crud-product-title {
     text-align: center;
     font-size: 32px;
     color: #333;
@@ -280,22 +280,22 @@ body {
 }
 
 /* Formulário de adicionar produto */
-.add-product-form {
+.crud-product-form {
     display: flex;
     flex-direction: column;
 }
 
 /* Estilo dos parágrafos dentro do formulário */
-.add-product-form p {
+.crud-product-form p {
     margin: 15px 0;
     font-size: 16px;
     color: #333;
 }
 
 /* Estilo dos campos de entrada dentro do formulário */
-.add-product-form input,
-.add-product-form select,
-.add-product-form textarea {
+.crud-product-form input,
+.crud-product-form select,
+.crud-product-form textarea {
     padding: 12px;
     margin: 10px 0 20px 0;
     border: 1px solid #ddd;
@@ -306,13 +306,13 @@ body {
 }
 
 /* Estilo específico para o campo de descrição (textarea) */
-.add-product-form textarea {
+.crud-product-form textarea {
     height: 150px;
     resize: vertical;
 }
 
 /* Estilo do botão de envio do formulário */
-.add-product-form button {
+.crud-product-form button {
     padding: 12px 20px;
     background-color: #3498db;
     color: white;
@@ -325,25 +325,25 @@ body {
 }
 
 /* Efeito de hover no botão */
-.add-product-form button:hover {
+.crud-product-form button:hover {
     background-color: #2980b9;
 }
 
 /* Exibição dos erros de validação do formulário */
-.add-product-form .errorlist {
+.crud-product-form .errorlist {
     color: red;
     font-size: 14px;
     margin-top: 10px;
 }
 
 /* Estilo dos campos com erro de validação */
-.add-product-form input:invalid,
-.add-product-form select:invalid,
-.add-product-form textarea:invalid {
+.crud-product-form input:invalid,
+.crud-product-form select:invalid,
+.crud-product-form textarea:invalid {
     border-color: red;
 }
 
 /* Adiciona padding e margin ao CSRF token */
-.add-product-form input[type="hidden"] {
+.crud-product-form input[type="hidden"] {
     display: none;
 }

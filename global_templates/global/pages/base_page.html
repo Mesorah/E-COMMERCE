@@ -11,6 +11,13 @@
                     <p class="product-name">{{ product.name }}</p>
                     <p class="product-price">{{ product.price }}</p>
                     <p class="product-link"><a href="{% url "home:view_page" product.id %}">Link</a></p>
+                    {% if is_staff %}
+                        <p class="product-link"><a href="{% url "staff:edit_product" product.id %}">Editar</a></p>
+                        <form action="{% url 'staff:delete_product' product.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Deletar</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
