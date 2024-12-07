@@ -16,6 +16,8 @@ class CrudProduct(forms.ModelForm):
                            precisa-se de pelo menos 3 caracteres"""
                            )
 
+        return name
+
     def clean_price(self):
         price = self.cleaned_data['price']
 
@@ -23,3 +25,5 @@ class CrudProduct(forms.ModelForm):
             self.add_error('price',
                            'o valor do produto não pode ser menor ou igual a 0'
                            )
+
+        return price

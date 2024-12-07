@@ -27,6 +27,7 @@ def add_product(request):
         form = CrudProduct(request.POST, request.FILES)
 
         if form.is_valid():
+
             product = form.save(commit=False)
             product.user = request.user
 

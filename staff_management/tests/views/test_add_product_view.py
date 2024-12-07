@@ -5,6 +5,7 @@ from utils.for_tests.base_for_authentication import (
 )
 from django.urls import reverse
 from home.models import Products
+from staff_management.forms import CrudProduct
 
 
 class TestHomeView(TestCase):
@@ -71,9 +72,11 @@ class TestHomeView(TestCase):
         self.assertEqual(new_count, 1)
 
     def test_add_product_form_is_invalid_when_data_is_incomplete(self):
+        self.client.login(username='test', password='123')
+
         data = {
-            'name': '',
-            'price': '',
+            'name': 'a',
+            'price': '-5',
             'description': ''
         }
 
@@ -82,4 +85,13 @@ class TestHomeView(TestCase):
             data=data
         )
 
-        self.assertEqual(response.status_code, 302)
+        form = CrudProduct(data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(form.is_valid())
+        self.assertIn('name', form.errors)
+        self.assertIn('price', form.errors)
+        self.assertIn('Nome de produto muito pequeno,', form.errors['name'][0])
+        self.assertIn('o valor do produto não pode ser menor ou igual a 0',
+                      form.errors['price'][0]
+                      )
