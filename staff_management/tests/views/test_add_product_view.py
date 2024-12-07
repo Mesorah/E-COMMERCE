@@ -5,10 +5,11 @@ from utils.for_tests.base_for_authentication import (
 )
 from django.urls import reverse
 from home.models import Products
+from django.utils.http import urlencode
 from staff_management.forms import CrudProduct
 
 
-class TestHomeView(TestCase):
+class TestAddProductView(TestCase):
     def setUp(self):
         register_super_user()
 
@@ -25,9 +26,29 @@ class TestHomeView(TestCase):
 
         self.client.login(username='Test', password='Test')
 
-        response = self.client.get(reverse('staff:add_product'))
+        response = self.client.get(reverse('staff:add_product'), follow=True)
 
-        self.assertEqual(response.status_code, 302)
+        expected_url = reverse('authors:login') + '?' + urlencode(
+            {'next': reverse(
+                'staff:add_product'
+                )
+             }
+         )
+
+        """
+            Exemplo do urlencode:
+                params = {
+                    'next': '/staff_management/add_product/',
+                    'search': 'Django test'
+                }
+                query_string = urlencode(params)
+
+                print(query_string)
+                # Saída: 'next=%2Fstaff_management%2Fadd_product%2F&search=
+                # Django+test'
+        """
+
+        self.assertRedirects(response, expected_url)
 
     def test_user_with_permissions_can_add_product_in_staff_and_gets_200(self):
         self.client.login(username='test', password='123')
@@ -36,7 +57,7 @@ class TestHomeView(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_add_product_hava_the_correct_template(self):
+    def test_if_add_product_have_the_correct_template(self):
         self.client.login(username='test', password='123')
 
         response = self.client.get(reverse('staff:add_product'))

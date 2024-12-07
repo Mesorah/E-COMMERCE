@@ -22,7 +22,7 @@ class AuthorRegisterView(CreateView):
 
 class AuthorLoginView(LoginView):
     template_name = "authors/pages/base_page.html"
-    redirect_authenticated_user = True
+    # redirect_authenticated_user = True
     success_url = reverse_lazy('home:index')
 
     def get_context_data(self, *args, **kwargs):

@@ -87,6 +87,9 @@ def delete_product(request, id):
                 id=id
             ).first()
 
+        if not product:
+            raise Http404()
+
         product.delete()
 
         return redirect('staff:index')
