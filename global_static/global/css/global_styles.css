@@ -6,87 +6,137 @@
 
 body {
     background: #f9f9f9;
-    font-family: Arial, sans-serif; /* Fonte padrão para um visual limpo */
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
 }
 
 .header {
-    margin: 1vh;
+    margin: 2vh 0;
     text-align: center;
 }
 
 .header a {
-    color: black;
+    color: #333;
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.header a:hover {
+    color: #3498db;
 }
 
 /* Container principal dos itens */
 .products-container {
     display: inline-flex;
     flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
 }
 
 /* Estilização de cada product */
 .product {
-    width: 240px; /* Tamanho fixo da largura */
-    min-height: 300px; /* Altura mínima */
+    width: 250px; /* Tamanho fixo da largura */
+    min-height: 320px; /* Altura mínima para garantir consistência */
     display: flex;
-    flex-direction: column; /* Garante que os elementos fiquem em uma coluna */
-    justify-content: space-between; /* Espaça os elementos para evitar sobreposição */
-    border: 1px solid #ddd; /* Borda fina */
-    border-radius: 8px; /* Cantos arredondados */
-    padding: 16px;
-    background-color: #fff; /* Fundo branco */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    overflow: hidden; /* Garante que nada "vaze" do cartão */
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    height: 400px; /* Altura fixa para que todos os containers sejam iguais */
 }
 
 /* Hover para realçar os itens */
 .product:hover {
-    transform: scale(1.05); /* Aumenta levemente */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Sombra mais forte */
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilização de cada elemento do product */
 .product-img img {
-    font-size: 100px;
     width: 100%;
-    color: #ccc; /* Cor para placeholder de imagem */
-    margin-bottom: 8px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.product-img img:hover {
+    transform: scale(1.05);
 }
 
 .product-name {
-    font-size: 18px;
-    font-weight: bold;
-    word-wrap: break-word; /* Permite quebra de palavras */
-    margin-bottom: 8px;
-    color: #333; /* Texto escuro */
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 .product-price {
-    font-size: 16px;
-    color: #2ecc71; /* Cor verde para preços */
-    word-wrap: break-word;
-    margin-bottom: 12px;
+    font-size: 18px;
+    color: #2ecc71;
+    margin-bottom: 16px;
+    white-space: nowrap; /* Impede quebra de linha */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Links para ações */
-.product-link a {
-    text-decoration: none;
+.product-link {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaço entre os botões */
+    align-items: center; /* Centraliza os botões */
+}
+
+/* Estilos específicos para os botões de Editar e Deletar */
+.product-link a,
+.product-link form button {
     font-size: 14px;
-    color: #3498db; /* Azul para links */
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 100%; /* Garante que os botões ocupem toda a largura do contêiner */
+}
+
+/* Link de editar */
+.product-link a {
+    background-color: #3498db;
     border: 1px solid #3498db;
-    border-radius: 4px;
-    padding: 4px 8px;
-    transition: background-color 0.2s, color 0.2s;
+    text-decoration: none;
 }
 
 .product-link a:hover {
-    background-color: #3498db;
-    color: #fff; /* Texto branco ao hover */
+    background-color: #2980b9;
+}
+
+/* Botão de deletar */
+.product-link form button {
+    background-color: #e74c3c;
+    border: 1px solid #e74c3c;
+    cursor: pointer;
+}
+
+.product-link form button:hover {
+    background-color: #c0392b;
+}
+
+/* Garantir que o formulário de delete tenha o mesmo estilo do botão */
+.product-link form {
+    width: 100%; /* Alinha o botão de deletar ao restante dos botões */
+}
+
+.product-link a:focus {
+    outline: none;
 }
 
 /* Nova seção para a página de produto */
@@ -121,6 +171,9 @@ body {
     font-size: 24px;
     font-weight: bold;
     color: #333; /* Texto escuro */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .product-description {
@@ -192,33 +245,33 @@ body {
 /* Estilos específicos para o formulário de autenticação */
 .auth-container {
     background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
-    margin: 20px auto; /* Centraliza o formulário */
+    max-width: 450px;
+    margin: 40px auto;
 }
 
 .auth-container h2 {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 26px;
     color: #333;
+    margin-bottom: 30px;
 }
 
 .auth-container form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
 }
 
 .auth-container input[type="text"],
 .auth-container input[type="password"],
 .auth-container input[type="email"] {
-    padding: 12px;
+    padding: 14px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
     width: 100%;
 }
@@ -296,13 +349,13 @@ body {
 .crud-product-form input,
 .crud-product-form select,
 .crud-product-form textarea {
-    padding: 12px;
-    margin: 10px 0 20px 0;
+    padding: 14px;
+    margin: 10px 0 20px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
     width: 100%;
-    background-color: #f9f9f9;
+    background-color: #fafafa;
 }
 
 /* Estilo específico para o campo de descrição (textarea) */
@@ -313,15 +366,14 @@ body {
 
 /* Estilo do botão de envio do formulário */
 .crud-product-form button {
-    padding: 12px 20px;
+    padding: 14px 24px;
     background-color: #3498db;
     color: white;
     font-size: 18px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    align-self: center;
 }
 
 /* Efeito de hover no botão */
@@ -346,4 +398,19 @@ body {
 /* Adiciona padding e margin ao CSRF token */
 .crud-product-form input[type="hidden"] {
     display: none;
+}
+
+form button {
+    padding: 10px 16px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #c0392b;
 }

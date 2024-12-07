@@ -1,16 +1,16 @@
 <div class="header">
     <h1><a href="{% url "home:index" %}">E-commerc</a></h1>
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and not is_staff %}
         <form action="{% url "authors:logout" %}" method="POST">
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>
+    {% endif %}
 
-        {% if is_staff %}
+    {% if user.is_authenticated and is_staff %}
             <div>
                 <a href="{% url "staff:add_product" %}"><p>Adicionar um novo produto</p></a>
             </div>
-        {% endif %}
     {% endif %}
 </div>
