@@ -77,6 +77,8 @@ body {
     font-weight: 600;
     margin-bottom: 10px;
     color: #333;
+    white-space: normal; /* Permite que o texto quebre a linha */
+    overflow-wrap: break-word;
 }
 
 .product-price {
@@ -180,6 +182,7 @@ body {
     font-size: 16px;
     color: #666; /* Texto cinza */
     line-height: 1.5; /* Melhor leitura */
+    word-wrap: break-word;
 }
 
 /* Estilização da seção de compra */
