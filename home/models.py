@@ -13,7 +13,7 @@ class Products(models.Model):
         default='default/image_default.png'
     )
     name = models.CharField(max_length=55)
-    price = models.IntegerField(null=True)
+    price = models.IntegerField()
     description = models.TextField(null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, null=True)

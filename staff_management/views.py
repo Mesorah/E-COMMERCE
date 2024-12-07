@@ -12,9 +12,6 @@ def is_staff(user):
 
 @user_passes_test(is_staff, login_url='authors:login')
 def home(request):
-    if not request.user.has_perm('app_name.change_item'):
-        raise Http404()
-
     products = Products.objects.all()
 
     return render(request, 'global/pages/base_page.html', context={

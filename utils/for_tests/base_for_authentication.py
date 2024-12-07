@@ -18,3 +18,18 @@ def register_user_profile(user, cpf='04887398026'):
     )
 
     return profile
+
+
+def register_super_user(
+        username='test',
+        email='test@example.com',
+        password='123'
+     ):
+
+    profile = User.objects.create_superuser(
+            username=username,
+            email=email,
+            password=password,
+        )
+
+    return profile
