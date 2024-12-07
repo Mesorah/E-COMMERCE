@@ -22,3 +22,4 @@ class Products(models.Model):
         return f'{self.name}'
 
 # colocar stock
+# deixar um is_published

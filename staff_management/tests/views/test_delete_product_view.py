@@ -46,7 +46,7 @@ class TestDeleteProductView(TestCase):
             )
         )
 
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 405)
 
     def test_user_can_delete_product_in_staff(self):
         response = self.client.post(

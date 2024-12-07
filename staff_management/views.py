@@ -1,12 +1,10 @@
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-from django.shortcuts import render, redirect
 from staff_management.forms import CrudProduct
-from django.views.generic import ListView
+from django.urls import reverse, reverse_lazy
 from home.models import Products
 from django.http import Http404
-from django.urls import reverse
-from django.views import View
 
 
 def is_staff(user):
@@ -35,93 +33,51 @@ class HomeListView(UserPassesTestMixin, ListView):
         return context
 
 
-class AddProductView(UserPassesTestMixin, View):
-    def get_render(self, form):
-        return render(self.request,
-                      'staff_management/pages/crud_item.html',
-                      context={'form': form,
-                               'form_url': reverse('staff:add_product'),
-                               'is_staff': True
-                               })
+class ProductCreateView(UserPassesTestMixin, CreateView):
+    template_name = 'staff_management/pages/crud_item.html'
+    form_class = CrudProduct
+    success_url = reverse_lazy('staff:index')
 
-    def get(self, request):
-        form = CrudProduct()
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
-        return self.get_render(form)
+        context.update({
+            'title': 'Adicionar Produto',
+            'form_url': reverse('staff:add_product'),
+            'is_staff': True
+        })
 
-    def post(self, request):
-        form = CrudProduct(self.request.POST, self.request.FILES)
+        return context
 
-        if form.is_valid():
+    def form_valid(self, form):
+        form.instance.user = self.request.user
 
-            product = form.save(commit=False)
-            product.user = self.request.user
-
-            product.save()
-
-            cover = form.cleaned_data['cover']
-
-            product.cover = cover
-
-            return redirect('staff:index')
-
-        return self.get_render(form)
+        return super().form_valid(form)
 
 
-class EditProductView(UserPassesTestMixin, View):
-    def get_render(self, form, id):
-        return render(
-            self.request,
-            'staff_management/pages/crud_item.html',
-            context={
-                'form': form,
-                'form_url': reverse('staff:edit_product',
-                                    args=[id]), 'is_staff': True})
+class ProductUpdateView(UserPassesTestMixin, UpdateView):
+    template_name = 'staff_management/pages/crud_item.html'
+    model = Products
+    form_class = CrudProduct
+    success_url = reverse_lazy('staff:index')
 
-    def get_product(self, id):
-        product = Products.objects.filter(
-            user=self.request.user,
-            id=id
-        ).first()
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
-        if not product:
-            raise Http404()
+        context.update({
+            'title': 'Editar Produto',
+            'form_url': reverse('staff:update_product',
+                                args=[self.kwargs['pk']]),
+            'is_staff': True
+        })
 
-        return product
-
-    def get(self, request, id):
-        product = self.get_product(id)
-
-        form = CrudProduct(instance=product)
-
-        return self.get_render(form, id)
-
-    def post(self, request, id):
-        product = self.get_product(id)
-
-        form = CrudProduct(self.request.POST, self.request.FILES,
-                           instance=product
-                           )
-
-        if form.is_valid():
-            form.save()
-
-            return redirect('staff:index')
-
-        return self.get_render(form, id)
+        return context
 
 
-class DeleteProductView(UserPassesTestMixin, View):
+class ProductDeleteView(UserPassesTestMixin, DeleteView):
     # depois criar uma confirmação
-    def post(self, request, id):
-        product = Products.objects.filter(
-                user=self.request.user,
-                id=id
-            ).first()
+    model = Products
+    success_url = reverse_lazy('staff:index')
 
-        if not product:
-            raise Http404()
-
-        product.delete()
-
-        return redirect('staff:index')
+    def get(self, *args, **kwargs):
+        raise Http404()

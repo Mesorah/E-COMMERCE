@@ -1,10 +1,10 @@
 {% extends "global/pages/base.html" %}
 
-{% block title %} Adicionar Produto {% endblock title %}
+{% block title %} {{ title }} {% endblock title %}
 
 {% block content %}
     <div class="crud-product-container">
-        <h1 class="crud-product-title">Adicionar Produto</h1>
+        <h1 class="crud-product-title">{{ title }}</h1>
         <form class="crud-product-form" action="{{ form_url }}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <p>{{ form.as_p }}</p>

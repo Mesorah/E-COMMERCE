@@ -5,13 +5,16 @@ app_name = 'staff'
 
 urlpatterns = [
     path('', views.HomeListView.as_view(), name='index'),
-    path('add_product/', views.AddProductView.as_view(), name='add_product'),
-    path('edit_product/<id>/',
-         views.EditProductView.as_view(),
-         name='edit_product'
+    path('add_product/',
+         views.ProductCreateView.as_view(),
+         name='add_product'
          ),
-    path('delete_product/<id>/',
-         views.DeleteProductView.as_view(),
+    path('update_product/<pk>/',
+         views.ProductUpdateView.as_view(),
+         name='update_product'
+         ),
+    path('delete_product/<pk>/',
+         views.ProductDeleteView.as_view(),
          name='delete_product'
          ),
 ]
