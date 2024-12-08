@@ -1,5 +1,6 @@
 from django.test import TestCase
-from django.urls import reverse
+from django.urls import reverse, resolve
+from authors import views
 
 
 class TestAuthorRegisterView(TestCase):
@@ -13,6 +14,11 @@ class TestAuthorRegisterView(TestCase):
         }
 
         return super().setUp()
+
+    def test_if_author_register_load_the_correct_view(self):
+        response = resolve(reverse('authors:register'))
+
+        self.assertEqual(response.func.view_class, views.AuthorRegisterView)
 
     def test_if_the_correct_register_is_redirected(self):
         response = self.client.post(

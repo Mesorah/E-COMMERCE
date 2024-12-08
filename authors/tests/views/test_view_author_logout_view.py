@@ -1,9 +1,10 @@
 from django.test import TestCase
-from django.urls import reverse
+from django.urls import reverse, resolve
 from utils.for_tests.base_for_authentication import (
     register_user,
     register_user_profile,
 )
+from authors import views
 
 
 class TestAuthorLogoutView(TestCase):
@@ -14,6 +15,11 @@ class TestAuthorLogoutView(TestCase):
         self.client.login(username='Test', password='Test')
 
         return super().setUp()
+
+    def test_if_author_logout_load_the_correct_view(self):
+        response = resolve(reverse('authors:logout'))
+
+        self.assertEqual(response.func.view_class, views.AuthorLogoutView)
 
     def test_if_the_correct_logout_is_redirected(self):
         response = self.client.post(reverse('authors:logout'))

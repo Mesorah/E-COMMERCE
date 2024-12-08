@@ -3,7 +3,8 @@ from utils.for_tests.base_for_authentication import (
     register_user,
     register_super_user
 )
-from django.urls import reverse
+from django.urls import reverse, resolve
+from staff_management import views
 
 
 class TestHomeView(TestCase):
@@ -11,6 +12,11 @@ class TestHomeView(TestCase):
         register_super_user()
 
         return super().setUp()
+
+    def test_if_staff_index_load_the_correct_view(self):
+        response = resolve(reverse('staff:index'))
+
+        self.assertEqual(response.func.view_class, views.HomeListView)
 
     def test_user_without_permission_redirects_from_staff_index(self):
         register_user()

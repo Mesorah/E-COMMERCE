@@ -3,10 +3,11 @@ from utils.for_tests.base_for_authentication import (
     register_user,
     register_super_user
 )
-from django.urls import reverse
+from django.urls import reverse, resolve
 from home.models import Products
 from django.utils.http import urlencode
 from staff_management.forms import CrudProduct
+from staff_management import views
 
 
 class TestAddProductView(TestCase):
@@ -16,10 +17,17 @@ class TestAddProductView(TestCase):
         self.data = {
             'name': 'TEST PRODUCT',
             'price': '100',
-            'description': 'THIS IS A TEST PRODUCT'
+            'description': 'THIS IS A TEST PRODUCT',
+            'stock': '1',
+            'is_published': True
         }
 
         return super().setUp()
+
+    def test_if_staff_add_product_load_the_correct_view(self):
+        response = resolve(reverse('staff:add_product'))
+
+        self.assertEqual(response.func.view_class, views.ProductCreateView)
 
     def test_user_without_permission_redirects_from_staff_add_product(self):
         register_user()
@@ -98,7 +106,8 @@ class TestAddProductView(TestCase):
         data = {
             'name': 'a',
             'price': '-5',
-            'description': ''
+            'description': '',
+            'stock': '-1'
         }
 
         response = self.client.post(
@@ -112,7 +121,11 @@ class TestAddProductView(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('name', form.errors)
         self.assertIn('price', form.errors)
+        self.assertIn('stock', form.errors)
         self.assertIn('Nome de produto muito pequeno,', form.errors['name'][0])
         self.assertIn('o valor do produto não pode ser menor ou igual a 0',
                       form.errors['price'][0]
+                      )
+        self.assertIn('o valor do stock não pode ser menor que 0',
+                      form.errors['stock'][0]
                       )

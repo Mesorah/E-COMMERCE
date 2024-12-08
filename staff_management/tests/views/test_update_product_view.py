@@ -4,9 +4,10 @@ from utils.for_tests.base_for_authentication import (
     register_super_user
 )
 from utils.for_tests.base_for_create_itens import create_product
-from django.urls import reverse
+from django.urls import reverse, resolve
 from django.utils.http import urlencode
 from staff_management.forms import CrudProduct
+from staff_management import views
 
 
 class TestEditProductView(TestCase):
@@ -19,6 +20,11 @@ class TestEditProductView(TestCase):
 
         return super().setUp()
 
+    def test_if_staff_edit_product_load_the_correct_view(self):
+        response = resolve(reverse('staff:update_product', kwargs={'pk': '1'}))
+
+        self.assertEqual(response.func.view_class, views.ProductUpdateView)
+
     def test_user_without_permission_redirects_from_staff_update_product(self):
         self.client.logout()
         register_user()
@@ -27,23 +33,23 @@ class TestEditProductView(TestCase):
 
         response = self.client.get(
             reverse(
-                'staff:update_product', kwargs={'id': '1'}
+                'staff:update_product', kwargs={'pk': '1'}
             )
         )
 
         expected_url = reverse('authors:login') + '?' + urlencode(
             {'next': reverse(
-                'staff:update_product', kwargs={'id': '1'}
+                'staff:update_product', kwargs={'pk': '1'}
                 )
              }
          )
 
         self.assertRedirects(response, expected_url)
 
-    def test_user_with_permissions_can_update_product_in_staff_and_get_200(self):
+    def test_user_with_permissions_can_update_product_in_staff(self):
         response = self.client.get(
             reverse(
-                'staff:update_product', kwargs={'id': '1'}
+                'staff:update_product', kwargs={'pk': '1'}
             )
         )
 
@@ -52,7 +58,7 @@ class TestEditProductView(TestCase):
     def test_if_update_product_have_the_correct_template(self):
         response = self.client.get(
             reverse(
-                'staff:update_product', kwargs={'id': '1'}
+                'staff:update_product', kwargs={'pk': '1'}
             )
         )
 
@@ -64,7 +70,7 @@ class TestEditProductView(TestCase):
     def test_update_product_raises_404_if_not_found(self):
         response = self.client.post(
             reverse(
-                'staff:update_product', kwargs={'id': '2'}
+                'staff:update_product', kwargs={'pk': '2'}
             )
         )
 
@@ -74,12 +80,14 @@ class TestEditProductView(TestCase):
         data = {
             'name': 'Test Product2',
             'price': '100',
-            'description': 'Test2'
+            'description': 'Test2',
+            'stock': '1',
+            'is_published': True
         }
 
         response = self.client.post(
             reverse(
-                'staff:update_product', kwargs={'id': '1'}
+                'staff:update_product', kwargs={'pk': '1'}
             ), data=data
         )
 
@@ -89,12 +97,13 @@ class TestEditProductView(TestCase):
         data = {
             'name': 'a',
             'price': '-5',
-            'description': ''
+            'description': '',
+            'stock': '-1'
         }
 
         response = self.client.post(
             reverse(
-                'staff:update_product', kwargs={'id': '1'}
+                'staff:update_product', kwargs={'pk': '1'}
             ), data=data
         )
 
@@ -107,4 +116,7 @@ class TestEditProductView(TestCase):
         self.assertIn('Nome de produto muito pequeno,', form.errors['name'][0])
         self.assertIn('o valor do produto não pode ser menor ou igual a 0',
                       form.errors['price'][0]
+                      )
+        self.assertIn('o valor do stock não pode ser menor que 0',
+                      form.errors['stock'][0]
                       )
