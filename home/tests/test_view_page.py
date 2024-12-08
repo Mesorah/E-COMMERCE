@@ -13,7 +13,9 @@ class TestViewPage(TestCase):
 
         return super().setUp()
 
-    def test_if_page_retuns_200(self):
+    def test_if_view_page_retuns_200(self):
+        # Erro por causa do is_published
+        
         response = self.client.get(
             reverse(
                 'home:view_page',

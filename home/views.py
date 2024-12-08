@@ -27,7 +27,7 @@ class HomeListView(ListView):
         return context
 
 
-class ViewPageDetailView(DetailView):
+class PageDetailView(DetailView):
     template_name = 'home/pages/view_page.html'
     model = Products
     context_object_name = 'product'
@@ -44,6 +44,18 @@ class ViewPageDetailView(DetailView):
             raise Http404()
 
         return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        product = self.get_object()
+
+        context.update({
+            'title': 'View Page',
+            'stock': product.stock
+        })
+
+        return context
 
 # No comprar produtos a hora que
 # a pessoa for digitar o cep

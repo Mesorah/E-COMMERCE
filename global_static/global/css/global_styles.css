@@ -155,6 +155,19 @@ body {
     color: #e74c3c;
 }
 
+/* Estilo para produtos sem estoque */
+.out-of-stock {
+    color: #e74c3c; /* Vermelho */
+    font-weight: bold;
+    background-color: #fdecea; /* Fundo claro para destacar */
+    padding: 8px;
+    border-radius: 4px; /* Cantos arredondados */
+    text-align: center;
+    margin: 10px 0; /* Espaço acima e abaixo */
+    border: 1px solid #e74c3c; /* Borda vermelha */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
 /* Nova seção para a página de produto */
 .view-container {
     display: flex;
