@@ -13,4 +13,11 @@
                 <a href="{% url "staff:add_product" %}"><p>Adicionar um novo produto</p></a>
             </div>
     {% endif %}
+
+    <div class="cart-icon">
+        <a href="{% url 'home:cart_detail' %}">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </a>
+    </div>
 </div>

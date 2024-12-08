@@ -1,7 +1,7 @@
 from home.models import Products, Cart
 from django.http import Http404
 from django.views.generic import ListView, DetailView
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 
 
 class HomeListView(ListView):
@@ -94,7 +94,8 @@ def remove_from_cart(request, id):
     return redirect('home:index')
 
 
-
+def cart_detail_view(request):
+    return render(request, 'home/pages/cart_detail.html')
 # No comprar produtos a hora que
 # a pessoa for digitar o cep
 # se for diferentes da que eu
