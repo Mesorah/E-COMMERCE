@@ -8,6 +8,15 @@ class HomeListView(ListView):
     model = Products
     context_object_name = 'products'
 
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+
+        queryset = queryset.filter(
+            is_published=True
+        )
+
+        return queryset
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -28,9 +37,18 @@ class ViewPageDetailView(DetailView):
 
         queryset = queryset.filter(
             pk=self.kwargs.get('pk'),
+            is_published=True
         )
 
         if not queryset:
             raise Http404()
 
         return queryset
+
+# No comprar produtos a hora que
+# a pessoa for digitar o cep
+# se for diferentes da que eu
+# colocar permitido dar um erro
+
+
+# Fazer tests de stock e is_published

@@ -5,7 +5,14 @@ from home.models import Products
 class CrudProduct(forms.ModelForm):
     class Meta:
         model = Products
-        fields = ['name', 'price', 'description', 'cover']
+        fields = [
+            'name',
+            'price',
+            'description',
+            'stock',
+            'is_published',
+            'cover'
+        ]
 
     def clean_name(self):
         name = self.cleaned_data['name']
@@ -27,3 +34,13 @@ class CrudProduct(forms.ModelForm):
                            )
 
         return price
+
+    def clean_stock(self):
+        stock = self.cleaned_data['stock']
+
+        if int(stock) < 0:
+            self.add_error('stock',
+                           'o valor do stock não pode ser menor que 0'
+                           )
+
+        return stock

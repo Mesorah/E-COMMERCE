@@ -15,11 +15,10 @@ class Products(models.Model):
     name = models.CharField(max_length=55)
     price = models.IntegerField()
     description = models.TextField(null=True)
+    stock = models.IntegerField(null=True)
+    is_published = models.BooleanField(null=True, default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f'{self.name}'
-
-# colocar stock
-# deixar um is_published

@@ -141,6 +141,20 @@ body {
     outline: none;
 }
 
+.product-status {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.product-published {
+    color: #2ecc71;
+}
+
+.product-unpublished {
+    color: #e74c3c;
+}
+
 /* Nova seção para a página de produto */
 .view-container {
     display: flex;

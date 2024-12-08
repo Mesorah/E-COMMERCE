@@ -3,23 +3,34 @@
 {% block title %} {{ title }} {% endblock title %}
 
 {% block content %}
-    <div>
+<div>
+    <div class="header">
+        <h1>Produtos Disponíveis</h1>
+    </div>
+    <div class="products-container">
         {% for product in products %}
-            <div class="products-container">
-                <div class="product">
-                    <img class="product-img" src="{{ product.cover.url }}" alt="">
-                    <p class="product-name">{{ product.name }}</p>
-                    <p class="product-price">{{ product.price }}</p>
-                    <p class="product-link"><a href="{% url "home:view_page" product.id %}">Link</a></p>
-                    {% if is_staff %}
-                        <p class="product-link"><a href="{% url "staff:update_product" product.id %}">Editar</a></p>
-                        <form action="{% url 'staff:delete_product' product.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit">Deletar</button>
-                        </form>
+            <div class="product">
+                <img class="product-img" src="{{ product.cover.url }}" alt="Imagem do produto">
+                <p class="product-name">{{ product.name }}</p>
+                <p class="product-price">R$ {{ product.price }}</p>
+                <p class="product-link"><a href="{% url "home:view_page" product.id %}">Visualizar</a></p>
+
+                {% if is_staff %}
+                    <p class="product-link"><a href="{% url "staff:update_product" product.id %}">Editar</a></p>
+
+                    {% if product.is_published %}
+                        <p class="product-status product-published">Publicado</p>
+                    {% else %}
+                        <p class="product-status product-unpublished ">Não publicado</p>
                     {% endif %}
-                </div>
+
+                    <form action="{% url 'staff:delete_product' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Deletar</button>
+                    </form>
+                {% endif %}
             </div>
         {% endfor %}
-    </div>  
+    </div>
+</div>
 {% endblock content %}
