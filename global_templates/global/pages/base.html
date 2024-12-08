@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,8 @@
     <main>
         {% block content %}{% endblock content %}
     </main>
+
+    <script src="{% static 'global/js/confirm_delete.js' %}"></script>
 </body>
 
 </html>

@@ -20,7 +20,7 @@
         <div class="buy-section">
             <h2>Buy Now</h2>
             <p class="buy-price">R$: {{ product.price }}</p>
-            <form class="buy-form" action="" method="post">
+            <form class="buy-form" action="{% url "home:add_to_cart" product.id %}" method="post">
                 {% csrf_token %}
 
                 <label for="quantity">Quantity:</label>
@@ -29,6 +29,9 @@
                 <!-- Se o estoque for menor que a quantidade pedidar da erro -->
 
                 <button type="submit">Add to Cart</button>
+
+                <!-- Criar a página do carrinho dai colocar o remove from cart -->
+                {% endif %}
             </form>
         </div>
         {% else %}

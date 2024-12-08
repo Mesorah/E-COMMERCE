@@ -9,27 +9,27 @@
     </div>
     <div class="products-container">
         {% for product in products %}
-            <div class="product">
-                <img class="product-img" src="{{ product.cover.url }}" alt="Imagem do produto">
-                <p class="product-name">{{ product.name }}</p>
-                <p class="product-price">R$ {{ product.price }}</p>
-                <p class="product-link"><a href="{% url "home:view_page" product.id %}">Visualizar</a></p>
+        <div class="product">
+            <img class="product-img" src="{{ product.cover.url }}" alt="Imagem do produto">
+            <p class="product-name">{{ product.name }}</p>
+            <p class="product-price">R$ {{ product.price }}</p>
+            <p class="product-link"><a href="{% url "home:view_page" product.id %}">Visualizar</a></p>
 
-                {% if is_staff %}
-                    <p class="product-link"><a href="{% url "staff:update_product" product.id %}">Editar</a></p>
+            {% if is_staff %}
+            <p class="product-link"><a href="{% url "staff:update_product" product.id %}">Editar</a></p>
 
-                    {% if product.is_published %}
-                        <p class="product-status product-published">Publicado</p>
-                    {% else %}
-                        <p class="product-status product-unpublished ">Não publicado</p>
-                    {% endif %}
+            {% if product.is_published %}
+            <p class="product-status product-published">Publicado</p>
+            {% else %}
+            <p class="product-status product-unpublished ">Não publicado</p>
+            {% endif %}
 
-                    <form action="{% url 'staff:delete_product' product.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Deletar</button>
-                    </form>
-                {% endif %}
-            </div>
+            <form class="form-delete"  action="{% url 'staff:delete_product' product.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Deletar</button>
+            </form>
+            {% endif %}
+        </div>
         {% endfor %}
     </div>
 </div>

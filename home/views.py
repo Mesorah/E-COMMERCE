@@ -1,6 +1,7 @@
-from home.models import Products
+from home.models import Products, Cart
 from django.http import Http404
 from django.views.generic import ListView, DetailView
+from django.shortcuts import redirect
 
 
 class HomeListView(ListView):
@@ -50,17 +51,51 @@ class PageDetailView(DetailView):
 
         product = self.get_object()
 
+        cart = Cart.objects.filter(
+            products=self.kwargs.get('pk'),
+            pk=self.kwargs.get('pk')
+        ).first()
+
         context.update({
             'title': 'View Page',
-            'stock': product.stock
+            'stock': product.stock,
+            'have_produtct': cart
         })
 
         return context
+
+
+def add_to_cart(request, id):
+    # adicionar a quantidade
+    cart = Cart.objects.filter(
+        user=request.user
+    ).first()
+
+    if not cart:
+        cart = Cart.objects.create(
+            user=request.user
+        )
+
+    cart.products.add(id)
+
+    return redirect('home:index')
+
+
+def remove_from_cart(request, id):
+    cart = Cart.objects.filter(
+        user=request.user
+    ).first()
+
+    if not cart:
+        return redirect('home:index')
+
+    cart.products.remove(id)
+
+    return redirect('home:index')
+
+
 
 # No comprar produtos a hora que
 # a pessoa for digitar o cep
 # se for diferentes da que eu
 # colocar permitido dar um erro
-
-
-# Fazer tests de stock e is_published
