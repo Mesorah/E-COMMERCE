@@ -2,14 +2,13 @@ from utils.for_tests.base_for_authentication import register_user
 from utils.for_tests.base_for_create_itens import (
     create_product, create_cart, create_cart_item
 )
+from django.contrib.messages import get_messages
 from django.urls import reverse, resolve
 from home.models import CartItem
 from django.test import TestCase
 from home import views
-import pytest
 
 
-@pytest.mark.slow
 class TestViewAddToCart(TestCase):
     def setUp(self):
         self.user = register_user()
@@ -57,3 +56,24 @@ class TestViewAddToCart(TestCase):
         self.assertEqual(products.count(), 2)
 
         self.assertEqual(response.status_code, 302)
+
+    def test_if_add_to_cart_stock_is_not_enough(self):
+        response = self.client.post(reverse(
+            'home:add_to_cart',
+            kwargs={'id': '2'}),
+            data={'quantity': '10'},
+            follow=True
+        )
+
+        self.assertRedirects(response, reverse(
+            'home:view_page',
+            kwargs={'pk': '2'}
+            )
+        )
+
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(
+            str(messages[0]),
+            'Não temos essa quantidade em estoque!'
+        )

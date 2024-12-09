@@ -77,7 +77,7 @@ def add_to_cart(request, id):
 
         if quantity > product.stock:
             messages.error(request, 'Não temos essa quantidade em estoque!')
-            return redirect('home:add_to_cart', id)
+            return redirect('home:view_page', pk=id)
 
         else:
             product.stock -= quantity
@@ -107,6 +107,9 @@ def remove_from_cart(request, id):
             cart=cart,
             product=product,
         )
+
+        product.stock += quantity
+        product.save()
 
         cart_item.quantity -= quantity
         cart_item.save()

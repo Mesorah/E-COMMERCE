@@ -20,7 +20,7 @@
         <div class="buy-section">
             <h2>Buy Now</h2>
             <p class="buy-price">R$: {{ product.price }}</p>
-            <form class="buy-form" action="{% url "home:add_to_cart" product.id %}" method="post">
+            <form class="buy-form" action="{% url "home:add_to_cart" product.id %}" method="POST">
                 {% csrf_token %}
 
                 <label for="quantity">Quantity:</label>

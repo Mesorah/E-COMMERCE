@@ -19,6 +19,12 @@ class TestViewPage(TestCase):
 
         self.assertEqual(response.func.view_class, views.PageDetailView)
 
+    def test_if_home_view_page_load_the_correct_template(self):
+        response = self.client.get(reverse('home:view_page',
+                                           kwargs={'pk': '1'}))
+
+        self.assertTemplateUsed(response, 'home/pages/view_page.html')
+
     def test_if_view_page_retuns_200(self):
         response = self.client.get(
             reverse(

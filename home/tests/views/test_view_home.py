@@ -9,6 +9,11 @@ class TestHome(TestCase):
 
         self.assertEqual(response.func.view_class, views.HomeListView)
 
+    def test_if_home_index_load_the_correct_template(self):
+        response = self.client.get(reverse('home:index'))
+
+        self.assertTemplateUsed(response, 'global/pages/base_page.html')
+
     def test_if_home_index_returns_200(self):
         response = self.client.get(reverse('home:index'))
 
