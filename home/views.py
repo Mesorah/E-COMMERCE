@@ -1,7 +1,7 @@
-from home.models import Products, Cart
+from home.models import Products, Cart, CartItem
 from django.http import Http404
 from django.views.generic import ListView, DetailView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 
 class HomeListView(ListView):
@@ -51,32 +51,32 @@ class PageDetailView(DetailView):
 
         product = self.get_object()
 
-        cart = Cart.objects.filter(
-            products=self.kwargs.get('pk'),
-            pk=self.kwargs.get('pk')
+        cart_item = CartItem.objects.filter(
+            cart=self.kwargs.get('pk'),
+            product=product,
         ).first()
 
         context.update({
             'title': 'View Page',
             'stock': product.stock,
-            'have_produtct': cart
+            'have_produtct': cart_item
         })
 
         return context
 
 
 def add_to_cart(request, id):
-    # adicionar a quantidade
-    cart = Cart.objects.filter(
-        user=request.user
-    ).first()
+    cart, _ = Cart.objects.get_or_create(user=request.user)
 
-    if not cart:
-        cart = Cart.objects.create(
-            user=request.user
-        )
+    product = get_object_or_404(Products, id=id)
 
-    cart.products.add(id)
+    cart_item, created = CartItem.objects.get_or_create(
+        cart=cart,
+        product=product,
+        defaults={'quantity': 0}
+    )
+
+    cart_item.add_quatity(1) # passar a quantidade
 
     return redirect('home:index')
 
@@ -95,21 +95,21 @@ def remove_from_cart(request, id):
 
 
 def cart_detail_view(request):
-    cart = Cart.objects.filter(
-        user=request.user
-    ).first()
+    cart, _ = Cart.objects.get_or_create(user=request.user)
 
-    if not cart:
-        cart = Cart.objects.create(user=request.user)
+    product = get_object_or_404(Products, id=id)
 
-    try:
-        products = cart.products.all()
-        total_price = 0
+    cart_item, created = CartItem.objects.get_or_create(
+        cart=cart,
+        product=product,
+        defaults={'quantity': 0}
+    )
 
-        for produt in products:
-            total_price += produt.price
-    except AttributeError:
-        pass
+    products = cart_item.product.all()
+    total_price = 0
+
+    for produt in products:
+        total_price += produt.price
 
     return render(request, 'home/pages/cart_detail.html', context={
         'products': '',
