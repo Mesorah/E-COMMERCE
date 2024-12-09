@@ -560,3 +560,51 @@ form button:hover {
 .checkout-btn:hover {
     background-color: #2980b9;
 }
+
+/* Estilo geral para o contêiner de mensagens */
+.messages {
+    margin: 20px 0;
+    padding: 0 15px;
+}
+
+/* Estilo base para cada mensagem */
+.message {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para mensagens de sucesso */
+.message.success {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724; /* Verde escuro */
+    border: 1px solid #c3e6cb; /* Bordas em verde mais suave */
+}
+
+/* Estilo para mensagens de erro */
+.message.error {
+    background-color: #f8d7da; /* Vermelho claro */
+    color: #721c24; /* Vermelho escuro */
+    border: 1px solid #f5c6cb; /* Bordas em vermelho mais suave */
+}
+
+/* Estilo para mensagens de aviso */
+.message.warning {
+    background-color: #fff3cd; /* Amarelo claro */
+    color: #856404; /* Amarelo escuro */
+    border: 1px solid #ffeeba; /* Bordas em amarelo mais suave */
+}
+
+/* Estilo para mensagens informativas */
+.message.info {
+    background-color: #cce5ff; /* Azul claro */
+    color: #004085; /* Azul escuro */
+    border: 1px solid #b8daff; /* Bordas em azul mais suave */
+}
+
+/* Estilo para a mensagem quando há múltiplas */
+.message + .message {
+    margin-top: 10px;
+}

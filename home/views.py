@@ -1,7 +1,8 @@
-from home.models import Products, Cart, CartItem
-from django.http import Http404
-from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect, get_object_or_404
+from home.models import Products, Cart, CartItem
+from django.views.generic import ListView, DetailView
+from django.contrib import messages
+from django.http import Http404
 
 
 class HomeListView(ListView):
@@ -75,12 +76,12 @@ def add_to_cart(request, id):
         product = get_object_or_404(Products, id=id)
 
         if quantity > product.stock:
-            pass
+            messages.error(request, 'Não temos essa quantidade em estoque!')
+            return redirect('home:add_to_cart', id)
 
         else:
             product.stock -= quantity
             product.save()
-            print(product.stock)
 
         cart_item, _ = CartItem.objects.get_or_create(
             cart=cart,
@@ -90,7 +91,10 @@ def add_to_cart(request, id):
 
         cart_item.add_quatity(quantity)
 
-        return redirect('home:index')
+    return redirect('home:index')
+
+    # else:
+    #     raise Http404()
 
 
 def remove_from_cart(request, id):

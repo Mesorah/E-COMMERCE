@@ -1,13 +1,15 @@
-# from home.models import Cart
+from home.models import Cart, CartItem
 
 
-# def cart_item_count(request):
-#     if request.user.is_authenticated:
+def cart_item_count(request):
+    if request.user.is_authenticated:
 
-#         cart = Cart.objects.filter(
-#             user=request.user
-#         ).first()
+        cart, _ = Cart.objects.get_or_create(user=request.user)
 
-#         return {'cart_item_count': cart.products.count()}
+        cart_item = CartItem.objects.filter(
+            cart=cart
+        )
 
-#     return {'cart_item_count': 0}
+        return {'cart_item_count': cart_item.count()}
+
+    return {'cart_item_count': 0}
