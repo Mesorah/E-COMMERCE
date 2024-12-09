@@ -98,14 +98,20 @@ def add_to_cart(request, id):
 
 
 def remove_from_cart(request, id):
-    cart = Cart.objects.filter(
-        user=request.user
-    ).first()
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity-to-remove', 1))
 
-    if not cart:
-        return redirect('home:index')
+        cart, _ = Cart.objects.get_or_create(user=request.user)
 
-    cart.products.remove(id)
+        product = get_object_or_404(Products, id=id)
+
+        cart_item, _ = CartItem.objects.get_or_create(
+            cart=cart,
+            product=product,
+        )
+
+        cart_item.quantity -= quantity
+        cart_item.save()
 
     return redirect('home:cart_detail')
 
@@ -122,6 +128,10 @@ def cart_detail_view(request):
     total_price = 0
 
     for product in products:
+        if product.quantity <= 0:
+            product.delete()
+            return redirect('home:cart_detail')
+
         total_price += product.product.price
 
     return render(request, 'home/pages/cart_detail.html', context={
