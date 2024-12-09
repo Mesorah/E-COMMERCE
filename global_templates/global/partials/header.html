@@ -17,7 +17,7 @@
     <div class="cart-icon">
         <a href="{% url 'home:cart_detail' %}">
             <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count">0</span>
+            <span class="cart-count">{{ cart_item_count }}</span>
         </a>
     </div>
 </div>

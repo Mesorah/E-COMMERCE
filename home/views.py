@@ -22,7 +22,7 @@ class HomeListView(ListView):
         context = super().get_context_data(*args, **kwargs)
 
         context.update({
-            'title': 'Home'
+            'title': 'Home',
         })
 
         return context
@@ -91,11 +91,26 @@ def remove_from_cart(request, id):
 
     cart.products.remove(id)
 
-    return redirect('home:index')
+    return redirect('home:cart_detail')
 
 
 def cart_detail_view(request):
-    return render(request, 'home/pages/cart_detail.html')
+    cart = Cart.objects.filter(
+        user=request.user
+    ).first()
+
+    products = cart.products.all()
+
+    total_price = 0
+
+    for produt in products:
+        total_price += produt.price
+
+    return render(request, 'home/pages/cart_detail.html', context={
+        'products': products,
+        'total_price': total_price
+    })
+
 # No comprar produtos a hora que
 # a pessoa for digitar o cep
 # se for diferentes da que eu

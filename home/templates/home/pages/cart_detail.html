@@ -5,48 +5,36 @@
 {% block content %}
     <div class="header">
         <h1>Seu Carrinho de Compras</h1>
-        <a href="index.html" class="back-link">Voltar à loja</a>
+        <a href="{% url 'home:index' %}" class="back-link">Voltar à loja</a>
     </div>
 
     <div class="cart-container">
         <div class="cart-items">
             <h2>Itens no Carrinho</h2>
 
-            <div class="cart-item">
-                <div class="item-img">
-                    <img src="produto1.jpg" alt="Produto 1">
-                </div>
-                <div class="item-details">
-                    <h3 class="item-name">Produto 1</h3>
-                    <p class="item-price">R$ 100,00</p>
-                    <div class="item-actions">
-                        <form method="post" action="/remover_produto">
-                            <button type="submit" class="remove-btn">Remover</button>
-                        </form>
+            {% for product in products %}
+                <div class="cart-item">
+                    <div class="item-img">
+                        <img src="{{ product.cover.url }}" alt="Produto 1">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">{{ product }}</h3>
+                        <p class="item-price">{{ product.price }}</p>
+                        <div class="item-actions">
+                            <form method="post" action="{% url "home:remove_from_cart" product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-btn">Remover</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="cart-item">
-                <div class="item-img">
-                    <img src="produto2.jpg" alt="Produto 2">
-                </div>
-                <div class="item-details">
-                    <h3 class="item-name">Produto 2</h3>
-                    <p class="item-price">R$ 150,00</p>
-                    <div class="item-actions">
-                        <form method="post" action="/remover_produto">
-                            <button type="submit" class="remove-btn">Remover</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
 
         <div class="cart-summary">
             <h2>Resumo do Carrinho</h2>
-            <p><strong>Valor Total:</strong> R$ 250,00</p>
+            <p><strong>Valor Total:</strong> R$ {{ total_price }}</p>
 
             <form method="post" action="/finalizar_pedido">
                 <button type="submit" class="checkout-btn">Finalizar Pedido</button>

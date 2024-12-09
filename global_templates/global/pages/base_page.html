@@ -16,12 +16,12 @@
             <p class="product-link"><a href="{% url "home:view_page" product.id %}">Visualizar</a></p>
 
             {% if is_staff %}
-            <p class="product-link"><a href="{% url "staff:update_product" product.id %}">Editar</a></p>
+                <p class="product-link"><a href="{% url "staff:update_product" product.id %}">Editar</a></p>
 
             {% if product.is_published %}
-            <p class="product-status product-published">Publicado</p>
+                <p class="product-status product-published">Publicado</p>
             {% else %}
-            <p class="product-status product-unpublished ">Não publicado</p>
+                <p class="product-status product-unpublished ">Não publicado</p>
             {% endif %}
 
             <form class="form-delete"  action="{% url 'staff:delete_product' product.id %}" method="post">
