@@ -68,7 +68,7 @@ class PageDetailView(DetailView):
 
 def add_to_cart(request, id):
     if request.method == 'POST':
-        # Pega a quantidade la do view_page, quando o usuário envia
+        # Pega a quantidade no view_page, quando o usuário envia
         quantity = int(request.POST.get('quantity', 1))
 
         cart, _ = Cart.objects.get_or_create(user=request.user)
@@ -113,23 +113,20 @@ def remove_from_cart(request, id):
 def cart_detail_view(request):
     cart, _ = Cart.objects.get_or_create(user=request.user)
 
-    product = get_object_or_404(Products, id=id)
-
-    cart_item, created = CartItem.objects.get_or_create(
+    cart_item = CartItem.objects.filter(
         cart=cart,
-        product=product,
-        defaults={'quantity': 0}
     )
 
-    products = cart_item.product.all()
+    products = cart_item.all()
+
     total_price = 0
 
-    for produt in products:
-        total_price += produt.price
+    for product in products:
+        total_price += product.product.price
 
     return render(request, 'home/pages/cart_detail.html', context={
-        'products': '',
-        'total_price': 150
+        'products': products,
+        'total_price': total_price
     })
 
 # No comprar produtos a hora que

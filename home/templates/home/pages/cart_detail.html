@@ -15,11 +15,11 @@
             {% for product in products %}
                 <div class="cart-item">
                     <div class="item-img">
-                        <img src="{{ product.cover.url }}" alt="Produto 1">
+                        <img src="{{ product.product.cover.url }}" alt="Produto 1">
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">{{ product }}</h3>
-                        <p class="item-price">{{ product.price }}</p>
+                        <p class="item-price">R$: {{ product.product.price }}</p>
                         <div class="item-actions">
                             <form method="post" action="{% url "home:remove_from_cart" product.id %}">
                                 {% csrf_token %}
