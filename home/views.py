@@ -66,19 +66,31 @@ class PageDetailView(DetailView):
 
 
 def add_to_cart(request, id):
-    cart, _ = Cart.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        # Pega a quantidade la do view_page, quando o usuário envia
+        quantity = int(request.POST.get('quantity', 1))
 
-    product = get_object_or_404(Products, id=id)
+        cart, _ = Cart.objects.get_or_create(user=request.user)
 
-    cart_item, created = CartItem.objects.get_or_create(
-        cart=cart,
-        product=product,
-        defaults={'quantity': 0}
-    )
+        product = get_object_or_404(Products, id=id)
 
-    cart_item.add_quatity(1) # passar a quantidade
+        if quantity > product.stock:
+            pass
 
-    return redirect('home:index')
+        else:
+            product.stock -= quantity
+            product.save()
+            print(product.stock)
+
+        cart_item, _ = CartItem.objects.get_or_create(
+            cart=cart,
+            product=product,
+            defaults={'quantity': 0}
+        )
+
+        cart_item.add_quatity(quantity)
+
+        return redirect('home:index')
 
 
 def remove_from_cart(request, id):
