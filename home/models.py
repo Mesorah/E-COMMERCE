@@ -54,7 +54,3 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f'{self.quantity} x {self.product.name} no carrinho'
-
-    def add_quatity(self, quantity):
-        self.quantity += quantity
-        self.save()

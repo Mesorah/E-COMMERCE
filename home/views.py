@@ -89,12 +89,10 @@ def add_to_cart(request, id):
             defaults={'quantity': 0}
         )
 
-        cart_item.add_quatity(quantity)
+        cart_item.quantity += quantity
+        cart_item.save()
 
     return redirect('home:index')
-
-    # else:
-    #     raise Http404()
 
 
 def remove_from_cart(request, id):

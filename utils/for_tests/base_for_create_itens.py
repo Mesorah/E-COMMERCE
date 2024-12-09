@@ -1,4 +1,4 @@
-from home.models import Products
+from home.models import Products, Cart, CartItem
 
 
 def create_product(
@@ -19,3 +19,19 @@ def create_product(
         )
 
     return product
+
+
+def create_cart(user):
+    cart = Cart.objects.create(user=user)
+
+    return cart
+
+
+def create_cart_item(cart, product, quantity=1):
+    cart_item = CartItem.objects.create(
+        cart=cart,
+        product=product,
+        quantity=quantity
+    )
+
+    return cart_item
