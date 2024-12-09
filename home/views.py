@@ -99,16 +99,21 @@ def cart_detail_view(request):
         user=request.user
     ).first()
 
-    products = cart.products.all()
+    if not cart:
+        cart = Cart.objects.create(user=request.user)
 
-    total_price = 0
+    try:
+        products = cart.products.all()
+        total_price = 0
 
-    for produt in products:
-        total_price += produt.price
+        for produt in products:
+            total_price += produt.price
+    except AttributeError:
+        pass
 
     return render(request, 'home/pages/cart_detail.html', context={
-        'products': products,
-        'total_price': total_price
+        'products': '',
+        'total_price': 150
     })
 
 # No comprar produtos a hora que

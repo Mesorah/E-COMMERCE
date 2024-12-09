@@ -25,7 +25,6 @@ class Products(models.Model):
 
 
 class Cart(models.Model):
-    products = models.ManyToManyField(Products)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -36,3 +35,26 @@ class Cart(models.Model):
 
     def __str__(self):
         return f'Carrinho do {self.user}'
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart,
+                             related_name='items',
+                             on_delete=models.CASCADE
+                             )
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['cart', 'product'],
+                                    name='unique_cart_product'
+                                    )
+        ]
+
+    def __str__(self):
+        return f'{self.quantity} x {self.product.name} no carrinho'
+
+    def add_quatity(self, quantity):
+        self.quantity += quantity
+        self.save()

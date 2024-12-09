@@ -10,3 +10,8 @@ class ProductsAdmin(admin.ModelAdmin):
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     pass
+
+
+# @admin.register(CartItem)
+# class CartItemAdmin(admin.ModelAdmin):
+#     pass
