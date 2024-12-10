@@ -26,9 +26,7 @@ class TestViewRemoveCartDetailView(TestCase):
     def test_if_home_cart_detail_view_load_the_correct_view(self):
         response = resolve(reverse('home:cart_detail',))
 
-        # self.assertEqual(response.func.view_class, views.deta)
-
-        self.assertEqual(response.func, views.cart_detail_view)
+        self.assertEqual(response.func.view_class, views.CartDetailView)
 
     def test_if_home_cart_detail_view_load_the_correct_template(self):
         response = self.client.get(reverse('home:cart_detail'))

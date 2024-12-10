@@ -25,9 +25,7 @@ class TestViewRemoveFromCart(TestCase):
         response = resolve(reverse('home:remove_from_cart',
                                    kwargs={'id': '1'}))
 
-        # self.assertEqual(response.func.view_class, views.remo e id)
-
-        self.assertEqual(response.func, views.remove_from_cart)
+        self.assertEqual(response.func.view_class, views.RemoveFromCartView)
 
     def test_if_home_remove_from_cart_is_get(self):
         response = self.client.get(reverse('home:remove_from_cart',
@@ -41,7 +39,7 @@ class TestViewRemoveFromCart(TestCase):
 
         self.assertEqual(products.count(), 1)
 
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 405)
 
     def test_if_home_remove_from_cart_is_post(self):
         response = self.client.post(reverse('home:remove_from_cart',

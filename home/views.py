@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Products, Cart, CartItem
 from django.views.generic import ListView, DetailView
+from home.models import Products, Cart, CartItem
 from django.contrib import messages
 from django.http import Http404
 from django.views import View
