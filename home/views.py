@@ -3,6 +3,7 @@ from home.models import Products, Cart, CartItem
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.http import Http404
+from django.views import View
 
 
 class HomeListView(ListView):
@@ -66,22 +67,14 @@ class PageDetailView(DetailView):
         return context
 
 
-def add_to_cart(request, id):
-    if request.method == 'POST':
+class AddToCartView(View):
+    def get_itens(self, id):
         # Pega a quantidade no view_page, quando o usuário envia
-        quantity = int(request.POST.get('quantity', 1))
+        quantity = int(self.request.POST.get('quantity', 1))
 
-        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart, _ = Cart.objects.get_or_create(user=self.request.user)
 
         product = get_object_or_404(Products, id=id)
-
-        if quantity > product.stock:
-            messages.error(request, 'Não temos essa quantidade em estoque!')
-            return redirect('home:view_page', pk=id)
-
-        else:
-            product.stock -= quantity
-            product.save()
 
         cart_item, _ = CartItem.objects.get_or_create(
             cart=cart,
@@ -89,17 +82,33 @@ def add_to_cart(request, id):
             defaults={'quantity': 0}
         )
 
+        return quantity, product, cart_item
+
+    def post(self, request, id):
+        quantity, product, cart_item = self.get_itens(id)
+
+        if quantity > product.stock:
+            messages.error(self.request,
+                           'Não temos essa quantidade em estoque!'
+                           )
+
+            return redirect('home:view_page', pk=id)
+
+        else:
+            product.stock -= quantity
+            product.save()
+
         cart_item.quantity += quantity
         cart_item.save()
 
-    return redirect('home:index')
+        return redirect('home:index')
 
 
-def remove_from_cart(request, id):
-    if request.method == 'POST':
-        quantity = int(request.POST.get('quantity-to-remove', 1))
+class RemoveFromCartView(View):
+    def get_itens(self, id):
+        quantity = int(self.request.POST.get('quantity-to-remove', 1))
 
-        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart, _ = Cart.objects.get_or_create(user=self.request.user)
 
         product = get_object_or_404(Products, id=id)
 
@@ -108,37 +117,52 @@ def remove_from_cart(request, id):
             product=product,
         )
 
+        return quantity, product, cart_item
+
+    def post(self, request, id):
+        quantity, product, cart_item = self.get_itens(id)
+
         product.stock += quantity
         product.save()
 
         cart_item.quantity -= quantity
         cart_item.save()
 
-    return redirect('home:cart_detail')
+        return redirect('home:cart_detail')
 
 
-def cart_detail_view(request):
-    cart, _ = Cart.objects.get_or_create(user=request.user)
+class CartDetailView(View):
+    def get_render(self, products, total_price):
+        return render(self.request, 'home/pages/cart_detail.html', context={
+            'products': products,
+            'total_price': total_price
+        })
 
-    cart_item = CartItem.objects.filter(
-        cart=cart,
-    )
+    def get_item(self):
+        cart, _ = Cart.objects.get_or_create(user=self.request.user)
 
-    products = cart_item.all()
+        cart_item = CartItem.objects.filter(
+            cart=cart,
+        )
 
-    total_price = 0
+        products = cart_item.all()
 
-    for product in products:
-        if product.quantity <= 0:
-            product.delete()
-            return redirect('home:cart_detail')
+        return products
 
-        total_price += product.product.price
+    def get(self, request):
+        products = self.get_item()
 
-    return render(request, 'home/pages/cart_detail.html', context={
-        'products': products,
-        'total_price': total_price
-    })
+        total_price = 0
+
+        for product in products:
+            if product.quantity <= 0:
+                product.delete()
+                return redirect('home:cart_detail')
+
+            total_price += product.product.price
+
+        return self.get_render(products, total_price)
+
 
 # No comprar produtos a hora que
 # a pessoa for digitar o cep

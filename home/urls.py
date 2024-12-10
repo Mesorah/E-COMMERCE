@@ -9,13 +9,16 @@ urlpatterns = [
          views.PageDetailView.as_view(),
          name='view_page'
          ),
-    path('add_to_cart/<id>/', views.add_to_cart, name='add_to_cart'),
+    path('add_to_cart/<id>/',
+         views.AddToCartView.as_view(),
+         name='add_to_cart'
+         ),
     path('remove_to_cart/<id>/',
-         views.remove_from_cart,
+         views.RemoveFromCartView.as_view(),
          name='remove_from_cart'
          ),
     path('cart_detail/',
-         views.cart_detail_view,
+         views.CartDetailView.as_view(),
          name='cart_detail'
          ),
 ]
