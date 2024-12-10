@@ -1,5 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from home.forms import PaymentForm
 
 
-def page(request):
-    return render(request, 'global/pages/base_page.html')
+def payment(request):
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+
+        if form.is_valid():
+            return redirect('home:index')
+
+    else:
+        form = PaymentForm()
+
+    return render(request, 'home/pages/payment.html', context={
+        'form': form
+    })

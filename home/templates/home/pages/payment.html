@@ -1,0 +1,48 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    <div>
+
+        <form method="POST" class="payment-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="submit-btn">Enviar</button>
+        </form>
+
+        <div class="form-errors">
+            {% if form.card_number.errors %}
+                <ul class="error-list">
+                    {% for error in form.card_number.errors %}
+                        <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if form.expiration_date.errors %}
+                <ul class="error-list">
+                    {% for error in form.expiration_date.errors %}
+                        <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if form.cvv.errors %}
+                <ul class="error-list">
+                    {% for error in form.cvv.errors %}
+                        <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if form.cardholder_name.errors %}
+                <ul class="error-list">
+                    {% for error in form.cardholder_name.errors %}
+                        <li class="error-item">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
