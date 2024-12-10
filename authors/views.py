@@ -54,9 +54,6 @@ class AuthorPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     success_url = reverse_lazy('home:index')
     login_url = reverse_lazy('authors:login')
 
-    def get_redirect_url(self):
-        return self.success_url
-
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 

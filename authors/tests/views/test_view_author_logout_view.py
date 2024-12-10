@@ -1,10 +1,11 @@
 from django.test import TestCase
-from django.urls import reverse, resolve
-from utils.for_tests.base_for_authentication import (
+from django.urls import resolve, reverse
+
+from authors import views
+from utils.for_tests.base_for_authentication import (  # noqa E501
     register_user,
     register_user_profile,
 )
-from authors import views
 
 
 class TestAuthorLogoutView(TestCase):

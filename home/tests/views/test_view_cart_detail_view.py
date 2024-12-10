@@ -1,15 +1,16 @@
+from django.test import TestCase
+from django.urls import resolve, reverse
+
+from home import views
+from home.models import CartItem
 from utils.for_tests.base_for_authentication import register_user
 from utils.for_tests.base_for_create_itens import (
-    create_product, create_cart, create_cart_item
+    create_cart,
+    create_cart_item,
+    create_product,
 )
-from django.urls import reverse, resolve
-from home.models import CartItem
-from django.test import TestCase
-from home import views
-import pytest
 
 
-@pytest.mark.test
 class TestViewRemoveCartDetailView(TestCase):
     def setUp(self):
         self.user = register_user()

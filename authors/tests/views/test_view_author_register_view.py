@@ -1,5 +1,6 @@
 from django.test import TestCase
-from django.urls import reverse, resolve
+from django.urls import resolve, reverse
+
 from authors import views
 
 
@@ -28,7 +29,7 @@ class TestAuthorRegisterView(TestCase):
 
         self.assertEqual(response.status_code, 302)
 
-    def test_if_context_is_correct(self):
+    def test_if_author_register_context_is_correct(self):
         response = self.client.get(
             reverse('authors:register'),
             data=self.data
