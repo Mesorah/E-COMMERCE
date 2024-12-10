@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from validate_docbr import CPF
+
 from authors.models import UserProfile
 
 
@@ -18,7 +19,8 @@ class CustomUserCreationForm(UserCreationForm):
         min_length=11,
         max_length=11,
         required=True,
-        validators=[validate_cpf])
+        validators=[validate_cpf]
+    )
 
     class Meta:
         model = User
