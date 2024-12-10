@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView
-from home.models import Products, Cart, CartItem
 from django.contrib import messages
 from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
+from django.views.generic import DetailView, ListView
+
+from home.models import Cart, CartItem, Products
 
 
 class HomeListView(ListView):
@@ -134,6 +135,7 @@ class RemoveFromCartView(View):
 class CartDetailView(View):
     def get_render(self, products, total_price):
         return render(self.request, 'home/pages/cart_detail.html', context={
+            'title': 'Cart Detail',
             'products': products,
             'total_price': total_price
         })
