@@ -1,4 +1,3 @@
-import pytest
 from django.test import TestCase
 from django.urls import resolve, reverse
 
@@ -9,7 +8,6 @@ from utils.for_tests.base_for_authentication import (  # noqa E501
 )
 
 
-@pytest.mark.test
 class TestAuthorPasswordChangeView(TestCase):
     def setUp(self):
         self.user = register_user()

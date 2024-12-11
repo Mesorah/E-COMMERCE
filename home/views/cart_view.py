@@ -100,9 +100,3 @@ class CartDetailView(View):
             total_price += product.product.price * product.quantity
 
         return self.get_render(products, total_price)
-
-
-# No comprar produtos a hora que
-# a pessoa for digitar o cep
-# se for diferentes da que eu
-# colocar permitido dar um erro

@@ -23,8 +23,8 @@ class PaymentForm(forms.Form):
         validators=[validate_credit_card],
     )
     expiration_date = forms.CharField(
-        max_length=5,
-        widget=forms.TextInput(attrs={'placeholder': 'MM/AA'}),
+        max_length=7,
+        widget=forms.TextInput(attrs={'placeholder': 'MM/AA ou MM/YYYY'}),
     )
     cvv = forms.CharField(
         max_length=4,
@@ -76,6 +76,9 @@ class PaymentForm(forms.Form):
 
             if year < datetime.now().year:
                 raise forms.ValidationError("Ano de validade inválido.")
+
+            return f'{month:02d}/{year}'
+
         except ValueError:
             raise forms.ValidationError(
                 "Formato de data inválido. Use MM/AA ou MM/YYYY."

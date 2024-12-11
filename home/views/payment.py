@@ -6,7 +6,11 @@ from home.models import Cart, CartItem, Ordered, Products
 
 
 @login_required()
-# deixar so se tiver algum produto pra ele comprar
+# deixar so se tiver algum produto pra ele comprar.
+# No comprar produtos a hora que
+# a pessoa for digitar o cep
+# se for diferentes da que eu
+# colocar permitido dar um erro
 def payment(request):
     if request.method == 'POST':
         form = PaymentForm(request.POST)
