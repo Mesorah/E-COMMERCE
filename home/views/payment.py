@@ -5,20 +5,23 @@ from home.forms import PaymentForm
 from home.models import Cart, CartItem, Ordered, Products
 
 
-@login_required()
-# deixar so se tiver algum produto pra ele comprar.
+@login_required(login_url='authors:login')
 # No comprar produtos a hora que
 # a pessoa for digitar o cep
 # se for diferentes da que eu
 # colocar permitido dar um erro
 def payment(request):
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+
+    cart_item = CartItem.objects.filter(cart=cart, is_ordered=False)
+
+    if not cart_item:
+        return redirect('home:index')
+
     if request.method == 'POST':
         form = PaymentForm(request.POST)
 
         if form.is_valid():
-            cart, _ = Cart.objects.get_or_create(user=request.user)
-
-            cart_item = CartItem.objects.filter(cart=cart, is_ordered=False)
 
             products = cart_item.all()
 
