@@ -1,10 +1,11 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import user_passes_test
-from django.utils.decorators import method_decorator
-from staff_management.forms import CrudProduct
-from django.urls import reverse, reverse_lazy
-from home.models import Products
 from django.http import Http404
+from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
+from home.models import Products
+from staff_management.forms import CrudProduct
 
 
 def is_staff(user):
@@ -81,3 +82,6 @@ class ProductDeleteView(UserPassesTestMixin, DeleteView):
 
     def get(self, *args, **kwargs):
         raise Http404()
+
+
+# Fazer uma pagina de ver pedidos

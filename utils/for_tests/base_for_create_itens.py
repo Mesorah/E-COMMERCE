@@ -1,4 +1,4 @@
-from home.models import Products, Cart, CartItem
+from home.models import Cart, CartItem, Ordered, Products
 
 
 def create_product(
@@ -35,3 +35,20 @@ def create_cart_item(cart, product, quantity=1):
     )
 
     return cart_item
+
+
+def create_ordered(
+        first_name='Test First',
+        last_name='Test Last',
+        street_name='Test Street',
+        house_number='911',
+        ):
+
+    ordered = Ordered.objects.create(
+        first_name=first_name,
+        last_name=last_name,
+        street_name=street_name,
+        house_number=house_number,
+    )
+
+    return ordered

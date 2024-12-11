@@ -44,24 +44,26 @@ class CartItem(models.Model):
                              )
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    is_ordered = models.BooleanField(default=False)
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['cart', 'product'],
-                                    name='unique_cart_product'
-                                    )
-        ]
+    # class Meta:
+    #     constraints = [
+    #         models.UniqueConstraint(fields=['cart', 'product'],
+    #                                 name='unique_cart_product'
+    #                                 )
+    #     ]
+
+    # Não faz sentido ser unique por causa do is_ordered
 
     def __str__(self):
         return f'{self.quantity} x {self.product.name} no carrinho'
-
-# A hora que concluir o pedido remover no model dele
 
 
 class Ordered(models.Model):
     number_ordered = models.PositiveIntegerField(default=1)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    neighborhood = models.CharField(max_length=100, default='')
     street_name = models.CharField(max_length=100)
     house_number = models.CharField(max_length=10)
     products = models.ManyToManyField(CartItem, related_name='ordered')

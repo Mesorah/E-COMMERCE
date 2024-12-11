@@ -39,7 +39,8 @@
             <h2>Resumo do Carrinho</h2>
             <p><strong>Valor Total:</strong> R$ {{ total_price }}</p>
             <!-- Arrumar o total_price -->
-            <form method="post" action="/finalizar_pedido">
+            <form method="post" action="{% url 'home:payment' %}">
+                {% csrf_token %}
                 <button type="submit" class="checkout-btn">Finalizar Pedido</button>
             </form>
         </div>

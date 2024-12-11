@@ -17,7 +17,8 @@ class AddToCartView(View):
         cart_item, _ = CartItem.objects.get_or_create(
             cart=cart,
             product=product,
-            defaults={'quantity': 0}
+            defaults={'quantity': 0},
+            is_ordered=False
         )
 
         return quantity, product, cart_item
@@ -31,10 +32,6 @@ class AddToCartView(View):
                            )
 
             return redirect('home:view_page', pk=id)
-
-        else:
-            product.stock -= quantity
-            product.save()
 
         cart_item.quantity += quantity
         cart_item.save()
@@ -53,6 +50,7 @@ class RemoveFromCartView(View):
         cart_item, _ = CartItem.objects.get_or_create(
             cart=cart,
             product=product,
+            is_ordered=False
         )
 
         return quantity, product, cart_item
@@ -82,6 +80,7 @@ class CartDetailView(View):
 
         cart_item = CartItem.objects.filter(
             cart=cart,
+            is_ordered=False
         )
 
         products = cart_item.all()
@@ -98,7 +97,7 @@ class CartDetailView(View):
                 product.delete()
                 return redirect('home:cart_detail')
 
-            total_price += product.product.price
+            total_price += product.product.price * product.quantity
 
         return self.get_render(products, total_price)
 

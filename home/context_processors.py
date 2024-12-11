@@ -7,7 +7,8 @@ def cart_item_count(request):
         cart, _ = Cart.objects.get_or_create(user=request.user)
 
         cart_item = CartItem.objects.filter(
-            cart=cart
+            cart=cart,
+            is_ordered=False
         )
 
         return {'cart_item_count': cart_item.count()}
