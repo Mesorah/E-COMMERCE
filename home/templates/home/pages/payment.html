@@ -11,7 +11,7 @@
             <button type="submit" class="submit-btn">Enviar</button>
         </form>
 
-        <div class="form-errors">
+        {% comment %} <div class="form-errors">
             {% if form.card_number.errors %}
                 <ul class="error-list">
                     {% for error in form.card_number.errors %}
@@ -43,6 +43,6 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-        </div>
+        </div> {% endcomment %}
     </div>
 {% endblock content %}

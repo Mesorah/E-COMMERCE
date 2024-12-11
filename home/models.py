@@ -54,3 +54,27 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f'{self.quantity} x {self.product.name} no carrinho'
+
+# A hora que concluir o pedido remover no model dele
+
+
+class Ordered(models.Model):
+    number_ordered = models.PositiveIntegerField(default=1)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    street_name = models.CharField(max_length=100)
+    house_number = models.CharField(max_length=10)
+    products = models.ManyToManyField(CartItem, related_name='ordered')
+
+    def __str__(self):
+        return f'{self.number_ordered}: {self.first_name} {self.last_name}'
+
+    def save(self, *args, **kwargs):
+        last_order = Ordered.objects.order_by('-number_ordered').first()
+
+        if last_order:
+            self.number_ordered = last_order.number_ordered + 1
+        else:
+            self.number_ordered = 1
+
+        return super().save(*args, **kwargs)

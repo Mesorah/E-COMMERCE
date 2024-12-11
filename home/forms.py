@@ -12,7 +12,7 @@ def validate_credit_card(card_number):
 
 
 class PaymentForm(forms.Form):
-    firs_name = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=50)
     last_name = forms.CharField(max_length=50)
     credit_card = forms.CharField(
         max_length=16,
@@ -36,9 +36,24 @@ class PaymentForm(forms.Form):
             'placeholder': 'Nome do titular do cartão'
         }),
     )
-    neighborhood = ...
-    street_name = ...
-    house_number = ...
+    neighborhood = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Bairo'
+        }),
+    )
+    street_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Rua'
+        }),
+    )
+    house_number = forms.CharField(
+        max_length=10,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Número da casa'
+        }),
+    )
 
     def clean_expiration_date(self):
         expiration_date = self.cleaned_data['expiration_date']
@@ -59,10 +74,11 @@ class PaymentForm(forms.Form):
                 year = '20' + year
             year = int(year)
 
-            # Verifica se o ano é válido
             if year < datetime.now().year:
                 raise forms.ValidationError("Ano de validade inválido.")
         except ValueError:
-            raise forms.ValidationError("Formato de data inválido. Use MM/AA ou MM/YYYY.")
+            raise forms.ValidationError(
+                "Formato de data inválido. Use MM/AA ou MM/YYYY."
+            )
 
         return expiration_date
