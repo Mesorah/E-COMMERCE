@@ -36,6 +36,13 @@ class PaymentForm(forms.Form):
             'placeholder': 'Nome do titular do cartão'
         }),
     )
+    zip_code = forms.CharField(
+        max_length=8,
+        min_length=8,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'XXXXXXXX'
+        }),
+    )
     neighborhood = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
@@ -84,4 +91,16 @@ class PaymentForm(forms.Form):
                 "Formato de data inválido. Use MM/AA ou MM/YYYY."
             )
 
-        return expiration_date
+        # return expiration_date
+
+    def clean_zip_code(self):
+        zip_code = self.cleaned_data['zip_code']
+
+        allowed_zip_codes = [
+            '86390000'
+        ]
+
+        if zip_code not in allowed_zip_codes:
+            raise forms.ValidationError("CEP diferente de cambará")
+
+        return zip_code

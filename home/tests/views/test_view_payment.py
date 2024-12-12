@@ -30,6 +30,7 @@ class TestViewPayment(TestCase):
             'expiration_date': '11/27',
             'cvv': '723',
             'cardholder_name': 'Test Card Name',
+            'zip_code': '86390000',
             'neighborhood': 'Test Neighborhood',
             'street_name': 'Test Street name',
             'house_number': '911'
@@ -167,6 +168,20 @@ class TestViewPayment(TestCase):
         self.assertIn(
             'Formato de data inválido. Use MM/AA ou MM/YYYY.',
             self.form['expiration_date'].errors
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_if_payment_zip_code_is_not_allowed(self):
+        self.data['zip_code'] = '01007050'
+
+        response = self.client.post(reverse('home:payment'), data=self.data)
+
+        self.assertFalse(self.form.is_valid())
+
+        self.assertIn(
+            'CEP diferente de cambará',
+            self.form['zip_code'].errors
         )
 
         self.assertEqual(response.status_code, 200)
