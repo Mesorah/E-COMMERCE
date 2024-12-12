@@ -1,4 +1,3 @@
-import pytest
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -12,7 +11,6 @@ from utils.for_tests.base_for_create_itens import (
 )
 
 
-@pytest.mark.test
 class TestViewPayment(TestCase):
     def setUp(self):
         self.user = register_user()

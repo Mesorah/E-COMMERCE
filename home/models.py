@@ -66,6 +66,7 @@ class Ordered(models.Model):
     neighborhood = models.CharField(max_length=100, default='')
     street_name = models.CharField(max_length=100)
     house_number = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
     products = models.ManyToManyField(CartItem, related_name='ordered')
 
     def __str__(self):

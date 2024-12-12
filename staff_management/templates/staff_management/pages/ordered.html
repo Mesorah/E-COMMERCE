@@ -10,22 +10,22 @@
     <div class="order-container">
         {% for ordered in ordereds %}
         <div class="order-card">
-            {% comment %} <div class="order-header">
-                <img class="order-img" src="{{ ordered.image_url }}" alt="Imagem do Produto">
-            </div> {% endcomment %}
             <div class="order-info">
-                <p class="order-title">Pedido #{{ ordered.id }}</p>
+                <p class="order-title">Pedido #{{ ordered.number_ordered }}</p>
                 <p class="order-text"><strong>Nome:</strong> {{ ordered.first_name }} {{ ordered.last_name }}</p>
                 <p class="order-text"><strong>Bairro:</strong> {{ ordered.neighborhood}}</p>
                 <p class="order-text"><strong>Rua:</strong> {{ ordered.street_name }}</p>
                 <p class="order-text"><strong>Número da Casa:</strong> {{ ordered.house_number }}</p>
+                <p class="order-text"><strong>Data do Pedido:</strong> {{ ordered.created_at }}</p>
             </div>
-            {% comment %} <p class="product-link"><a href="{% url "home:view_page" product.id %}">Visualizar</a></p> {% endcomment %}
+            <div class="order-action-container">
+                <p class="order-link"><a href="{% url 'staff:ordered_detail' ordered.id %}">Visualizar</a></p>
 
-            <form class="form-delete"  action="{% url 'staff:delete_ordered' ordered.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Deletar</button>
-            </form>
+                <form class="form-delete" action="{% url 'staff:delete_ordered' ordered.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Deletar</button>
+                </form>
+            </div>
         </div>
         {% endfor %}
     </div>

@@ -1,0 +1,41 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+<div class="order-detail-container">
+    <div class="header">
+        <h1>Detalhes do Pedido #{{ order.number_ordered }}</h1>
+    </div>
+    <div class="order-detail-card">
+        <div class="order-info">
+            <p class="order-title">Pedido #{{ order.number_ordered }}</p>
+            <p class="order-text"><strong>Nome:</strong> {{ order.first_name }} {{ order.last_name }}</p>
+            {% comment %} <p class="order-text"><strong>Email:</strong> {{ order.email }}</p> {% endcomment %}
+            <p class="order-text"><strong>Bairro:</strong> {{ order.neighborhood }}</p>
+            <p class="order-text"><strong>Rua:</strong> {{ order.street_name }}</p>
+            <p class="order-text"><strong>Número da Casa:</strong> {{ order.house_number }}</p>
+            <p class="order-text"><strong>Data do Pedido:</strong> {{ order.created_at }}</p>
+        </div>
+        <div class="order-items">
+            <h3>Itens do Pedido</h3>
+            <ul>
+                {% for product in products %}
+                    <!-- product.product.name -> product(many-to-many de products) - > product(produto normal) -->
+                    <li>{{ product.product.name }} - Quantidade: {{ product.quantity }} - Preço: R$ {{ product.product.price }}</li>
+                {% endfor %}
+            </ul>
+
+            <br><p class="product-price"><strong>Total:</strong> R$ {{ total_price }}</p>
+        </div>
+        <div class="order-action-container">
+            <p class="order-link"><a href="{% url 'staff:ordered_index' %}">Voltar para a lista de pedidos</a></p>
+
+            <form class="form-delete" action="{% url 'staff:delete_ordered' order.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Deletar Pedido</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

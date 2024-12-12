@@ -19,7 +19,11 @@ urlpatterns = [
           name='delete_product'
           ),
 
-     path('ordered_detail/',
+     path('ordered_index/',
+          views.ordered_index,
+          name='ordered_index'
+          ),
+     path('ordered_detail/<id>/',
           views.ordered_detail,
           name='ordered_detail'
           ),
