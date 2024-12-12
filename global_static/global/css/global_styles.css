@@ -680,6 +680,73 @@ form button:hover {
     background-color: #ffe6e6;
 }
 
+/* Container geral para os pedidos */
+.order-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Card de pedido */
+.order-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagem do pedido */
+.order-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Informações do pedido */
+.order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Título ou número do pedido */
+.order-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* Texto das informações */
+.order-text {
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+}
+
+/* Link de ação */
+.order-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.order-link:hover {
+    background-color: #218838;
+}
+
 /* Melhorando a responsividade para telas pequenas */
 @media (max-width: 480px) {
     .payment-form {

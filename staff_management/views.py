@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.http import Http404
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from home.models import Products
+from home.models import Ordered, Products
 from staff_management.forms import CrudProduct
 
 
@@ -75,8 +76,7 @@ class ProductUpdateView(UserPassesTestMixin, UpdateView):
         return context
 
 
-class ProductDeleteView(UserPassesTestMixin, DeleteView):
-    # depois criar uma confirmação
+class DeleteViewMixin(UserPassesTestMixin, DeleteView):
     model = Products
     success_url = reverse_lazy('staff:index')
 
@@ -84,4 +84,20 @@ class ProductDeleteView(UserPassesTestMixin, DeleteView):
         raise Http404()
 
 
-# Fazer uma pagina de ver pedidos
+class ProductDeleteView(DeleteViewMixin):
+    pass
+
+
+@user_passes_test(is_staff, login_url='authors:login')
+def ordered_detail(request):
+    ordereds = Ordered.objects.all()
+
+    return render(request, 'staff_management/pages/ordered.html', context={
+        'title': 'Staff',
+        'ordereds': ordereds,
+        'is_staff': True,
+    })
+
+
+class OrderedDeleteView(DeleteViewMixin):
+    model = Ordered
