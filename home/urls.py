@@ -25,7 +25,7 @@ urlpatterns = [
           ),
 
      path('payment/',
-          views.payment,
+          views.PaymentView.as_view(),
           name='payment'
           ),
 ]
