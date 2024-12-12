@@ -1,11 +1,15 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.views import View
 
 from home.models import Cart, CartItem, Products
 
 
-class AddToCartView(View):
+class AddToCartView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('authors:login')
+
     def get_itens(self, id):
         # Pega a quantidade no view_page, quando o usuário envia
         quantity = int(self.request.POST.get('quantity', 1))
@@ -39,7 +43,9 @@ class AddToCartView(View):
         return redirect('home:index')
 
 
-class RemoveFromCartView(View):
+class RemoveFromCartView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('authors:login')
+
     def get_itens(self, id):
         quantity = int(self.request.POST.get('quantity-to-remove', 1))
 
