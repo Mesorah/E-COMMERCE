@@ -1,3 +1,4 @@
+import pytest
 from django.test import TestCase
 from django.urls import resolve, reverse
 
@@ -12,7 +13,8 @@ from utils.for_tests.base_for_create_itens import (
 )
 
 
-class TestOrderedIndex(TestCase):
+@pytest.mark.test
+class TestOrderedDetail(TestCase):
     def setUp(self):
         self.user = register_super_user()
 
@@ -26,20 +28,24 @@ class TestOrderedIndex(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_index_load_the_correct_view(self):
+    def test_if_staff_detail_load_the_correct_view(self):
         self.client.login(username='test', password='123')
-        response = resolve(reverse('staff:ordered_index'))
+        response = resolve(reverse('staff:ordered_detail', kwargs={
+            'id': '1'
+        }))
 
         # self.assertEqual(response.func.view_class, views.HomeListView)
 
-        self.assertEqual(response.func, views.ordered_index)
+        self.assertEqual(response.func, views.ordered_detail)
 
-    def test_if_ordered_index_load_the_correct_template(self):
+    def test_if_ordered_detail_load_the_correct_template(self):
         self.client.login(username='test', password='123')
 
-        response = self.client.get(reverse('staff:ordered_index'))
+        response = self.client.get(reverse('staff:ordered_detail', kwargs={
+            'id': '1'
+        }))
 
         self.assertTemplateUsed(
             response,
-            'staff_management/pages/ordered.html'
+            'staff_management/pages/ordered_detail.html'
         )
