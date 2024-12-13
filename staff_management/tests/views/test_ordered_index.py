@@ -30,9 +30,7 @@ class TestOrderedIndex(TestCase):
         self.client.login(username='test', password='123')
         response = resolve(reverse('staff:ordered_index'))
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-
-        self.assertEqual(response.func, views.ordered_index)
+        self.assertEqual(response.func.view_class, views.OrderedIndexView)
 
     def test_if_ordered_index_load_the_correct_template(self):
         self.client.login(username='test', password='123')

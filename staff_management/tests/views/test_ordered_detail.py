@@ -31,18 +31,16 @@ class TestOrderedDetail(TestCase):
     def test_if_staff_detail_load_the_correct_view(self):
         self.client.login(username='test', password='123')
         response = resolve(reverse('staff:ordered_detail', kwargs={
-            'id': '1'
+            'pk': '1'
         }))
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-
-        self.assertEqual(response.func, views.ordered_detail)
+        self.assertEqual(response.func.view_class, views.OrderedDetailView)
 
     def test_if_ordered_detail_load_the_correct_template(self):
         self.client.login(username='test', password='123')
 
         response = self.client.get(reverse('staff:ordered_detail', kwargs={
-            'id': '1'
+            'pk': '1'
         }))
 
         self.assertTemplateUsed(
