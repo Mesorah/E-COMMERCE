@@ -1,21 +1,25 @@
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView
 
 from home.models import Ordered
 
-from .index import DeleteViewMixin, is_staff
+from .index import DeleteViewMixin, UserPassesTestMixin
 
 
-@user_passes_test(is_staff, login_url='authors:login')
-def ordered_index(request):
-    ordereds = Ordered.objects.all()
+class OrderedIndexView(UserPassesTestMixin, ListView):
+    template_name = 'staff_management/pages/ordered.html'
+    context_object_name = 'ordereds'
+    model = Ordered
 
-    return render(request, 'staff_management/pages/ordered.html', context={
-        'title': 'Pedidos',
-        'ordereds': ordereds,
-        'is_staff': True,
-    })
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context.update({
+            'title': 'Pedidos',
+            'is_staff': True,
+        })
+
+        return context
 
 
 class OrderedDeleteView(DeleteViewMixin):
@@ -23,23 +27,27 @@ class OrderedDeleteView(DeleteViewMixin):
     model = Ordered
 
 
-@user_passes_test(is_staff, login_url='authors:login')
-def ordered_detail(request, id):
-    order = Ordered.objects.filter(id=id).first()
-    products = order.products.all()
+class OrderedDetailView(UserPassesTestMixin, DetailView):
+    template_name = 'staff_management/pages/ordered_detail.html'
+    model = Ordered
+    context_object_name = 'order'
 
-    total_price = 0
-    for product in products:
-        total_price += product.product.price * product.quantity
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        order = self.get_object()
+        products = order.products.all()
 
-    return render(request,
-                  'staff_management/pages/ordered_detail.html',
-                  context={
-                      'title': 'Detalhe do pedido',
-                      'order': order,
-                      'is_staff': True,
-                      'products': products,
-                      'total_price': total_price
-                    })
+        total_price = 0
+        for product in products:
+            total_price += product.product.price * product.quantity
+
+        context.update({
+            'title': 'Detalhe do pedido',
+            'is_staff': True,
+            'products': products,
+            'total_price': total_price
+        })
+
+        return context
 
 # Fazer página de cada cliente, com cada produto comprado

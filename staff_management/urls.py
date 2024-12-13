@@ -20,11 +20,11 @@ urlpatterns = [
           ),
 
      path('ordered_index/',
-          views.ordered_index,
+          views.OrderedIndexView.as_view(),
           name='ordered_index'
           ),
-     path('ordered_detail/<id>/',
-          views.ordered_detail,
+     path('ordered_detail/<pk>/',
+          views.OrderedDetailView.as_view(),
           name='ordered_detail'
           ),
      path('delete_ordered/<pk>/',
