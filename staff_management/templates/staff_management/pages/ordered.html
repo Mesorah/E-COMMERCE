@@ -9,24 +9,26 @@
     </div>
     <div class="order-container">
         {% for ordered in ordereds %}
-        <div class="order-card">
-            <div class="order-info">
-                <p class="order-title">Pedido #{{ ordered.number_ordered }}</p>
-                <p class="order-text"><strong>Nome:</strong> {{ ordered.first_name }} {{ ordered.last_name }}</p>
-                <p class="order-text"><strong>Bairro:</strong> {{ ordered.neighborhood}}</p>
-                <p class="order-text"><strong>Rua:</strong> {{ ordered.street_name }}</p>
-                <p class="order-text"><strong>Número da Casa:</strong> {{ ordered.house_number }}</p>
-                <p class="order-text"><strong>Data do Pedido:</strong> {{ ordered.created_at }}</p>
+            <div class="order-card">
+                <div class="order-info">
+                    <p class="order-title">Pedido #{{ ordered.number_ordered }}</p>
+                    <p class="order-text"><strong>Nome:</strong> {{ ordered.first_name }} {{ ordered.last_name }}</p>
+                    <p class="order-text"><strong>Bairro:</strong> {{ ordered.neighborhood}}</p>
+                    <p class="order-text"><strong>Rua:</strong> {{ ordered.street_name }}</p>
+                    <p class="order-text"><strong>Número da Casa:</strong> {{ ordered.house_number }}</p>
+                    <p class="order-text"><strong>Data do Pedido:</strong> {{ ordered.created_at }}</p>
+                </div>
+                <div class="order-action-container">
+                    <p class="order-link"><a href="{% url 'staff:ordered_detail' ordered.id %}">Visualizar</a></p>
+                    
+                    {% if title != 'Cliente' %}
+                        <form class="form-delete" action="{% url 'staff:delete_ordered' ordered.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Deletar</button>
+                        </form>
+                    {% endif %}
+                </div>
             </div>
-            <div class="order-action-container">
-                <p class="order-link"><a href="{% url 'staff:ordered_detail' ordered.id %}">Visualizar</a></p>
-
-                <form class="form-delete" action="{% url 'staff:delete_ordered' ordered.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Deletar</button>
-                </form>
-            </div>
-        </div>
         {% endfor %}
     </div>
 </div>

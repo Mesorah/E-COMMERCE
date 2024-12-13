@@ -31,4 +31,13 @@ urlpatterns = [
           views.OrderedDeleteView.as_view(),
           name='delete_ordered'
           ),
+
+     path('clients/',
+          views.clients_list,
+          name='clients'
+          ),
+     path('client/<id>/',
+          views.client_list_ordered,
+          name='client_list_ordered'
+          ),
 ]

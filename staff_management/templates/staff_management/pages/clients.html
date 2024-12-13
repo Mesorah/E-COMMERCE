@@ -1,0 +1,23 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+<div>
+    <div class="header">
+        <h1>Clientes</h1>
+    </div>
+    <div class="order-container">
+        {% for client in clients %}
+            <div class="order-card">
+                <div class="order-info">
+                    <p class="order-text"><strong>Nome:</strong> {{ client.user }}</p>
+                </div>
+                <div class="order-action-container">
+                    <p class="order-link"><a href="{% url 'staff:client_list_ordered' client.id %}">Visualizar</a></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
