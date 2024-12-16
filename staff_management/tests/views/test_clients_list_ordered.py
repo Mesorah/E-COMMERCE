@@ -1,31 +1,15 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
 
-from home.models import CartItem
 from staff_management import views
-from utils.for_tests.base_for_authentication import (  # noqa E501
-    register_super_user,
-    register_user,
-)
-from utils.for_tests.base_for_create_itens import (
-    create_cart,
-    create_cart_item,
-    create_ordered,
-    create_product,
-)
+from utils.for_tests.base_for_authentication import register_user
+from utils.for_tests.base_for_setup import create_ordered_setup
 
 
 class TestClientsListOrdered(TestCase):
     def setUp(self):
-        self.user = register_super_user()
-
-        self.product = create_product(self.user)
-        self.cart = create_cart(self.user)
-        self.cart_item = create_cart_item(self.cart, self.product)
-        cart_item = CartItem.objects.filter(cart=self.cart, is_ordered=False)
-        self.ordered = create_ordered()
-        # self.ordered.save()
-        self.ordered.products.set(cart_item)
+        self.ordered = create_ordered_setup()
+        self.client.login(username='test', password='123')
 
         return super().setUp()
 

@@ -13,7 +13,6 @@ from utils.for_tests.base_for_create_itens import (
 
 def create_cart_item_setup():
     user = register_user()
-    # client.login(username='Test', password='Test')
 
     product = create_product(user)
     cart = create_cart(user)
