@@ -4,21 +4,14 @@ from django.utils.http import urlencode
 
 from home.forms import PaymentForm
 from utils.for_tests.base_for_authentication import register_user
-from utils.for_tests.base_for_create_itens import (
-    create_cart,
-    create_cart_item,
-    create_product,
-)
+from utils.for_tests.base_for_create_itens import create_cart, create_product
+from utils.for_tests.base_for_setup import create_cart_item_setup
 
 
 class TestViewPayment(TestCase):
     def setUp(self):
-        self.user = register_user()
+        self.cart_item = create_cart_item_setup()
         self.client.login(username='Test', password='Test')
-
-        self.product = create_product(self.user)
-        self.cart = create_cart(self.user)
-        self.cart_item = create_cart_item(self.cart, self.product)
 
         # Tudo daqui é falso(nem vem kk)
         self.data = {
