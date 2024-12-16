@@ -1,10 +1,11 @@
 from django.test import TestCase
-from utils.for_tests.base_for_authentication import (
-    register_user,
-    register_super_user
-)
-from django.urls import reverse, resolve
+from django.urls import resolve, reverse
+
 from staff_management import views
+from utils.for_tests.base_for_authentication import (  # noqa E501
+    register_super_user,
+    register_user,
+)
 
 
 class TestHomeView(TestCase):
@@ -34,7 +35,7 @@ class TestHomeView(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_home_have_the_correct_template(self):
+    def test_if_staff_index_have_the_correct_template(self):
         self.client.login(username='test', password='123')
 
         response = self.client.get(reverse('staff:index'))

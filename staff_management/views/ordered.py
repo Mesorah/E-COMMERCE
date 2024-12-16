@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
 
 from home.models import Cart, Ordered
 
-from .index import DeleteViewMixin, UserPassesTestMixin
+from .index import DeleteViewMixin, UserPassesTestMixin, is_staff
 
 
 class OrderedIndexView(UserPassesTestMixin, ListView):
@@ -52,6 +53,7 @@ class OrderedDetailView(UserPassesTestMixin, DetailView):
         return context
 
 
+@user_passes_test(is_staff, login_url='authors:login')
 def clients_list(request):
     clients = Cart.objects.all()
 
@@ -62,6 +64,7 @@ def clients_list(request):
     })
 
 
+@user_passes_test(is_staff, login_url='authors:login')
 def client_list_ordered(request, id):
     cart = get_object_or_404(Cart, id=id)
 
