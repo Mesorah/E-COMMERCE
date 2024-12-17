@@ -33,11 +33,11 @@ urlpatterns = [
           ),
 
      path('clients/',
-          views.clients_list,
+          views.ClientsListView.as_view(),
           name='clients'
           ),
-     path('client/<id>/',
-          views.client_list_ordered,
+     path('client/<pk>/',
+          views.ClientListOrderedDetailView.as_view(),
           name='client_list_ordered'
           ),
 ]

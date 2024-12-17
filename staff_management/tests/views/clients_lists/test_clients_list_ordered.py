@@ -17,12 +17,14 @@ class TestClientsListOrdered(TestCase):
         response = resolve(
             reverse(
                 'staff:client_list_ordered',
-                kwargs={'id': '1'}
+                kwargs={'pk': '1'}
                 )
             )
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-        self.assertEqual(response.func, views.client_list_ordered)
+        self.assertEqual(
+            response.func.view_class,
+            views.ClientListOrderedDetailView
+        )
 
     def test_user_without_permission_redirects_from_staff_client_ordered(self):
         register_user()
@@ -32,7 +34,7 @@ class TestClientsListOrdered(TestCase):
         response = self.client.get(
             reverse(
                 'staff:client_list_ordered',
-                kwargs={'id': '1'}
+                kwargs={'pk': '1'}
                 )
             )
 
@@ -44,7 +46,7 @@ class TestClientsListOrdered(TestCase):
         response = self.client.get(
             reverse(
                 'staff:client_list_ordered',
-                kwargs={'id': '1'}
+                kwargs={'pk': '1'}
                 )
             )
 
@@ -56,7 +58,7 @@ class TestClientsListOrdered(TestCase):
         response = self.client.get(
             reverse(
                 'staff:client_list_ordered',
-                kwargs={'id': '1'}
+                kwargs={'pk': '1'}
                 )
             )
 

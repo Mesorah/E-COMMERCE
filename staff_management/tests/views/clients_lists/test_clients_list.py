@@ -17,8 +17,7 @@ class TestClientsList(TestCase):
     def test_if_staff_clients_list_load_the_correct_view(self):
         response = resolve(reverse('staff:clients'))
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-        self.assertEqual(response.func, views.clients_list)
+        self.assertEqual(response.func.view_class, views.ClientsListView)
 
     def test_user_without_permission_redirects_from_staff_clients_list(self):
         register_user()

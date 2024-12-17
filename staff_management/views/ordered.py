@@ -1,11 +1,9 @@
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
 
-from home.models import Cart, Ordered
+from home.models import Ordered
 
-from .index import DeleteViewMixin, UserPassesTestMixin, is_staff
+from .index import DeleteViewMixin, UserPassesTestMixin
 
 
 class OrderedIndexView(UserPassesTestMixin, ListView):
@@ -51,28 +49,3 @@ class OrderedDetailView(UserPassesTestMixin, DetailView):
         })
 
         return context
-
-
-@user_passes_test(is_staff, login_url='authors:login')
-def clients_list(request):
-    clients = Cart.objects.all()
-
-    return render(request, 'staff_management/pages/clients.html', context={
-        'title': 'Clientes',
-        'clients': clients,
-        'is_staff': True,
-    })
-
-
-@user_passes_test(is_staff, login_url='authors:login')
-def client_list_ordered(request, id):
-    cart = get_object_or_404(Cart, id=id)
-
-    # Filtra os pedidos associados ao usuário deste carrinho
-    ordereds = Ordered.objects.filter(products__cart=cart).distinct()
-
-    return render(request, 'staff_management/pages/ordered.html', context={
-        'title': 'Cliente',
-        'ordereds': ordereds,
-        'is_staff': True,
-    })
