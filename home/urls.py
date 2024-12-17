@@ -28,4 +28,9 @@ urlpatterns = [
           views.PaymentView.as_view(),
           name='payment'
           ),
+
+     path('support/',
+          views.support_index,
+          name='support_index',
+          ),
 ]

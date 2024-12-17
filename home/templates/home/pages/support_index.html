@@ -1,0 +1,45 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    <div>
+        <header class="faq-header">
+            <h1>Perguntas Frequentes</h1>
+        </header>
+
+        <main class="faq-content">
+            <section class="faq-section">
+                <h2>Geral</h2>
+                <div class="faq-item">
+                    <button class="faq-question">O que é este site?</button>
+                    <div class="faq-answer">
+                        <p>Este é um site de perguntas frequentes para ajudar os usuários a encontrar respostas rápidas.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Como posso entrar em contato com o suporte?</button>
+                    <div class="faq-answer">
+                        <p>Você pode entrar em contato conosco através do formulário na página de contato.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="faq-section">
+                <h2>Conta</h2>
+                <div class="faq-item">
+                    <button class="faq-question">Como faço para criar uma conta?</button>
+                    <div class="faq-answer">
+                        <p>Você pode criar uma conta clicando no botão "Registrar" no topo da página.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Esqueci minha senha. O que fazer?</button>
+                    <div class="faq-answer">
+                        <p>Na página de login, clique em "Esqueci minha senha" e siga as instruções para redefinir.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+{% endblock content %}
