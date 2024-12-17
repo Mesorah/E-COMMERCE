@@ -1,0 +1,19 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    <div class="submit-question-container">
+        <div class="header">
+            <p class="header-text">Envie sua dúvida</p>
+        </div>
+        <div class="form-container">
+            <form action="{% url 'home:support_client' %}" method="POST">
+                {% csrf_token %}
+                <label for="question" class="form-label">Digite sua dúvida:</label>
+                <textarea id="question" name="question" rows="5" required placeholder="Escreva sua dúvida aqui..."></textarea>
+                <button type="submit" class="submit-button">Enviar</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

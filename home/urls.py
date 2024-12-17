@@ -29,8 +29,17 @@ urlpatterns = [
           name='payment'
           ),
 
+     path('faq/',
+          views.faq,
+          name='faq',
+          ),
+
      path('support/',
-          views.support_index,
-          name='support_index',
+          views.support_client,
+          name='support_client',
+          ),
+     path('support_completed/',
+          views.support_completed,
+          name='support_completed',
           ),
 ]

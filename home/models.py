@@ -81,3 +81,13 @@ class Ordered(models.Model):
             self.number_ordered = 1
 
         return super().save(*args, **kwargs)
+
+
+class CustomerQuestion(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.SET_NULL, null=True)
+
+    question = models.TextField()
+
+    def __str__(self):
+        return f'{self.user}'

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from home.models import Cart, CartItem, Ordered, Products
+from home.models import Cart, CartItem, CustomerQuestion, Ordered, Products
 
 
 @admin.register(Products)
@@ -20,4 +20,9 @@ class CartItemAdmin(admin.ModelAdmin):
 
 @admin.register(Ordered)
 class OrderedAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(CustomerQuestion)
+class CustomerQuestionAdmin(admin.ModelAdmin):
     pass
