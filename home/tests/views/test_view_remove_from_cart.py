@@ -13,7 +13,7 @@ class TestViewRemoveFromCart(TestCase):
          self.cart,
          self.cart_item,
          self.cart_item2) = create_cart_item_setup(
-             product_2=True
+            product_2=True
         )
 
         self.client.login(username='Test', password='Test')
@@ -71,5 +71,33 @@ class TestViewRemoveFromCart(TestCase):
         products = cart_item.all()
 
         self.assertEqual(products.count(), 1)
+
+        self.assertEqual(response.status_code, 302)
+
+    def test_if_home_remove_from_cart_cart_item_quantity_is_less_than_0(self):
+        cart_item = CartItem.objects.filter(
+            cart=self.cart
+        ).first()
+
+        cart_item.quantity = 10
+        cart_item.save()
+
+        self.product.stock = 10
+        self.product.save()
+
+        self.assertEqual(self.product.stock, 10)
+
+        response = self.client.post(
+            reverse('home:remove_from_cart', kwargs={'id': '1'}),
+            data={'quantity-to-remove': 1}
+        )
+
+        cart_item = CartItem.objects.filter(
+            cart=self.cart
+        )
+
+        products = cart_item.all()
+
+        self.assertEqual(products.count(), 2)
 
         self.assertEqual(response.status_code, 302)
