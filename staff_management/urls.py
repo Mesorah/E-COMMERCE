@@ -40,4 +40,9 @@ urlpatterns = [
           views.ClientListOrderedDetailView.as_view(),
           name='client_list_ordered'
           ),
+
+     path('support_staff/',
+          views.support_staff,
+          name='support_staff'
+          ),
 ]

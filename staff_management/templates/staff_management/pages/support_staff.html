@@ -1,0 +1,22 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    <div class="submit-question-container">
+        <div class="header">
+            <p class="header-text">Envie sua resposta</p>
+        </div>
+        <div class="form-container">
+            <form action="{% url 'staff:support_staff' %}" method="POST">
+                {% csrf_token %}
+                <label for="email" class="form-label">E-mail:</label>
+                <textarea id="email" name="email" rows="5" required placeholder="Escreva o email aqui..."></textarea>
+
+                <label for="answer" class="form-label">Resposta:</label>
+                <textarea id="answer" name="answer" rows="5" required placeholder="Escreva sua resposta aqui..."></textarea>
+                <button type="submit" class="submit-button">Enviar</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

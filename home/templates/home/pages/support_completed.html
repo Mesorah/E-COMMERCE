@@ -1,3 +1,9 @@
-<div>
-    <p>Sua pergunta foi enviada, quando respondemos enviaremos para o seu email</p>
-</div>
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    <div class="support_completed">
+        <p class="support_message">Sua pergunta foi enviada, quando respondemos enviaremos para o seu e-mail</p>
+    </div>
+{% endblock content %}
