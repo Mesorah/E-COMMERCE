@@ -68,7 +68,11 @@ class RemoveFromCartView(LoginRequiredMixin, View):
         product.save()
 
         cart_item.quantity -= quantity
-        cart_item.save()
+
+        if cart_item.quantity <= 0:
+            cart_item.delete()
+        else:
+            cart_item.save()
 
         return redirect('home:cart_detail')
 
