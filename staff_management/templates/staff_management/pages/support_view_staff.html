@@ -17,6 +17,11 @@
                     </div>
                     <div class="support-action-container">
                         <p class="support-link"><a href="{% url 'staff:support_question_detail' question.id %}">Visualizar</a></p>
+
+                        <form class="form" action="{% url 'staff:support_staff' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Mandar</button>
+                        </form>
                         
                         <form class="form-delete" action="{% url 'staff:support_question_delete' question.id %}" method="post">
                             {% csrf_token %}

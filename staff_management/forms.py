@@ -1,4 +1,5 @@
 from django import forms
+
 from home.models import Products
 
 
@@ -44,3 +45,32 @@ class CrudProduct(forms.ModelForm):
                            )
 
         return stock
+
+
+class SupportStaffForm(forms.Form):
+    email = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                'id': 'email',
+                'name': 'email',
+                'rows': 5,
+                'required': True,
+                'placeholder': 'Escreva o email aqui...',
+                'class': 'form-label'
+            }
+        ),
+        label="E-mail:"
+    )
+    answer = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                'id': 'answer',
+                'name': 'answer',
+                'rows': 5,
+                'required': True,
+                'placeholder': 'Escreva sua resposta aqui...',
+                'class': 'form-label'
+            }
+        ),
+        label="Resposta:"
+    )

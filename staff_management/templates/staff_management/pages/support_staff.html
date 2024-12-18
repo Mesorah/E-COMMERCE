@@ -10,11 +10,12 @@
         <div class="form-container">
             <form action="{% url 'staff:support_staff' %}" method="POST">
                 {% csrf_token %}
-                <label for="email" class="form-label">E-mail:</label>
-                <textarea id="email" name="email" rows="5" required placeholder="Escreva o email aqui..."></textarea>
-
-                <label for="answer" class="form-label">Resposta:</label>
-                <textarea id="answer" name="answer" rows="5" required placeholder="Escreva sua resposta aqui..."></textarea>
+                <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                {{ form.email }}
+            
+                <label for="{{ form.answer.id_for_label }}" class="form-label">{{ form.answer.label }}</label>
+                {{ form.answer }}
+            
                 <button type="submit" class="submit-button">Enviar</button>
             </form>
         </div>

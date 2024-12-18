@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 
 from home.models import CustomerQuestion
+from staff_management.forms import SupportStaffForm
 
 from .index import is_staff
 
@@ -12,25 +13,31 @@ from .index import is_staff
 @user_passes_test(is_staff, login_url='authors:login')
 def support_staff(request):
     if request.method == 'POST':
-        email = str(request.POST.get('email', 'E-mail not found'))
-        answer = str(request.POST.get('answer', 'Answer not found'))
+        form = SupportStaffForm(request.POST)
 
-        if email != 'E-mail not found' and answer != 'Answer not found':
-            send_mail(
-                'Sobre sua dúvida',
-                answer,
-                os.environ.get('EMAIL_HOST_USER', 'email'),  # Remetente
-                [email],  # Destinatário
-                fail_silently=False,
-            )
+        if form.is_valid():
+            email = form.cleaned_data.get('email', 'E-mail not found')
+            answer = form.cleaned_data.get('answer', 'Answer not found')
 
-            return redirect('staff:index')
+            if email != 'E-mail not found' and answer != 'Answer not found':
+                send_mail(
+                    'Sobre sua dúvida',
+                    answer,
+                    os.environ.get('EMAIL_HOST_USER', 'email'),  # Remetente
+                    [email],  # Destinatário
+                    fail_silently=False,
+                )
+
+                return redirect('staff:index')
+    else:
+        form = SupportStaffForm()
 
     return render(
         request,
         'staff_management/pages/support_staff.html',
         context={
-            'title': 'Suporte staff'
+            'title': 'Suporte staff',
+            'form': form
         }
     )
 
