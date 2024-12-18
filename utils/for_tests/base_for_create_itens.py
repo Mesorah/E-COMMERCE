@@ -1,4 +1,4 @@
-from home.models import Cart, CartItem, Ordered, Products
+from home.models import Cart, CartItem, CustomerQuestion, Ordered, Products
 
 
 def create_product(
@@ -52,3 +52,12 @@ def create_ordered(
     )
 
     return ordered
+
+
+def create_question(user, question='Question message test'):
+    question = CustomerQuestion.objects.create(
+        user=user,
+        question=question,
+    )
+
+    return question

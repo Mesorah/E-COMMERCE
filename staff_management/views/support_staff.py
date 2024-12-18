@@ -15,16 +15,16 @@ def support_staff(request):
         email = str(request.POST.get('email', 'E-mail not found'))
         answer = str(request.POST.get('answer', 'Answer not found'))
 
-    if email != 'E-mail not found' or answer != 'Answer not found':
-        send_mail(
-            'Sobre sua dúvida',
-            answer,
-            os.environ.get('EMAIL_HOST_USER', 'email'),  # Remetente
-            [email],  # Destinatário
-            fail_silently=False,
-        )
+        if email != 'E-mail not found' and answer != 'Answer not found':
+            send_mail(
+                'Sobre sua dúvida',
+                answer,
+                os.environ.get('EMAIL_HOST_USER', 'email'),  # Remetente
+                [email],  # Destinatário
+                fail_silently=False,
+            )
 
-        return redirect('staff:index')
+            return redirect('staff:index')
 
     return render(
         request,
@@ -49,10 +49,13 @@ def support_view_staff(request):
 
 
 @user_passes_test(is_staff, login_url='authors:login')
-def support_delete_question(request, id):
-    question = CustomerQuestion.objects.filter(id=id)
+def support_question_delete(request, id):
+    if request.method == 'POST':
+        question = CustomerQuestion.objects.filter(id=id)
 
-    question.delete()
+        question.delete()
+
+        return redirect('staff:support_view_staff')
 
     return redirect('staff:support_view_staff')
 
@@ -68,3 +71,10 @@ def support_question_detail(request, id):
             'question': question
         }
     )
+
+
+# Fazer um botão com que
+# quando apertado ele
+# vai na página de enviar
+# o email ja com o email
+# colocado

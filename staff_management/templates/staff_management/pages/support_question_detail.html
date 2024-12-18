@@ -15,7 +15,7 @@
                     <p class="support-text-detail"><strong>Dúvida:</strong> {{ question.question }}</p>
                 </div>
                 <div class="support-action-container">                    
-                    <form class="form-delete" action="{% url 'staff:support_delete_question' question.id %}" method="post">
+                    <form class="form-delete" action="{% url 'staff:support_question_delete' question.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit">Deletar</button>
                     </form>

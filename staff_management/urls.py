@@ -49,9 +49,9 @@ urlpatterns = [
           views.support_view_staff,
           name='support_view_staff'
           ),
-     path('support_delete_question/<id>/',
-          views.support_delete_question,
-          name='support_delete_question'
+     path('support_question_delete/<id>/',
+          views.support_question_delete,
+          name='support_question_delete'
           ),
      path('support_question_detail/<id>/',
           views.support_question_detail,
