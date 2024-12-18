@@ -1000,15 +1000,6 @@ textarea:focus {
 }
 
 /* support_view_staff */
-/* Estilos gerais */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
 .support-container {
     width: 90%;
     max-width: 800px;
@@ -1041,8 +1032,18 @@ body {
     margin: 0;
     line-height: 1.5;
     overflow: hidden;
+    white-space: normal;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.support-text-detail {
+    margin: 0;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-overflow: ellipsis;
 }
 
 /* Ações: links e botão */

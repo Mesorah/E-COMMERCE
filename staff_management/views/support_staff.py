@@ -58,13 +58,13 @@ def support_delete_question(request, id):
 
 
 @user_passes_test(is_staff, login_url='authors:login')
-def support_question_detail(request):
-    questions = CustomerQuestion.objects.all()
+def support_question_detail(request, id):
+    question = CustomerQuestion.objects.filter(id=id).first()
 
     return render(
         request,
         'staff_management/pages/support_question_detail.html',
         context={
-            'questions': questions
+            'question': question
         }
     )
