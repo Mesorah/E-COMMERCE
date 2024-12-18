@@ -14,6 +14,13 @@
                     <p class="support-text"><strong>Email:</strong> {{ question.user.email }}</p>
                     <p class="support-text-detail"><strong>Dúvida:</strong> {{ question.question }}</p>
                 </div>
+
+                <form action="{% url 'staff:support_staff' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="email" value="{{ question.user.email }}">
+                    <button type="submit">Responder</button>
+                </form>
+
                 <div class="support-action-container">                    
                     <form class="form-delete" action="{% url 'staff:support_question_delete' question.id %}" method="post">
                         {% csrf_token %}

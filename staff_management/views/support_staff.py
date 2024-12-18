@@ -12,6 +12,12 @@ from .index import is_staff
 
 @user_passes_test(is_staff, login_url='authors:login')
 def support_staff(request):
+    email = request.POST.get('email')
+
+    data = {
+        'email': email,
+    }
+
     if request.method == 'POST':
         form = SupportStaffForm(request.POST)
 
@@ -30,14 +36,15 @@ def support_staff(request):
 
                 return redirect('staff:index')
     else:
-        form = SupportStaffForm()
+        form = SupportStaffForm(initial=data)
 
     return render(
         request,
         'staff_management/pages/support_staff.html',
         context={
             'title': 'Suporte staff',
-            'form': form
+            'form': form,
+            'initial_data': data,
         }
     )
 
@@ -78,10 +85,3 @@ def support_question_detail(request, id):
             'question': question
         }
     )
-
-
-# Fazer um botão com que
-# quando apertado ele
-# vai na página de enviar
-# o email ja com o email
-# colocado
