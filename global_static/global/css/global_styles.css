@@ -999,6 +999,99 @@ textarea:focus {
     font-weight: bold;
 }
 
+/* support_view_staff */
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.support-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Estilo para os cartões de dúvidas */
+.support-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Informações de suporte */
+.support-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.support-text {
+    margin: 0;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Ações: links e botão */
+.support-action-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.support-link a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.support-link a:hover {
+    color: #0056b3;
+}
+
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .support-card {
+        padding: 10px;
+    }
+
+    .support-action-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .support-card {
+        padding: 10px;
+    }
+
+    .support-action-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
     .support_completed {

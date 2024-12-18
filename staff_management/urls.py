@@ -45,4 +45,16 @@ urlpatterns = [
           views.support_staff,
           name='support_staff'
           ),
+     path('support_view_staff/',
+          views.support_view_staff,
+          name='support_view_staff'
+          ),
+     path('support_delete_question/<id>/',
+          views.support_delete_question,
+          name='support_delete_question'
+          ),
+     path('support_question_detail/<id>/',
+          views.support_question_detail,
+          name='support_question_detail'
+          ),
 ]

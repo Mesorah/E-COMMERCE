@@ -1,0 +1,29 @@
+{% extends "global/pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    <div>
+        <div class="header">
+            <h1>Dúvidas</h1>
+        </div>
+        <div class="support-container">
+            {% for question in questions %}
+                <div class="support-card">
+                    <div class="support-info">
+                        <p class="support-text"><strong>Nome:</strong> {{ question.user }}</p>
+                        <p class="support-text"><strong>Dúvida:</strong> {{ question.question }}</p>
+                    </div>
+                    <div class="support-action-container">
+                        <p class="support-link"><a href="{% url 'staff:support_question_detail' question.id %}">Visualizar</a></p>
+                        
+                        <form class="form-delete" action="{% url 'staff:support_delete_question' question.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Deletar</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
