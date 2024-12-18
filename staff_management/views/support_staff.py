@@ -22,19 +22,18 @@ def support_staff(request):
         form = SupportStaffForm(request.POST)
 
         if form.is_valid():
-            email = form.cleaned_data.get('email', 'E-mail not found')
-            answer = form.cleaned_data.get('answer', 'Answer not found')
+            email = form.cleaned_data.get('email')
+            answer = form.cleaned_data.get('answer')
 
-            if email != 'E-mail not found' and answer != 'Answer not found':
-                send_mail(
-                    'Sobre sua dúvida',
-                    answer,
-                    os.environ.get('EMAIL_HOST_USER', 'email'),  # Remetente
-                    [email],  # Destinatário
-                    fail_silently=False,
-                )
+            send_mail(
+                'Sobre sua dúvida',
+                answer,
+                os.environ.get('EMAIL_HOST_USER', 'email'),  # Remetente
+                [email],  # Destinatário
+                fail_silently=False,
+            )
 
-                return redirect('staff:index')
+            return redirect('staff:index')
     else:
         form = SupportStaffForm(initial=data)
 
