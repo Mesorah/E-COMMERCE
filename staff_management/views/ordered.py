@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
 
@@ -10,6 +11,8 @@ class OrderedIndexView(UserPassesTestMixin, ListView):
     template_name = 'staff_management/pages/ordered.html'
     context_object_name = 'ordereds'
     model = Ordered
+    paginate_by = 10
+    paginator_class = Paginator
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

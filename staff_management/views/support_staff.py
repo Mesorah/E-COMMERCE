@@ -1,6 +1,7 @@
 import os
 
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
@@ -67,6 +68,8 @@ class SupportViewStaff(UserPassesTestMixin, ListView):
     template_name = 'staff_management/pages/support_view_staff.html'
     model = CustomerQuestion
     context_object_name = 'questions'
+    paginate_by = 10
+    paginator_class = Paginator
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

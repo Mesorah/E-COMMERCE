@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.views.generic import DetailView, ListView
 
@@ -8,6 +9,8 @@ class HomeListView(ListView):
     template_name = 'global/pages/base_page.html'
     model = Products
     context_object_name = 'products'
+    paginate_by = 10
+    paginator_class = Paginator
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -22,6 +23,8 @@ class HomeListView(UserPassesTestMixin, ListView):
     model = Products
     template_name = 'global/pages/base_page.html'
     context_object_name = 'products'
+    paginate_by = 10
+    paginator_class = Paginator
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
