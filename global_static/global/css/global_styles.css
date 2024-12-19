@@ -37,50 +37,6 @@ body {
     color: #2980b9;
 }
 
-/* Nova seção para a página de produto */
-.view-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 16px;
-    gap: 24px; /* Espaço entre os dois containers */
-}
-
-.product-view {
-    width: 60%;
-    border: 1px solid #ddd; /* Borda fina */
-    border-radius: 8px; /* Cantos arredondados */
-    padding: 16px;
-    background-color: #fff; /* Fundo branco */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 16px; /* Espaço entre os elementos */
-}
-
-.product-details {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.product-name {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333; /* Texto escuro */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.product-description {
-    font-size: 16px;
-    color: #666; /* Texto cinza */
-    line-height: 1.5; /* Melhor leitura */
-    word-wrap: break-word;
-}
-
 /* Estilização da seção de compra */
 .buy-section {
     width: 30%;
