@@ -1,31 +1,40 @@
 import os
 
-from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import DetailView, ListView
 
 from home.models import CustomerQuestion
 from staff_management.forms import SupportStaffForm
 
-from .index import is_staff
+from .index import DeleteViewMixin, UserPassesTestMixin
 
 
-@user_passes_test(is_staff, login_url='authors:login')
-def support_staff(request):
-    email = request.POST.get('email')
+class SupportStaff(UserPassesTestMixin, View):
+    def get_data(self):
+        email = self.request.POST.get('email')
 
-    data = {
-        'email': email,
-    }
+        data = {
+            'email': email,
+        }
 
-    if request.method == 'POST':
-        form = SupportStaffForm(request.POST)
+        return data
 
-        if form.is_valid():
-            email = form.cleaned_data.get('email')
-            answer = form.cleaned_data.get('answer')
+    def get_render(self, form, data):
+        return render(
+            self.request,
+            'staff_management/pages/support_staff.html',
+            context={
+                'title': 'Suporte staff',
+                'form': form,
+                'initial_data': data,
+            }
+        )
 
-            send_mail(
+    def send_email(self, answer, email):
+        email = send_mail(
                 'Sobre sua dúvida',
                 answer,
                 os.environ.get('EMAIL_HOST_USER', 'email'),  # Remetente
@@ -33,54 +42,57 @@ def support_staff(request):
                 fail_silently=False,
             )
 
-            return redirect('staff:index')
-    else:
+        return email
+
+    def get(self, request):
+        data = self.get_data()
+
         form = SupportStaffForm(initial=data)
 
-    return render(
-        request,
-        'staff_management/pages/support_staff.html',
-        context={
-            'title': 'Suporte staff',
-            'form': form,
-            'initial_data': data,
-        }
-    )
+        return self.get_render(form, data)
+
+    def post(self, request):
+        form = SupportStaffForm(self.request.POST)
+
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            answer = form.cleaned_data.get('answer')
+
+            self.send_email(answer, email)
+
+            return redirect('staff:index')
 
 
-@user_passes_test(is_staff, login_url='authors:login')
-def support_view_staff(request):
-    questions = CustomerQuestion.objects.all()
+class SupportViewStaff(UserPassesTestMixin, ListView):
+    template_name = 'staff_management/pages/support_view_staff.html'
+    model = CustomerQuestion
+    context_object_name = 'questions'
 
-    return render(
-        request,
-        'staff_management/pages/support_view_staff.html',
-        context={
-            'questions': questions
-        }
-    )
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
+        context.update({
+            'title': 'Support staff'
+        })
 
-@user_passes_test(is_staff, login_url='authors:login')
-def support_question_delete(request, id):
-    if request.method == 'POST':
-        question = CustomerQuestion.objects.filter(id=id)
-
-        question.delete()
-
-        return redirect('staff:support_view_staff')
-
-    return redirect('staff:support_view_staff')
+        return context
 
 
-@user_passes_test(is_staff, login_url='authors:login')
-def support_question_detail(request, id):
-    question = CustomerQuestion.objects.filter(id=id).first()
+class SupportQuestionDelete(DeleteViewMixin):
+    model = CustomerQuestion
+    success_url = reverse_lazy('staff:support_view_staff')
 
-    return render(
-        request,
-        'staff_management/pages/support_question_detail.html',
-        context={
-            'question': question
-        }
-    )
+
+class SupportQuestionDetail(UserPassesTestMixin, DetailView):
+    template_name = 'staff_management/pages/support_question_detail.html'
+    model = CustomerQuestion
+    context_object_name = 'question'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context.update({
+            'title': 'Detail question'
+        })
+
+        return context

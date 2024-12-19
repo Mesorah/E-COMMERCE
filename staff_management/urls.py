@@ -42,19 +42,19 @@ urlpatterns = [
           ),
 
      path('support_staff/',
-          views.support_staff,
+          views.SupportStaff.as_view(),
           name='support_staff'
           ),
      path('support_view_staff/',
-          views.support_view_staff,
+          views.SupportViewStaff.as_view(),
           name='support_view_staff'
           ),
-     path('support_question_delete/<id>/',
-          views.support_question_delete,
+     path('support_question_delete/<pk>/',
+          views.SupportQuestionDelete.as_view(),
           name='support_question_delete'
           ),
-     path('support_question_detail/<id>/',
-          views.support_question_detail,
+     path('support_question_detail/<pk>/',
+          views.SupportQuestionDetail.as_view(),
           name='support_question_detail'
           ),
 ]
