@@ -35,11 +35,11 @@ urlpatterns = [
           ),
 
      path('support/',
-          views.support_client,
+          views.SupportClient.as_view(),
           name='support_client',
           ),
      path('support_completed/',
-          views.support_completed,
+          views.SupportCompleted.as_view(),
           name='support_completed',
           ),
 ]
