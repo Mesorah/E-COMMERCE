@@ -1,0 +1,141 @@
+/* Container principal dos itens */
+.products-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Estilização de cada product */
+.product {
+    width: 250px; /* Tamanho fixo da largura */
+    min-height: 320px; /* Altura mínima para garantir consistência */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    height: 400px; /* Altura fixa para que todos os containers sejam iguais */
+}
+
+/* Hover para realçar os itens */
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilização de cada elemento do product */
+.product-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.product-img img:hover {
+    transform: scale(1.05);
+}
+
+.product-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+    white-space: normal; /* Permite que o texto quebre a linha */
+    overflow-wrap: break-word;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #2ecc71;
+    margin-bottom: 16px;
+    white-space: nowrap; /* Impede quebra de linha */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Links para ações */
+.product-link {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaço entre os botões */
+    align-items: center; /* Centraliza os botões */
+}
+
+/* Estilos específicos para os botões de Editar e Deletar */
+.product-link a,
+.product-link form button {
+    font-size: 14px;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 100%; /* Garante que os botões ocupem toda a largura do contêiner */
+}
+
+/* Link de editar */
+.product-link a {
+    background-color: #3498db;
+    border: 1px solid #3498db;
+    text-decoration: none;
+}
+
+.product-link a:hover {
+    background-color: #2980b9;
+}
+
+/* Botão de deletar */
+.product-link form button {
+    background-color: #e74c3c;
+    border: 1px solid #e74c3c;
+    cursor: pointer;
+}
+
+.product-link form button:hover {
+    background-color: #c0392b;
+}
+
+/* Garantir que o formulário de delete tenha o mesmo estilo do botão */
+.product-link form {
+    width: 100%; /* Alinha o botão de deletar ao restante dos botões */
+}
+
+.product-link a:focus {
+    outline: none;
+}
+
+.product-status {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.product-published {
+    color: #2ecc71;
+}
+
+.product-unpublished {
+    color: #e74c3c;
+}
+
+/* Estilo para produtos sem estoque */
+.out-of-stock {
+    color: #e74c3c; /* Vermelho */
+    font-weight: bold;
+    background-color: #fdecea; /* Fundo claro para destacar */
+    padding: 8px;
+    border-radius: 4px; /* Cantos arredondados */
+    text-align: center;
+    margin: 10px 0; /* Espaço acima e abaixo */
+    border: 1px solid #e74c3c; /* Borda vermelha */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
