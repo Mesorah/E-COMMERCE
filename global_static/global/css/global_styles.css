@@ -1,7 +1,7 @@
 * { 
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Garante que padding e border sejam contabilizados dentro do tamanho total */
+    box-sizing: border-box;
 }
 
 body {
@@ -37,150 +37,10 @@ body {
     color: #2980b9;
 }
 
-/* Estilização da seção de compra */
-.buy-section {
-    width: 30%;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
-}
-
-.buy-section h2 {
-    font-size: 24px;
-    color: #333;
-}
-
-.buy-price {
-    font-size: 20px;
-    color: #2ecc71;
+.header-text {
+    font-size: 1.5rem;
     font-weight: bold;
-}
-
-.buy-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.buy-form label {
-    font-size: 16px;
-    color: #333;
-    text-align: left;
-}
-
-.buy-form input[type="number"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.buy-form button {
-    padding: 10px 16px;
-    background-color: #3498db;
-    color: #fff;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.buy-form button:hover {
-    background-color: #2980b9;
-}
-
-/* Contêiner principal do formulário de adicionar produto */
-.crud-product-container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo do título do formulário de adicionar produto */
-.crud-product-title {
-    text-align: center;
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Formulário de adicionar produto */
-.crud-product-form {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Estilo dos parágrafos dentro do formulário */
-.crud-product-form p {
-    margin: 15px 0;
-    font-size: 16px;
-    color: #333;
-}
-
-/* Estilo dos campos de entrada dentro do formulário */
-.crud-product-form input,
-.crud-product-form select,
-.crud-product-form textarea {
-    padding: 14px;
-    margin: 10px 0 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    width: 100%;
-    background-color: #fafafa;
-}
-
-/* Estilo específico para o campo de descrição (textarea) */
-.crud-product-form textarea {
-    height: 150px;
-    resize: vertical;
-}
-
-/* Estilo do botão de envio do formulário */
-.crud-product-form button {
-    padding: 14px 24px;
-    background-color: #3498db;
-    color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-/* Efeito de hover no botão */
-.crud-product-form button:hover {
-    background-color: #2980b9;
-}
-
-/* Exibição dos erros de validação do formulário */
-.crud-product-form .errorlist {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-/* Estilo dos campos com erro de validação */
-.crud-product-form input:invalid,
-.crud-product-form select:invalid,
-.crud-product-form textarea:invalid {
-    border-color: red;
-}
-
-/* Adiciona padding e margin ao CSRF token */
-.crud-product-form input[type="hidden"] {
-    display: none;
+    color: #3498db;
 }
 
 form button {
@@ -198,109 +58,109 @@ form button:hover {
     background-color: #c0392b;
 }
 
-/* Contêiner do carrinho */
-.cart-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    gap: 30px;
-}
-
-/* Itens no carrinho */
-.cart-items {
-    width: 70%;
-}
-
-/* Item no carrinho */
-.cart-item {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.item-img img {
-    width: 120px;
-    height: auto;
-    border-radius: 8px;
-}
-
-.item-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.item-name {
-    font-size: 20px;
-    color: #333;
-}
-
-.item-price {
+/* Estilos para o botão de envio */
+.submit-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 6px;
     font-size: 18px;
-    color: #2ecc71;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-.item-actions {
+/* Efeito de hover para o botão */
+.submit-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Estilos para a exibição de erros */
+.form-errors {
+    margin-top: 20px;
+    color: #ff4d4d;
+    font-size: 14px;
+}
+
+.error-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.error-item {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Estilo do botão de deletar */
+.form-delete button {
+    display: inline-block;
+    padding: 14px 26px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s;
     margin-top: 10px;
 }
 
-.remove-btn {
-    padding: 8px 16px;
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.remove-btn:hover {
+.form-delete button:hover {
     background-color: #c0392b;
 }
 
-/* Resumo do carrinho */
-.cart-summary {
-    width: 30%;
-    padding: 16px;
-    border: 1px solid #ddd;
+/* support client */
+.submit-question-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
     border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cart-summary h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.cart-summary p {
-    font-size: 20px;
-    font-weight: bold;
+.form-label {
+    font-size: 1rem;
     color: #333;
 }
 
-.checkout-btn {
-    margin-top: 30px;
+textarea {
     width: 100%;
-    padding: 12px;
-    background-color: #3498db;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    resize: none;
+}
+
+textarea:focus {
+    border-color: #2980b9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.submit-button {
+    background-color: #4CAF50;
     color: white;
-    font-size: 16px;
+    padding: 0.8rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.checkout-btn:hover {
-    background-color: #2980b9;
+.submit-button:hover {
+    background-color: #45a049;
 }
 
 /* Estilo geral para o contêiner de mensagens */
@@ -349,514 +209,4 @@ form button:hover {
 /* Estilo para a mensagem quando há múltiplas */
 .message + .message {
     margin-top: 10px;
-}
-
-/* Estilizando o formulário de pagamento */
-.payment-form {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-}
-
-/* Estilo geral dos inputs */
-.payment-form input {
-    width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
-/* Estilos para os campos de entrada em foco */
-.payment-form input:focus {
-    border-color: #4CAF50;
-    outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-}
-
-/* Estilos para o botão de envio */
-.submit-btn {
-    background-color: #3498db;
-    color: white;
-    padding: 15px 25px;
-    border: none;
-    border-radius: 6px;
-    font-size: 18px;
-    width: 100%;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-/* Efeito de hover para o botão */
-.submit-btn:hover {
-    background-color: #2980b9;
-    transform: scale(1.05);
-}
-
-/* Estilos para a exibição de erros */
-.form-errors {
-    margin-top: 20px;
-    color: #ff4d4d;
-    font-size: 14px;
-}
-
-.error-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.error-item {
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-/* Estilizando os campos de erro (inputs inválidos) */
-.payment-form input:invalid {
-    border-color: #ff4d4d;
-    background-color: #ffe6e6;
-}
-
-/* Container geral para os pedidos */
-.order-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Card de pedido */
-.order-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Imagem do pedido */
-.order-img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-/* Informações do pedido */
-.order-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-/* Título ou número do pedido */
-.order-title {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
-}
-
-/* Texto das informações */
-.order-text {
-    font-size: 0.9em;
-    color: #555;
-    margin: 0;
-}
-
-/* Estilo para o contêiner que envolve o link e o formulário */
-.order-action-container {
-    display: flex; /* Faz com que o link e o formulário fiquem lado a lado */
-    align-items: center; /* Alinha os itens verticalmente no centro */
-    gap: 10px; /* Adiciona um espaço entre os itens */
-}
-
-/* Estilo do link */
-.order-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 12px;
-    background-color: #3498db;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 0.9em;
-    text-align: center;
-    transition: background-color 0.3s;
-}
-
-.order-link a {
-    text-decoration: none;
-    color: #fff;
-}
-
-.order-link:hover {
-    background-color: #2980b9;
-}
-
-/* Estilo do botão de deletar */
-.form-delete button {
-    display: inline-block;
-    padding: 14px 26px;
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
-}
-
-.form-delete button:hover {
-    background-color: #c0392b;
-}
-
-/* Container geral para os detalhes do pedido */
-.order-detail-container {
-    max-width: 900px;
-    margin: 20px auto;
-}
-
-/* Card de detalhes do pedido */
-.order-detail-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Informações do pedido */
-.order-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Título ou número do pedido */
-.order-title {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Texto das informações */
-.order-text {
-    font-size: 1em;
-    color: #555;
-}
-
-/* Estilo para o contêiner que envolve o link e o formulário */
-.order-action-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-/* Estilo do link */
-.order-link {
-    padding: 10px 15px;
-    background-color: #3498db;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 1em;
-    transition: background-color 0.3s;
-}
-
-.order-link a {
-    text-decoration: none;
-    color: #fff;
-}
-
-.order-link:hover {
-    background-color: #2980b9;
-}
-
-/* Estilo da lista de itens */
-.order-items h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.order-items ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.order-items li {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 5px;
-}
-
-/* faq */
-
-header.faq-header {
-    /* background-color: #4CAF50; */
-    color: black;
-    text-align: center;
-    padding: 1rem 0;
-}
-
-main.faq-content {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.faq-section {
-    margin-bottom: 2rem;
-}
-
-.faq-section h2 {
-    color: #3498db;
-    border-bottom: 2px solid #2980b9;
-    padding-bottom: 0.5rem;
-}
-
-.faq-item {
-    margin-bottom: 1rem;
-}
-
-.faq-question {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    text-align: left;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 3px;
-    transition: background-color 0.3s;
-}
-
-.faq-question:hover {
-    background-color: #2980b9;
-}
-
-.faq-answer {
-    display: none;
-    padding: 0.5rem 1rem;
-    background-color: #f1f1f1;
-    border-left: 3px solid #2980b9;
-    border-radius: 3px;
-    margin-top: 0.5rem;
-}
-
-
-/* support client */
-.submit-question-container {
-    max-width: 600px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.header-text {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #3498db;
-}
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.form-label {
-    font-size: 1rem;
-    color: #333;
-}
-
-textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    resize: none;
-}
-
-textarea:focus {
-    border-color: #2980b9;
-    outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-}
-
-.submit-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.submit-button:hover {
-    background-color: #45a049;
-}
-
-
-/* Estiliza a área de mensagem específica para conclusão de suporte */
-.support_completed {
-    background-color: #e9f7f6; /* cor de fundo suave */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 25px;
-    margin: 50px auto;
-    max-width: 600px;
-    text-align: center;
-    border-left: 5px solid #3498db; /* destaque verde */
-}
-
-/* Estilo para o texto da mensagem */
-.support_message {
-    font-size: 18px;
-    color: #555;
-    margin: 0;
-    font-weight: bold;
-}
-
-/* support_view_staff */
-.support-container {
-    width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-/* Estilo para os cartões de dúvidas */
-.support-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Informações de suporte */
-.support-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.support-text {
-    margin: 0;
-    line-height: 1.5;
-    overflow: hidden;
-    white-space: normal;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.support-text-detail {
-    margin: 0;
-    line-height: 1.5;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    text-overflow: ellipsis;
-}
-
-/* Ações: links e botão */
-.support-action-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.support-link a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.support-link a:hover {
-    color: #0056b3;
-}
-
-
-/* Responsividade */
-@media (max-width: 600px) {
-    .support-card {
-        padding: 10px;
-    }
-
-    .support-action-container {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
-
-/* Responsividade */
-@media (max-width: 600px) {
-    .support-card {
-        padding: 10px;
-    }
-
-    .support-action-container {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
-
-
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-    .support_completed {
-        margin: 20px;
-        padding: 20px;
-    }
-}
-
-/* Melhorando a responsividade para telas pequenas */
-@media (max-width: 480px) {
-    .payment-form {
-        width: 90%;
-        padding: 20px;
-    }
-
-    .submit-btn {
-        font-size: 16px;
-    }
-
-    /* Ajuste no tamanho e padding dos campos de entrada em telas menores */
-    .payment-form input {
-        padding: 10px;
-        font-size: 14px;
-    }
 }

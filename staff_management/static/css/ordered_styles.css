@@ -1,0 +1,158 @@
+/* Container geral para os pedidos */
+.order-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Card de pedido */
+.order-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagem do pedido */
+.order-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Informações do pedido */
+.order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Título ou número do pedido */
+.order-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* Texto das informações */
+.order-text {
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+}
+
+/* Estilo para o contêiner que envolve o link e o formulário */
+.order-action-container {
+    display: flex; /* Faz com que o link e o formulário fiquem lado a lado */
+    align-items: center; /* Alinha os itens verticalmente no centro */
+    gap: 10px; /* Adiciona um espaço entre os itens */
+}
+
+/* Estilo do link */
+.order-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.order-link a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.order-link:hover {
+    background-color: #2980b9;
+}
+
+/* Container geral para os detalhes do pedido */
+.order-detail-container {
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+/* Card de detalhes do pedido */
+.order-detail-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Informações do pedido */
+.order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Título ou número do pedido */
+.order-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Texto das informações */
+.order-text {
+    font-size: 1em;
+    color: #555;
+}
+
+/* Estilo para o contêiner que envolve o link e o formulário */
+.order-action-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Estilo do link */
+.order-link {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.order-link a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.order-link:hover {
+    background-color: #2980b9;
+}
+
+/* Estilo da lista de itens */
+.order-items h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.order-items ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-items li {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 5px;
+}

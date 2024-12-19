@@ -1,0 +1,116 @@
+/* Estilo para os cartões de dúvidas */
+.support-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Informações de suporte */
+.support-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.support-text {
+    margin: 0;
+    line-height: 1.5;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.support-text-detail {
+    margin: 0;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-overflow: ellipsis;
+}
+
+/* Ações: links e botão */
+.support-action-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.support-link a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.support-link a:hover {
+    color: #0056b3;
+}
+
+/* Estiliza a área de mensagem específica para conclusão de suporte */
+.support_completed {
+    background-color: #e9f7f6; /* cor de fundo suave */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin: 50px auto;
+    max-width: 600px;
+    text-align: center;
+    border-left: 5px solid #3498db; /* destaque verde */
+}
+
+/* Estilo para o texto da mensagem */
+.support_message {
+    font-size: 18px;
+    color: #555;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* support_view_staff */
+.support-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .support-card {
+        padding: 10px;
+    }
+
+    .support-action-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 600px) {
+    .support-card {
+        padding: 10px;
+    }
+
+    .support-action-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .support_completed {
+        margin: 20px;
+        padding: 20px;
+    }
+}

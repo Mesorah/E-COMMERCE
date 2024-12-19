@@ -1,0 +1,50 @@
+/* Estilizando o formulário de pagamento */
+.payment-form {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo geral dos inputs */
+.payment-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Estilos para os campos de entrada em foco */
+.payment-form input:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Estilizando os campos de erro (inputs inválidos) */
+.payment-form input:invalid {
+    border-color: #ff4d4d;
+    background-color: #ffe6e6;
+}
+
+@media (max-width: 480px) {
+    .payment-form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .submit-btn {
+        font-size: 16px;
+    }
+
+    .payment-form input {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
