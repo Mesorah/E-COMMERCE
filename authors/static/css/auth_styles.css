@@ -1,0 +1,71 @@
+/* Estilos específicos para o formulário de autenticação */
+.auth-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    margin: 40px auto;
+}
+
+.auth-container h2 {
+    text-align: center;
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="password"],
+.auth-container input[type="email"] {
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.auth-container input[type="text"]:focus,
+.auth-container input[type="password"]:focus,
+.auth-container input[type="email"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Estilo do botão de login */
+.auth-container button {
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-container button:hover {
+    background-color: #2980b9;
+}
+
+/* Estilo de links */
+.auth-container .link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.auth-container .link a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.auth-container .link a:hover {
+    text-decoration: underline;
+}
