@@ -42,4 +42,9 @@ urlpatterns = [
           views.SupportCompleted.as_view(),
           name='support_completed',
           ),
+
+     # path('products/search/',
+     #      views.HomeListViewSearch.as_view(),
+     #      name="home_search"
+     #      ),
 ]
