@@ -30,7 +30,7 @@ urlpatterns = [
           ),
 
      path('faq/',
-          views.faq,
+          views.Faq.as_view(),
           name='faq',
           ),
 
