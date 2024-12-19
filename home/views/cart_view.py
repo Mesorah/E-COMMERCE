@@ -30,7 +30,7 @@ class AddToCartView(LoginRequiredMixin, View):
     def post(self, request, id):
         quantity, product, cart_item = self.get_itens(id)
 
-        if quantity > product.stock:
+        if cart_item.quantity >= product.stock or quantity > product.stock:
             messages.error(self.request,
                            'Não temos essa quantidade em estoque!'
                            )
