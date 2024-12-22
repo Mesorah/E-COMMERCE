@@ -69,3 +69,19 @@
 .auth-container .link a:hover {
     text-decoration: underline;
 }
+
+/* Logout Button */
+.header form button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.header form button:hover {
+    background-color: #c0392b;
+}

@@ -15,7 +15,7 @@
                     <p class="support-text-detail"><strong>Dúvida:</strong> {{ question.question }}</p>
                 </div>
 
-                <form action="{% url 'staff:support_staff' %}" method="POST">
+                <form action="{% url 'staff:support_staff' %}" method="GET">
                     {% csrf_token %}
                     <input type="hidden" name="email" value="{{ question.user.email }}">
                     <button type="submit">Responder</button>

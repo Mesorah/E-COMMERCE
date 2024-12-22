@@ -18,7 +18,7 @@
             <p class="order-text"><strong>Data do Pedido:</strong> {{ order.created_at }}</p>
         </div>
         <div class="order-items">
-            <h3>Itens do Pedido</h3>
+            <h3>Itens do Pedido:</h3>
             <ul>
                 {% for product in products %}
                     <!-- product.product.name -> product(many-to-many de products) - > product(produto normal) -->

@@ -18,7 +18,7 @@
                     <div class="support-action-container">
                         <p class="support-link"><a href="{% url 'staff:support_question_detail' question.id %}">Visualizar</a></p>
 
-                        <form action="{% url 'staff:support_staff' %}" method="POST">
+                        <form action="{% url 'staff:support_staff' %}" method="GET">
                             {% csrf_token %}
                             <input type="hidden" name="email" value="{{ question.user.email }}">
                             <button type="submit">Responder</button>

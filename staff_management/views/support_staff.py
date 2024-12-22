@@ -61,9 +61,10 @@ class SupportStaff(UserPassesTestMixin, View):
 
             self.send_email(answer, email)
 
-            return redirect('staff:index')
+            return redirect('staff:support_view_staff')
 
 
+# Talvez quando enviada a resposta 'delete' a dúvida
 class SupportViewStaff(UserPassesTestMixin, ListView):
     template_name = 'staff_management/pages/support_view_staff.html'
     model = CustomerQuestion

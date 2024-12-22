@@ -1,0 +1,23 @@
+/* Cart Icon */
+.cart-icon {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.cart-icon a {
+    color: #3498db;
+    position: relative;
+}
+
+.cart-icon .cart-count {
+    background-color: #e74c3c;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+}

@@ -1,16 +1,21 @@
 /* Container principal dos itens */
 .products-container {
-    display: inline-flex;
+    display: flex;
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
     justify-content: center;
+    background-color: #f9fafb; /* Fundo suave para destacar os produtos */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px; /* Limitar a largura máxima para melhorar o layout */
 }
 
-/* Estilização de cada product */
+/* Estilização de cada produto */
 .product {
-    width: 250px; /* Tamanho fixo da largura */
-    min-height: 320px; /* Altura mínima para garantir consistência */
+    width: 280px; /* Ajuste para um design mais espaçoso */
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,75 +23,74 @@
     border-radius: 12px;
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     overflow: hidden;
-    height: 400px; /* Altura fixa para que todos os containers sejam iguais */
+    height: 450px;
 }
 
 /* Hover para realçar os itens */
 .product:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    border-color: #3498db;
 }
 
-/* Estilização de cada elemento do product */
-.product-img img {
-    width: 100%;
-    height: auto;
+/* Estilização da imagem do produto */
+.product-img {
+    height: 180px; /* Altura fixa para manter a consistência */
+    overflow: hidden;
     border-radius: 8px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-img img {
+    max-width: 100%;
+    max-height: 100%;
     transition: transform 0.3s;
+    object-fit: cover;
 }
 
 .product-img img:hover {
     transform: scale(1.05);
 }
 
+/* Nome do produto */
 .product-name {
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 10px;
-    color: #333;
-    white-space: normal; /* Permite que o texto quebre a linha */
-    overflow-wrap: break-word;
+    color: #2c3e50;
 }
 
+/* Preço do produto */
 .product-price {
-    font-size: 18px;
+    font-size: 1.1rem;
     color: #2ecc71;
+    font-weight: bold;
     margin-bottom: 16px;
-    white-space: nowrap; /* Impede quebra de linha */
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 /* Links para ações */
 .product-link {
     display: flex;
-    flex-direction: column;
-    gap: 20px; /* Espaço entre os botões */
-    align-items: center; /* Centraliza os botões */
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-/* Estilos específicos para os botões de Editar e Deletar */
-.product-link a,
-.product-link form button {
-    font-size: 14px;
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: 8px;
-    text-align: center;
-    transition: all 0.3s ease;
-    width: 100%; /* Garante que os botões ocupem toda a largura do contêiner */
-}
-
-/* Link de editar */
 .product-link a {
+    font-size: 0.9rem;
+    color: #fff;
     background-color: #3498db;
-    border: 1px solid #3498db;
+    padding: 8px 16px;
+    border-radius: 8px;
     text-decoration: none;
+    transition: background-color 0.3s;
 }
 
 .product-link a:hover {
@@ -94,48 +98,51 @@
 }
 
 /* Botão de deletar */
-.product-link form button {
+.form-delete-products button {
+    font-size: 0.9rem;
+    color: #fff;
     background-color: #e74c3c;
-    border: 1px solid #e74c3c;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
     cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
 }
 
-.product-link form button:hover {
+.form-delete-products button:hover {
     background-color: #c0392b;
 }
 
-/* Garantir que o formulário de delete tenha o mesmo estilo do botão */
-.product-link form {
-    width: 100%; /* Alinha o botão de deletar ao restante dos botões */
-}
-
-.product-link a:focus {
-    outline: none;
-}
-
+/* Status do produto */
 .product-status {
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: bold;
     margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: inline-block;
 }
 
 .product-published {
     color: #2ecc71;
+    background-color: #ecf9f1;
 }
 
 .product-unpublished {
     color: #e74c3c;
+    background-color: #fdecea;
 }
 
-/* Estilo para produtos sem estoque */
+/* Produtos sem estoque */
 .out-of-stock {
-    color: #e74c3c; /* Vermelho */
+    color: #e74c3c;
     font-weight: bold;
-    background-color: #fdecea; /* Fundo claro para destacar */
+    background-color: #fdecea;
     padding: 8px;
-    border-radius: 4px; /* Cantos arredondados */
+    border-radius: 4px;
     text-align: center;
-    margin: 10px 0; /* Espaço acima e abaixo */
-    border: 1px solid #e74c3c; /* Borda vermelha */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    margin: 10px 0;
+    border: 1px solid #e74c3c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
