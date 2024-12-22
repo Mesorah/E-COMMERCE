@@ -8,9 +8,7 @@ class TestFaq(TestCase):
     def test_if_home_faq_load_the_correct_view(self):
         response = resolve(reverse('home:faq'))
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-
-        self.assertEqual(response.func, views.faq)
+        self.assertEqual(response.func.view_class, views.Faq)
 
     def test_if_home_faq_load_the_correct_template(self):
         response = self.client.get(reverse('home:faq'))

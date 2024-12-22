@@ -42,18 +42,25 @@ class TestViewAddToCart(TestCase):
         self.assertEqual(response.status_code, 405)  # Navegador recusa
 
     def test_if_home_add_to_cart_is_post(self):
-        response = self.client.post(reverse('home:add_to_cart',
-                                            kwargs={'id': '2'}))
-
         cart_item = CartItem.objects.filter(
             cart=self.cart
+        )
+
+        self.product.stock = 100
+        self.product.save()
+
+        response = self.client.post(reverse(
+            'home:add_to_cart',
+            kwargs={'id': '1'}),
+            data={'quantity': '1'},
+            follow=True
         )
 
         products = cart_item.all()
 
         self.assertEqual(products.count(), 2)
 
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('home:index'))
 
     def test_if_add_to_cart_stock_is_not_enough(self):
         response = self.client.post(reverse(

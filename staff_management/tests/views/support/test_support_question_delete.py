@@ -20,18 +20,16 @@ class TestSupportQuestionDelete(TestCase):
     def test_if_staff_support_question_delete_load_the_correct_view(self):
         response = resolve(
             reverse('staff:support_question_delete',
-                    kwargs={'id': '1'}
+                    kwargs={'pk': '1'}
                     )
                 )
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-
-        self.assertEqual(response.func, views.support_question_delete)
+        self.assertEqual(response.func.view_class, views.SupportQuestionDelete)
 
     def test_if_staff_support_question_delete_returns_302(self):
         response = self.client.post(
             reverse('staff:support_question_delete',
-                    kwargs={'id': '1'}
+                    kwargs={'pk': '1'}
                     )
                 )
 
@@ -44,7 +42,7 @@ class TestSupportQuestionDelete(TestCase):
 
         self.client.post(
             reverse('staff:support_question_delete',
-                    kwargs={'id': '1'}
+                    kwargs={'pk': '1'}
                     )
                 )
 
@@ -55,8 +53,10 @@ class TestSupportQuestionDelete(TestCase):
     def test_if_staff_support_question_delete_is_get(self):
         response = self.client.get(
             reverse('staff:support_question_delete',
-                    kwargs={'id': '1'}
+                    kwargs={'pk': '1'}
                     )
                 )
 
-        self.assertRedirects(response, reverse('staff:support_view_staff'))
+        self.assertEqual(response.status_code, 404)
+        # Por causa do DeleteViewMixin que tem o
+        # raise no método get

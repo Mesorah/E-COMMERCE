@@ -19,18 +19,16 @@ class TestSupportQuestionDetail(TestCase):
     def test_if_staff_support_question_detail_load_the_correct_view(self):
         response = resolve(
             reverse('staff:support_question_detail',
-                    kwargs={'id': '1'}
+                    kwargs={'pk': '1'}
                     )
                 )
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-
-        self.assertEqual(response.func, views.support_question_detail)
+        self.assertEqual(response.func.view_class, views.SupportQuestionDetail)
 
     def test_if_staff_support_question_detail_load_the_correct_template(self):
         response = self.client.get(
             reverse('staff:support_question_detail',
-                    kwargs={'id': '1'}
+                    kwargs={'pk': '1'}
                     )
                 )
 
@@ -42,7 +40,7 @@ class TestSupportQuestionDetail(TestCase):
     def test_if_staff_support_question_detail_returns_200(self):
         response = self.client.get(
             reverse('staff:support_question_detail',
-                    kwargs={'id': '1'}
+                    kwargs={'pk': '1'}
                     )
                 )
 

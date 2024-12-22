@@ -23,7 +23,7 @@ class SupportStaff(UserPassesTestMixin, View):
 
         return data
 
-    def get_render(self, form, data):
+    def get_render(self, form, data=None):
         return render(
             self.request,
             'staff_management/pages/support_staff.html',
@@ -56,12 +56,15 @@ class SupportStaff(UserPassesTestMixin, View):
         form = SupportStaffForm(self.request.POST)
 
         if form.is_valid():
-            email = form.cleaned_data.get('email')
-            answer = form.cleaned_data.get('answer')
+            email = form.cleaned_data.get('email', 'email_not_found')
+            answer = form.cleaned_data.get('answer', 'answer_not_found')
 
-            self.send_email(answer, email)
+            if email != 'email_not_found' and answer != 'answer_not_found':
+                self.send_email(answer, email)
 
-            return redirect('staff:support_view_staff')
+                return redirect('staff:support_view_staff')
+
+        return self.get_render(form)
 
 
 # Talvez quando enviada a resposta 'delete' a dúvida

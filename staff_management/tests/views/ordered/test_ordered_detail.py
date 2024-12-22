@@ -1,4 +1,3 @@
-import pytest
 from django.test import TestCase
 from django.urls import resolve, reverse
 
@@ -6,7 +5,6 @@ from staff_management import views
 from utils.for_tests.base_for_setup import create_ordered_setup
 
 
-@pytest.mark.test
 class TestOrderedDetail(TestCase):
     def setUp(self):
         self.ordered = create_ordered_setup()

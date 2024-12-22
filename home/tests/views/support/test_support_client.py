@@ -16,9 +16,7 @@ class TestSupportClient(TestCase):
     def test_if_home_support_client_load_the_correct_view(self):
         response = resolve(reverse('home:support_client'))
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-
-        self.assertEqual(response.func, views.support_client)
+        self.assertEqual(response.func.view_class, views.SupportClient)
 
     def test_if_home_support_client_load_the_correct_template(self):
         response = self.client.get(reverse('home:support_client'))

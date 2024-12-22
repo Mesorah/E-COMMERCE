@@ -1,10 +1,13 @@
+import pytest
 from django.test import TestCase
 from django.urls import resolve, reverse
 
 from staff_management import views
+from staff_management.forms import SupportStaffForm
 from utils.for_tests.base_for_authentication import register_super_user
 
 
+@pytest.mark.test
 class TestSupportStaff(TestCase):
     def setUp(self):
         self.user = register_super_user()
@@ -21,9 +24,7 @@ class TestSupportStaff(TestCase):
     def test_if_staff_support_staff_load_the_correct_view(self):
         response = resolve(reverse('staff:support_staff'))
 
-        # self.assertEqual(response.func.view_class, views.HomeListView)
-
-        self.assertEqual(response.func, views.support_staff)
+        self.assertEqual(response.func.view_class, views.SupportStaff)
 
     def test_if_staff_support_staff_load_the_correct_template(self):
         response = self.client.get(reverse('staff:support_staff'))
@@ -44,7 +45,7 @@ class TestSupportStaff(TestCase):
             data=self.data
         )
 
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('staff:support_view_staff'))
 
     def test_if_support_staff_email_not_found(self):
         data = {
@@ -56,11 +57,32 @@ class TestSupportStaff(TestCase):
             data=data
         )
 
+        form = SupportStaffForm(data)
+
+        self.assertIn('email', form.errors)
+
         self.assertEqual(response.status_code, 200)
 
     def test_if_support_staff_answer_not_found(self):
         data = {
             'email': 'testemail@gmail.com',
+        }
+
+        response = self.client.post(
+            reverse('staff:support_staff'),
+            data=data
+        )
+
+        form = SupportStaffForm(data)
+
+        self.assertIn('answer', form.errors)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_if_support_staff_email_answer_not_found(self):
+        data = {
+            'email': 'email_not_found',
+            'answer': 'answer_not_found'
         }
 
         response = self.client.post(
