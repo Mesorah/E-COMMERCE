@@ -13,6 +13,7 @@ class OrderedIndexView(UserPassesTestMixin, ListView):
     model = Ordered
     paginate_by = 10
     paginator_class = Paginator
+    ordering = ['-id']
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

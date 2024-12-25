@@ -44,7 +44,7 @@ urlpatterns = [
           ),
 
      path('products/search/',
-          views.HomeListViewSearch.as_view(),
+          views.HomeSearchListView.as_view(),
           name="home_search"
           ),
 ]

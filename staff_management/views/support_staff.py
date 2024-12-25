@@ -74,6 +74,7 @@ class SupportViewStaff(UserPassesTestMixin, ListView):
     context_object_name = 'questions'
     paginate_by = 10
     paginator_class = Paginator
+    ordering = ['id']
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

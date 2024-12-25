@@ -6,6 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from home.models import Products
+from home.views.index import BaseSearchListView
 from staff_management.forms import CrudProduct
 
 
@@ -25,13 +26,15 @@ class HomeListView(UserPassesTestMixin, ListView):
     context_object_name = 'products'
     paginate_by = 10
     paginator_class = Paginator
+    ordering = ['-id']
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
         context.update({
             'title': 'Staff',
-            'is_staff': True
+            'is_staff': True,
+            'search_url': reverse('staff:staff_search')
         })
 
         return context
@@ -88,3 +91,16 @@ class DeleteViewMixin(UserPassesTestMixin, DeleteView):
 
 class ProductDeleteView(DeleteViewMixin):
     pass
+
+
+class StaffSearchListView(BaseSearchListView):
+    is_published = False
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context.update({
+            'is_staff': True,
+        })
+
+        return context

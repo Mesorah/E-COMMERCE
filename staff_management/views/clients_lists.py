@@ -12,6 +12,7 @@ class ClientsListView(UserPassesTestMixin, ListView):
     model = Cart
     paginate_by = 10
     paginator_class = Paginator
+    ordering = ['-id']
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -32,6 +33,7 @@ class ClientListOrderedDetailView(UserPassesTestMixin, ListView):
     model = Ordered
     paginate_by = 10
     paginator_class = Paginator
+    ordering = ['id']
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)

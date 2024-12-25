@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
 from home.models import CartItem, Products
@@ -12,6 +13,7 @@ class HomeListView(ListView):
     context_object_name = 'products'
     paginate_by = 10
     paginator_class = Paginator
+    ordering = ['-id']
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
@@ -27,6 +29,7 @@ class HomeListView(ListView):
 
         context.update({
             'title': 'Home',
+            'search_url': reverse('home:home_search')
         })
 
         return context
@@ -75,6 +78,8 @@ class BaseSearchListView(ListView):
     paginate_by = 10
     paginator_class = Paginator
     context_object_name = 'products'
+    ordering = ['-id']
+    is_published = True
 
     def get_queryset(self, *args, **kwargs):
         search_term = self.request.GET.get('q', '')
@@ -89,6 +94,9 @@ class BaseSearchListView(ListView):
                 Q(name__icontains=search_term)
             )
         )
+
+        if self.is_published:
+            queryset = queryset.filter(is_published=True)
 
         return queryset
 
@@ -105,5 +113,5 @@ class BaseSearchListView(ListView):
         return context
 
 
-class HomeListViewSearch(BaseSearchListView):
+class HomeSearchListView(BaseSearchListView):
     pass
