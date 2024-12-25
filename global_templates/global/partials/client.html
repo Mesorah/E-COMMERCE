@@ -1,0 +1,6 @@
+<div class="order-info">
+    <p class="order-text"><strong>Nome:</strong> {{ client.user }}</p>
+</div>
+<div class="order-action-container">
+    <p class="order-link"><a href="{% url 'staff:client_list_ordered' client.id %}">Visualizar</a></p>
+</div>

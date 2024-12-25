@@ -57,8 +57,17 @@ urlpatterns = [
           views.SupportQuestionDetail.as_view(),
           name='support_question_detail'
           ),
-     path('/products/search/',
+
+     path('products/search/',
           views.StaffSearchListView.as_view(),
           name="staff_search"
+          ),
+     path('ordereds/search/',
+          views.StaffOrderedSearchListView.as_view(),
+          name="staff_ordered_search"
+          ),
+     path('clients/search/',
+          views.StaffClientsSearchListView.as_view(),
+          name="staff_client_search"
           ),
 ]

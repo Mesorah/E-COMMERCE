@@ -3,16 +3,15 @@
 {% block title %} {{ title }} {% endblock title %}
 
 {% block content %}
-<div>
-    <div class="header">
-        <h1>Clientes</h1>
-    </div>
     <div class="order-container">
         {% for client in clients %}
             <div class="order-card">
                 {% include "global/partials/client.html" %}
             </div>
+        {% empty %}
+        <div class="center m-y">
+            <h1>No Client found here</h1>
+        </div>
         {% endfor %}
     </div>
-</div>
 {% endblock content %}

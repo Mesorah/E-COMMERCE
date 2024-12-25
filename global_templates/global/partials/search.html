@@ -1,11 +1,10 @@
 <div class="search-container">
     <div class="container">
-        {{search_url}}
         <form action="{{ search_url }}" method="Get" class="search-form">
             <input 
             type="search" class="search-input"
             name="q" value="{{ search_term }}" required
-            placeholder="Search for a product">
+            placeholder="Search for a {{ name }}"> <!-- product -->
             <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
         </form>
     </div>

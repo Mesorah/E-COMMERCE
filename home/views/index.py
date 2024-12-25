@@ -73,7 +73,7 @@ class PageDetailView(DetailView):
 
 
 class BaseSearchListView(ListView):
-    template_name = 'home/pages/search.html'
+    template_name = 'global/pages/search_product.html'
     model = Products
     paginate_by = 10
     paginator_class = Paginator

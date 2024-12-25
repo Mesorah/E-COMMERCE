@@ -1,4 +1,7 @@
 from django.core.paginator import Paginator
+from django.db.models import Q
+from django.http import Http404
+from django.urls import reverse
 from django.views.generic import ListView
 
 from home.models import Cart, Ordered
@@ -20,6 +23,7 @@ class ClientsListView(UserPassesTestMixin, ListView):
         context.update({
             'title': 'Clientes',
             'is_staff': True,
+            'search_url': reverse('staff:staff_client_search')
         })
 
         return context
@@ -51,6 +55,44 @@ class ClientListOrderedDetailView(UserPassesTestMixin, ListView):
 
         context.update({
             'title': 'Cliente',
+            'is_staff': True,
+        })
+
+        return context
+
+
+class StaffClientsSearchListView(ListView):
+    template_name = 'staff_management/pages/search_clients.html'
+    context_object_name = 'clients'
+    model = Cart
+    paginator_class = Paginator
+    paginate_by = 10
+    ordering = ['-id']
+
+    def get_queryset(self, *args, **kwargs):
+        search_term = self.request.GET.get('q', '')
+
+        if not search_term:
+            raise Http404()
+
+        queryset = super().get_queryset(*args, **kwargs)
+
+        queryset = queryset.filter(
+            Q(
+                Q(id__icontains=search_term)
+            )
+        )
+
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        search_term = self.request.GET.get('q', '').strip()
+
+        context.update({
+            'page_title': f'Search for "{search_term}" |',
+            'search_term': search_term,
+            'additional_url_query': f'&q={search_term}',
             'is_staff': True,
         })
 
