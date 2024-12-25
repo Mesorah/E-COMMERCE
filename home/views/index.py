@@ -1,6 +1,5 @@
 from django.core.paginator import Paginator
-
-# from django.db.models import Q
+from django.db.models import Q
 from django.http import Http404
 from django.views.generic import DetailView, ListView
 
@@ -70,41 +69,41 @@ class PageDetailView(DetailView):
         return context
 
 
-# class BaseListViewSearch(ListView):
-#     template_name = 'global/pages/search_result.html'
-#     model = Products
-#     paginate_by = 10
-#     paginator_class = Paginator
-#     context_object_name = 'products'
+class BaseSearchListView(ListView):
+    template_name = 'home/pages/search.html'
+    model = Products
+    paginate_by = 10
+    paginator_class = Paginator
+    context_object_name = 'products'
 
-#     def get_queryset(self, *args, **kwargs):
-#         search_term = self.request.GET.get('q', '')
+    def get_queryset(self, *args, **kwargs):
+        search_term = self.request.GET.get('q', '')
 
-#         if not search_term:
-#             raise Http404()
+        if not search_term:
+            raise Http404()
 
-#         queryset = super().get_queryset(*args, **kwargs)
+        queryset = super().get_queryset(*args, **kwargs)
 
-#         queryset = queryset.filter(
-#             Q(
-#                 Q(name__icontains=search_term)
-#             )
-#         )
+        queryset = queryset.filter(
+            Q(
+                Q(name__icontains=search_term)
+            )
+        )
 
-#         return queryset
+        return queryset
 
-#     def get_context_data(self, *args, **kwargs):
-#         context = super().get_context_data(*args, **kwargs)
-#         search_term = self.request.GET.get('q', '').strip()
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        search_term = self.request.GET.get('q', '').strip()
 
-#         context.update({
-#             'page_title': f'Search for "{search_term}" |',
-#             'search_term': search_term,
-#             'additional_url_query': f'&q={search_term}',
-#         })
+        context.update({
+            'page_title': f'Search for "{search_term}" |',
+            'search_term': search_term,
+            'additional_url_query': f'&q={search_term}',
+        })
 
-#         return context
+        return context
 
 
-# class HomeListViewSearch(BaseListViewSearch):
-#     pass
+class HomeListViewSearch(BaseSearchListView):
+    pass

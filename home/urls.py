@@ -43,8 +43,8 @@ urlpatterns = [
           name='support_completed',
           ),
 
-     # path('products/search/',
-     #      views.HomeListViewSearch.as_view(),
-     #      name="home_search"
-     #      ),
+     path('products/search/',
+          views.HomeListViewSearch.as_view(),
+          name="home_search"
+          ),
 ]

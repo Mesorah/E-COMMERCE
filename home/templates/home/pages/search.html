@@ -3,16 +3,15 @@
 {% block title %} {{ title }} {% endblock title %}
 
 {% block content %}
-<div>
-    <div class="header">
-        <h1>Produtos Disponíveis</h1>
-    </div>
     <div class="products-container">
         {% for product in products %}
             <div class="product">
                 {% include "global/partials/product.html" %}
             </div>
+        {% empty %}
+        <div class="center m-y">
+            <h1>No Products found here</h1>
+        </div>
         {% endfor %}
     </div>
-</div>
 {% endblock content %}
