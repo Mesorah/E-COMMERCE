@@ -34,7 +34,8 @@ class HomeListView(UserPassesTestMixin, ListView):
         context.update({
             'title': 'Staff',
             'is_staff': True,
-            'search_url': reverse('staff:staff_search')
+            'search_url': reverse('staff:staff_search'),
+            'name': 'product'
         })
 
         return context
@@ -101,6 +102,7 @@ class StaffSearchListView(BaseSearchListView):
 
         context.update({
             'is_staff': True,
+            'name': 'product'
         })
 
         return context

@@ -29,7 +29,8 @@ class HomeListView(ListView):
 
         context.update({
             'title': 'Home',
-            'search_url': reverse('home:home_search')
+            'search_url': reverse('home:home_search'),
+            'name': 'product'
         })
 
         return context
@@ -114,4 +115,11 @@ class BaseSearchListView(ListView):
 
 
 class HomeSearchListView(BaseSearchListView):
-    pass
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context.update({
+            'name': 'product'
+        })
+
+        return context

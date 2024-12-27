@@ -23,7 +23,8 @@ class ClientsListView(UserPassesTestMixin, ListView):
         context.update({
             'title': 'Clientes',
             'is_staff': True,
-            'search_url': reverse('staff:staff_client_search')
+            'search_url': reverse('staff:staff_client_search'),
+            'name': 'client'
         })
 
         return context
@@ -94,6 +95,7 @@ class StaffClientsSearchListView(ListView):
             'search_term': search_term,
             'additional_url_query': f'&q={search_term}',
             'is_staff': True,
+            'name': 'client'
         })
 
         return context

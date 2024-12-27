@@ -23,7 +23,8 @@ class OrderedIndexView(UserPassesTestMixin, ListView):
         context.update({
             'title': 'Pedidos',
             'is_staff': True,
-            'search_url': reverse('staff:staff_ordered_search')
+            'search_url': reverse('staff:staff_ordered_search'),
+            'name': 'ordered'
         })
 
         return context
@@ -93,6 +94,7 @@ class StaffOrderedSearchListView(ListView):
             'search_term': search_term,
             'additional_url_query': f'&q={search_term}',
             'is_staff': True,
+            'name': 'ordered'
         })
 
         return context
