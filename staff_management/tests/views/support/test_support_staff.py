@@ -1,4 +1,3 @@
-import pytest
 from django.test import TestCase
 from django.urls import resolve, reverse
 
@@ -7,7 +6,6 @@ from staff_management.forms import SupportStaffForm
 from utils.for_tests.base_for_authentication import register_super_user
 
 
-@pytest.mark.test
 class TestSupportStaff(TestCase):
     def setUp(self):
         self.user = register_super_user()

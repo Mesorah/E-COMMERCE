@@ -105,7 +105,7 @@ class BaseSearchListView(ListView):
         search_term = self.request.GET.get('q', '').strip()
 
         context.update({
-            'page_title': f'Search for "{search_term}" |',
+            'title': f'Search for "{search_term}" |',
             'search_term': search_term,
             'additional_url_query': f'&q={search_term}',
         })
