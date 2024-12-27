@@ -1,14 +1,13 @@
-<div class="search-container">
-    <div class="container">
-        <form action="{{ search_url }}" method="Get" class="search-form">
-            <input 
-            type="search" class="search-input"
-            name="q" value="{{ search_term }}" required
-            placeholder="Search for a {{ name }}"> <!-- product -->
-            <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
-        </form>
+{% if title != 'Payment' %}
+    <div class="search-container">
+        <div class="container">
+            <form action="{{ search_url }}" method="Get" class="search-form">
+                <input 
+                type="search" class="search-input"
+                name="q" value="{{ search_term }}" required
+                placeholder="Search for a {{ name }}"> <!-- product -->
+                <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
     </div>
-</div>
-
-
-<!-- Não mostrar no payment -->
+{% endif %}

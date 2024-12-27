@@ -22,7 +22,8 @@ class PaymentView(LoginRequiredMixin, View):
 
     def get_render(self, form):
         return render(self.request, 'home/pages/payment.html', context={
-         'form': form
+         'form': form,
+         'title': 'Payment'
         })
 
     def get_data(self, form):
