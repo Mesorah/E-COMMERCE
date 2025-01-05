@@ -76,6 +76,13 @@ class SupportViewStaff(UserPassesTestMixin, ListView):
     paginator_class = Paginator
     ordering = ['id']
 
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+
+        queryset = queryset.prefetch_related('user')
+
+        return queryset
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -95,6 +102,13 @@ class SupportQuestionDetail(UserPassesTestMixin, DetailView):
     template_name = 'staff_management/pages/support_question_detail.html'
     model = CustomerQuestion
     context_object_name = 'question'
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+
+        queryset = queryset.prefetch_related('user')
+
+        return queryset
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

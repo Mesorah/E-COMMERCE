@@ -42,7 +42,7 @@ class OrderedDetailView(UserPassesTestMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        order = self.get_object()
+        order = self.object
         products = order.products.all()
 
         total_price = 0

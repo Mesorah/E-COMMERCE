@@ -57,7 +57,7 @@ class PageDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        product = self.get_object()
+        product = self.object
 
         cart_item = CartItem.objects.filter(
             cart=self.kwargs.get('pk'),
