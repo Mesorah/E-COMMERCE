@@ -10,7 +10,7 @@ urlpatterns = [
           views.ProductCreateView.as_view(),
           name='add_product'
           ),
-     path('update_product/<pk>/',
+     path('update_product/<slug:slug>/',
           views.ProductUpdateView.as_view(),
           name='update_product'
           ),

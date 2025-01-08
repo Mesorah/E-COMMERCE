@@ -6,7 +6,7 @@ app_name = 'home'
 
 urlpatterns = [
      path('', views.HomeListView.as_view(), name='index'),
-     path('product/<pk>/',
+     path('product/<slug:slug>/',
           views.PageDetailView.as_view(),
           name='view_page'
           ),

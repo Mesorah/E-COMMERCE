@@ -1,10 +1,10 @@
 <img class="product-img" src="{{ product.cover.url }}" alt="Imagem do produto">
 <p class="product-name">{{ product.name }}</p>
 <p class="product-price">R$ {{ product.price }}</p>
-<p class="product-link"><a href="{% url "home:view_page" product.id %}">Visualizar</a></p>
+<p class="product-link"><a href="{% url "home:view_page" product.slug %}">Visualizar</a></p>
 
 {% if is_staff %}
-    <p class="product-link"><a href="{% url "staff:update_product" product.id %}">Editar</a></p>
+    <p class="product-link"><a href="{% url "staff:update_product" product.slug %}">Editar</a></p>
 
     {% if product.is_published %}
         <p class="product-status product-published">Publicado</p>

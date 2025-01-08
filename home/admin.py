@@ -17,7 +17,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {
+        "slug": ('name',)
+    }
 
 
 @admin.register(Cart)

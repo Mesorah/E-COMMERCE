@@ -22,7 +22,9 @@ class TestEditProductView(TestCase):
         return super().setUp()
 
     def test_if_staff_edit_product_load_the_correct_view(self):
-        response = resolve(reverse('staff:update_product', kwargs={'pk': '1'}))
+        response = resolve(reverse('staff:update_product', kwargs={
+            'slug': self.product.slug
+        }))
 
         self.assertEqual(response.func.view_class, views.ProductUpdateView)
 
@@ -34,13 +36,13 @@ class TestEditProductView(TestCase):
 
         response = self.client.get(
             reverse(
-                'staff:update_product', kwargs={'pk': '1'}
+                'staff:update_product', kwargs={'slug': self.product.slug}
             )
         )
 
         expected_url = reverse('authors:login') + '?' + urlencode(
             {'next': reverse(
-                'staff:update_product', kwargs={'pk': '1'}
+                'staff:update_product', kwargs={'slug': self.product.slug}
                 )
              }
          )
@@ -50,7 +52,7 @@ class TestEditProductView(TestCase):
     def test_user_with_permissions_can_update_product_in_staff(self):
         response = self.client.get(
             reverse(
-                'staff:update_product', kwargs={'pk': '1'}
+                'staff:update_product', kwargs={'slug': self.product.slug}
             )
         )
 
@@ -59,7 +61,7 @@ class TestEditProductView(TestCase):
     def test_if_update_product_have_the_correct_template(self):
         response = self.client.get(
             reverse(
-                'staff:update_product', kwargs={'pk': '1'}
+                'staff:update_product', kwargs={'slug': self.product.slug}
             )
         )
 
@@ -71,7 +73,9 @@ class TestEditProductView(TestCase):
     def test_update_product_raises_404_if_not_found(self):
         response = self.client.post(
             reverse(
-                'staff:update_product', kwargs={'pk': '2'}
+                'staff:update_product', kwargs={
+                    'slug': f'{self.product.slug}-1'
+                }
             )
         )
 
@@ -88,7 +92,7 @@ class TestEditProductView(TestCase):
 
         response = self.client.post(
             reverse(
-                'staff:update_product', kwargs={'pk': '1'}
+                'staff:update_product', kwargs={'slug': self.product.slug}
             ), data=data
         )
 
@@ -104,7 +108,7 @@ class TestEditProductView(TestCase):
 
         response = self.client.post(
             reverse(
-                'staff:update_product', kwargs={'pk': '1'}
+                'staff:update_product', kwargs={'slug': self.product.slug}
             ), data=data
         )
 
@@ -115,7 +119,7 @@ class TestEditProductView(TestCase):
         self.assertIn('name', form.errors)
         self.assertIn('price', form.errors)
         self.assertIn('Nome de produto muito pequeno,', form.errors['name'][0])
-        self.assertIn('Certifique-se que este valor seja maior ou igual a 0.',
+        self.assertIn('O valor do produto nãopode ser menor ou igual a 0.',
                       form.errors['price'][0]
                       )
         self.assertIn('Certifique-se que este valor seja maior ou igual a 0.',

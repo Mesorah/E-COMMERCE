@@ -10,7 +10,7 @@ from utils.for_tests.base_for_setup import create_cart_item_setup
 class TestViewAddToCart(TestCase):
     def setUp(self):
         (self.product,
-         self.prodcut2,
+         self.product2,
          self.cart,
          self.cart_item,
          self.cart_item2) = create_cart_item_setup(
@@ -72,7 +72,7 @@ class TestViewAddToCart(TestCase):
 
         self.assertRedirects(response, reverse(
             'home:view_page',
-            kwargs={'pk': '2'}
+            kwargs={'slug': self.product2.slug}
             )
         )
 

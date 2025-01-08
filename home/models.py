@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -24,8 +25,9 @@ class Products(models.Model):
         default='default/image_default.png'
     )
     name = models.CharField(max_length=55)
-    price = models.PositiveIntegerField()
+    price = models.FloatField()
     description = models.TextField(null=True)
+    slug = models.SlugField(unique=True)
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
@@ -41,6 +43,13 @@ class Products(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.name)}'
+            self.slug = slug
+
+        return super().save(*args, **kwargs)
 
 
 class Cart(models.Model):

@@ -75,7 +75,7 @@ class ProductUpdateView(UserPassesTestMixin, UpdateView):
         context.update({
             'title': 'Editar Produto',
             'form_url': reverse('staff:update_product',
-                                args=[self.kwargs['pk']]),
+                                args=[self.kwargs.get('slug')]),
             'is_staff': True
         })
 

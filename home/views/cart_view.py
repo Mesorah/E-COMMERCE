@@ -35,7 +35,7 @@ class AddToCartView(LoginRequiredMixin, View):
                            'Não temos essa quantidade em estoque!'
                            )
 
-            return redirect('home:view_page', pk=id)
+            return redirect('home:view_page', slug=product.slug)
 
         cart_item.quantity += quantity
         cart_item.save()

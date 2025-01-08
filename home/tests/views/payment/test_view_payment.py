@@ -50,7 +50,7 @@ class TestViewPayment(TestCase):
         user = register_user(username='Test2', password='Test2')
         self.client.login(username='Test2', password='Test2')
 
-        create_product(user)
+        create_product(user, name='Test Product2',)
         create_cart(user)
 
         response = self.client.post(reverse('home:payment'), data=self.data)

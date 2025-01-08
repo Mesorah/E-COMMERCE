@@ -45,7 +45,7 @@ class PageDetailView(DetailView):
         queryset = super().get_queryset(*args, **kwargs)
 
         queryset = queryset.filter(
-            pk=self.kwargs.get('pk'),
+            slug=self.kwargs.get('slug'),
             is_published=True
         )
 
