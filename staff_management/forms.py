@@ -26,25 +26,26 @@ class CrudProduct(forms.ModelForm):
 
         return name
 
-    def clean_price(self):
-        price = self.cleaned_data['price']
+    # def clean_price(self):
+    #     price = self.cleaned_data['price']
 
-        if int(price) <= 0:
-            self.add_error('price',
-                           'o valor do produto não pode ser menor ou igual a 0'
-                           )
+    #     if int(price) <= 0:
+    #         self.add_error('price',
+    #                        'o valor do produto não
+    #                           pode ser menor ou igual a 0'
+    #                        )
 
-        return price
+    #     return price
 
-    def clean_stock(self):
-        stock = self.cleaned_data['stock']
+    # def clean_stock(self):
+    #     stock = self.cleaned_data['stock']
 
-        if int(stock) < 0:
-            self.add_error('stock',
-                           'o valor do stock não pode ser menor que 0'
-                           )
+    #     if int(stock) < 0:
+    #         self.add_error('stock',
+    #                        'o valor do stock não pode ser menor que 0'
+    #                        )
 
-        return stock
+    #     return stock
 
 
 class SupportStaffForm(forms.Form):

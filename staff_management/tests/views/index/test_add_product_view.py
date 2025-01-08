@@ -1,13 +1,14 @@
 from django.test import TestCase
-from utils.for_tests.base_for_authentication import (
-    register_user,
-    register_super_user
-)
-from django.urls import reverse, resolve
-from home.models import Products
+from django.urls import resolve, reverse
 from django.utils.http import urlencode
-from staff_management.forms import CrudProduct
+
+from home.models import Products
 from staff_management import views
+from staff_management.forms import CrudProduct
+from utils.for_tests.base_for_authentication import (  # noqa E501
+    register_super_user,
+    register_user,
+)
 
 
 class TestAddProductView(TestCase):
@@ -123,9 +124,9 @@ class TestAddProductView(TestCase):
         self.assertIn('price', form.errors)
         self.assertIn('stock', form.errors)
         self.assertIn('Nome de produto muito pequeno,', form.errors['name'][0])
-        self.assertIn('o valor do produto não pode ser menor ou igual a 0',
+        self.assertIn('Certifique-se que este valor seja maior ou igual a 0.',
                       form.errors['price'][0]
                       )
-        self.assertIn('o valor do stock não pode ser menor que 0',
+        self.assertIn('Certifique-se que este valor seja maior ou igual a 0.',
                       form.errors['stock'][0]
                       )

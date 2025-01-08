@@ -1,4 +1,11 @@
-from home.models import Cart, CartItem, CustomerQuestion, Ordered, Products
+from home.models import (  # noqa E501
+    Cart,
+    CartItem,
+    Category,
+    CustomerQuestion,
+    Ordered,
+    Products,
+)
 
 
 def create_product(
@@ -61,3 +68,11 @@ def create_question(user, question='Question message test'):
     )
 
     return question
+
+
+def create_category(name):
+    category = Category.objects.create(
+        name=name
+    )
+
+    return category

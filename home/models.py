@@ -2,6 +2,17 @@ from django.conf import settings
 from django.db import models
 
 
+class Category(models.Model):
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 class Products(models.Model):
     class Meta:
         verbose_name = 'Product'
@@ -13,12 +24,20 @@ class Products(models.Model):
         default='default/image_default.png'
     )
     name = models.CharField(max_length=55)
-    price = models.IntegerField()
+    price = models.PositiveIntegerField()
     description = models.TextField(null=True)
-    stock = models.IntegerField(null=True)  # colocar positiveinteger
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    stock = models.PositiveIntegerField(null=True)
     is_published = models.BooleanField(null=True, default=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True
+    )
 
     def __str__(self):
         return f'{self.name}'

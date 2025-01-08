@@ -1,6 +1,18 @@
 from django.contrib import admin
 
-from home.models import Cart, CartItem, CustomerQuestion, Ordered, Products
+from home.models import (  # noqa E501
+    Cart,
+    CartItem,
+    Category,
+    CustomerQuestion,
+    Ordered,
+    Products,
+)
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Products)
@@ -15,12 +27,12 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    pass
+    search_fields = 'number_ordered', 'first_name', 'street_name',
 
 
 @admin.register(Ordered)
 class OrderedAdmin(admin.ModelAdmin):
-    pass
+    autocomplete_fields = 'products',
 
 
 @admin.register(CustomerQuestion)

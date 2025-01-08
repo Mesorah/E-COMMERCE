@@ -67,7 +67,9 @@ class PageDetailView(DetailView):
         context.update({
             'title': 'View Page',
             'stock': product.stock,
-            'have_produtct': cart_item
+            'have_product': cart_item,
+            'search_url': reverse('home:home_search'),
+            'name': 'product'
         })
 
         return context
@@ -92,7 +94,8 @@ class BaseSearchListView(ListView):
 
         queryset = queryset.filter(
             Q(
-                Q(name__icontains=search_term)
+                Q(name__icontains=search_term) |
+                Q(category__name__icontains=search_term)
             )
         )
 
