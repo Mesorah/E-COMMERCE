@@ -11,7 +11,7 @@ class PaymentView(LoginRequiredMixin, View):
     login_url = reverse_lazy('authors:login')
 
     def get_itens(self):
-        cart, _ = Cart.objects.get_or_create(user=self.request.user)
+        cart = Cart.objects.get(user=self.request.user)
 
         cart_item = CartItem.objects.filter(cart=cart, is_ordered=False)
 

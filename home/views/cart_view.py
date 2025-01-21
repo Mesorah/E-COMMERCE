@@ -14,7 +14,7 @@ class AddToCartView(LoginRequiredMixin, View):
         # Pega a quantidade no view_page, quando o usuário envia
         quantity = int(self.request.POST.get('quantity', 1))
 
-        cart, _ = Cart.objects.get_or_create(user=self.request.user)
+        cart = Cart.objects.get(user=self.request.user)
 
         product = get_object_or_404(Products, id=id)
 
@@ -49,7 +49,7 @@ class RemoveFromCartView(LoginRequiredMixin, View):
     def get_itens(self, id):
         quantity = int(self.request.POST.get('quantity-to-remove', 1))
 
-        cart, _ = Cart.objects.get_or_create(user=self.request.user)
+        cart = Cart.objects.get(user=self.request.user)
 
         product = get_object_or_404(Products, id=id)
 
@@ -86,7 +86,7 @@ class CartDetailView(View):
         })
 
     def get_item(self):
-        cart, _ = Cart.objects.get_or_create(user=self.request.user)
+        cart = Cart.objects.get(user=self.request.user)
 
         cart_item = CartItem.objects.filter(
             cart=cart,

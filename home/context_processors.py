@@ -4,7 +4,7 @@ from home.models import Cart, CartItem
 def cart_item_count(request):
     if request.user.is_authenticated:
 
-        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart = Cart.objects.get(user=request.user)
 
         cart_item = CartItem.objects.filter(
             cart=cart,

@@ -1,5 +1,3 @@
-# Usar o signals para criar tudo na hora, tipo o carrinho, etc
-
 import os
 
 from django.db.models.signals import pre_delete, pre_save
