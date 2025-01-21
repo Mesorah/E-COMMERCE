@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from utils.for_tests.base_for_authentication import register_user
 from utils.for_tests.base_for_create_itens import create_cart
 

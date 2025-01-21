@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from validate_docbr import CPF
 
 from authors.models import UserProfile
+from home.models import Cart
 
 
 def validate_cpf(value):
@@ -34,5 +35,7 @@ class CustomUserCreationForm(UserCreationForm):
 
             profile = UserProfile(user=user, cpf=self.cleaned_data['cpf'])
             profile.save()
+
+            Cart.objects.create(user=user)
 
         return user

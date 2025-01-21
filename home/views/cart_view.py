@@ -77,7 +77,9 @@ class RemoveFromCartView(LoginRequiredMixin, View):
         return redirect('home:cart_detail')
 
 
-class CartDetailView(View):
+class CartDetailView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('authors:login')
+
     def get_render(self, products=None, total_price=0):
         return render(self.request, 'home/pages/cart_detail.html', context={
             'title': 'Cart Detail',
@@ -98,14 +100,6 @@ class CartDetailView(View):
         return products
 
     def get(self, request):
-        if not self.request.user.is_authenticated:
-            # messages.error(
-            #     self.request,
-            #     'Você não pode acessar o carrinho sem um login!'
-            # )
-
-            return self.get_render()
-
         products = self.get_item()
 
         total_price = 0
