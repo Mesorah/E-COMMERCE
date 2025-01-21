@@ -99,10 +99,10 @@ class CartDetailView(View):
 
     def get(self, request):
         if not self.request.user.is_authenticated:
-            messages.error(
-                self.request,
-                'Você não pode acessar o carrinho sem um login!'
-            )
+            # messages.error(
+            #     self.request,
+            #     'Você não pode acessar o carrinho sem um login!'
+            # )
 
             return self.get_render()
 
