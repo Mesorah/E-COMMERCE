@@ -78,7 +78,7 @@ class RemoveFromCartView(LoginRequiredMixin, View):
 
 
 class CartDetailView(View):
-    def get_render(self, products, total_price):
+    def get_render(self, products=None, total_price=0):
         return render(self.request, 'home/pages/cart_detail.html', context={
             'title': 'Cart Detail',
             'products': products,
@@ -98,6 +98,14 @@ class CartDetailView(View):
         return products
 
     def get(self, request):
+        if not self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                'Você não pode acessar o carrinho sem um login!'
+            )
+
+            return self.get_render()
+
         products = self.get_item()
 
         total_price = 0
