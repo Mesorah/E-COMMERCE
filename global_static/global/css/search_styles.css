@@ -1,41 +1,84 @@
 .search-container {
-    margin: 1rem auto;
+    margin: 2rem auto;
     text-align: center;
-}
-
-.search-form {
+    padding: 0 1rem;
+  }
+  
+  .search-form {
     display: flex;
     justify-content: center;
-    align-items: center;
-    max-width: 500px;
+    align-items: stretch;
+    max-width: 600px;
     margin: 0 auto;
-}
-
-.search-input {
-    width: 80%;
+    box-shadow: 0 4px 6px -1px rgb(255, 255, 255), 0 2px 4px -1px rgb(255, 255, 255);
+    border-radius: 12px;
+    background: #fff;
     padding: 0.5rem;
-    border: 2px solid #ddd;
-    border-radius: 5px 0 0 5px;
+  }
+  
+  .search-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
     font-size: 1rem;
-}
-
-.search-input:focus {
-    border-color: #3498db;
+    background-color: #f8fafc;
+    color: #1e293b;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input::placeholder {
+    color: #94a3b8;
+  }
+  
+  .search-input:focus {
     outline: none;
-}
-
-.search-button {
-    margin-left: 0.3rem;
-    padding: 0.5rem 1.5rem;
-    background-color: #3498db;
+    border-color: #60a5fa;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgb(255, 255, 255);
+  }
+  
+  .search-button {
+    margin-left: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #3b82f6;
     color: #fff;
     border: none;
-    border-radius: 0 5px 5px 0;
+    border-radius: 8px;
     font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .search-button:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+  }
+  
+  .search-button:active {
+    transform: translateY(0);
+  }
 
-.search-button:hover {
-    background-color: #2980b9;
-}
+  @media (prefers-color-scheme: dark) {
+    .search-form {
+      background: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+  
+    .search-input {
+      background-color: #ffffff;
+      color: #f8fafc;
+    }
+  
+    .search-input::placeholder {
+      color: #64748b;
+    }
+  
+    .search-input:focus {
+      background-color: #ffffff;
+    }
+  }

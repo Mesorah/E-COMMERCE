@@ -1,116 +1,161 @@
-/* Estilo para os cartões de dúvidas */
-.support-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Informações de suporte */
-.support-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.support-text {
-    margin: 0;
-    line-height: 1.5;
-    overflow: hidden;
-    white-space: normal;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.support-text-detail {
-    margin: 0;
-    line-height: 1.5;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    text-overflow: ellipsis;
-}
-
-/* Ações: links e botão */
-.support-action-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.support-link a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.support-link a:hover {
-    color: #0056b3;
-}
-
-/* Estiliza a área de mensagem específica para conclusão de suporte */
-.support_completed {
-    background-color: #e9f7f6; /* cor de fundo suave */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 25px;
-    margin: 50px auto;
-    max-width: 600px;
-    text-align: center;
-    border-left: 5px solid #3498db; /* destaque verde */
-}
-
-/* Estilo para o texto da mensagem */
-.support_message {
-    font-size: 18px;
-    color: #555;
-    margin: 0;
-    font-weight: bold;
-}
-
-/* support_view_staff */
-.support-container {
-    width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-@media (max-width: 600px) {
-    .support-card {
-        padding: 10px;
-    }
-
-    .support-action-container {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
-
-@media (max-width: 600px) {
-    .support-card {
-        padding: 10px;
-    }
-
-    .support-action-container {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
-
-@media (max-width: 768px) {
-    .support_completed {
-        margin: 20px;
-        padding: 20px;
-    }
-}
+:root {
+    --color-primary: #007bff;
+     --color-primary-dark: #0056b3;
+     --color-white: #ffffff;
+     --color-gray-100: #f8f9fa;
+     --color-gray-200: #e9ecef;
+     --color-gray-300: #dee2e6;
+     --color-gray-400: #ced4da;
+     --color-gray-500: #adb5bd;
+     --color-gray-600: #6c757d;
+     --color-gray-700: #495057;
+     --color-support-bg: #e9f7f6;
+     --color-support-border: #3498db;
+   
+     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+   
+     --transition-default: all 0.3s ease;
+   
+     --spacing-xs: 5px;
+     --spacing-sm: 10px;
+     --spacing-md: 15px;
+     --spacing-lg: 20px;
+     --spacing-xl: 25px;
+   
+     --radius-default: 8px;
+   }
+   
+   .support-card {
+     background-color: var(--color-white);
+     border: 1px solid var(--color-gray-300);
+     border-radius: var(--radius-default);
+     box-shadow: var(--shadow-sm);
+     margin-bottom: var(--spacing-md);
+     padding: var(--spacing-md);
+     display: flex;
+     flex-direction: column;
+     gap: var(--spacing-sm);
+     transition: var(--transition-default);
+   }
+   
+   .support-card:hover {
+     box-shadow: var(--shadow-md);
+     transform: translateY(-2px);
+   }
+   
+   .support-info {
+     display: flex;
+     flex-direction: column;
+     gap: var(--spacing-xs);
+   }
+   
+   .support-text {
+     margin: 0;
+     line-height: 1.5;
+     color: var(--color-gray-700);
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+   }
+   
+   .support-text-detail {
+     margin: 0;
+     line-height: 1.5;
+     color: var(--color-gray-600);
+     word-wrap: break-word;
+     overflow-wrap: break-word;
+     white-space: normal;
+   }
+   
+   .support-action-container {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-top: var(--spacing-sm);
+     gap: var(--spacing-sm);
+   }
+   
+   .support-link a {
+     text-decoration: none;
+     color: var(--color-primary);
+     font-weight: 600;
+     transition: var(--transition-default);
+     display: inline-flex;
+     align-items: center;
+     gap: var(--spacing-xs);
+   }
+   
+   .support-link a:hover {
+     color: var(--color-primary-dark);
+   }
+   
+   .support_completed {
+     background-color: var(--color-support-bg);
+     border-radius: var(--radius-default);
+     box-shadow: var(--shadow-md);
+     padding: var(--spacing-xl);
+     margin: 50px auto;
+     max-width: 600px;
+     text-align: center;
+     border-left: 5px solid var(--color-support-border);
+     transition: var(--transition-default);
+   }
+   
+   .support_completed:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+   }
+   
+   .support_message {
+     font-size: 1.125rem;
+     color: var(--color-gray-700);
+     margin: 0;
+     font-weight: 600;
+     line-height: 1.5;
+   }
+   
+   .support-container {
+     width: 90%;
+     max-width: 800px;
+     margin: var(--spacing-lg) auto;
+     padding: var(--spacing-sm);
+     box-sizing: border-box;
+   }
+   
+   @media screen and (max-width: 768px) {
+     .support-container {
+       width: 95%;
+       padding: var(--spacing-xs);
+     }
+     
+     .support_completed {
+       margin: var(--spacing-lg);
+       padding: var(--spacing-lg);
+     }
+     
+     .support_message {
+       font-size: 1rem;
+     }
+   }
+   
+   @media screen and (max-width: 600px) {
+     .support-card {
+       padding: var(--spacing-sm);
+     }
+   
+     .support-action-container {
+       flex-direction: column;
+       align-items: flex-start;
+     }
+     
+     .support-link {
+       width: 100%;
+     }
+     
+     .support-link a {
+       width: 100%;
+       justify-content: center;
+       padding: var(--spacing-xs) 0;
+     }
+   }

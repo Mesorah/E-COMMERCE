@@ -1,87 +1,184 @@
-/* Estilos específicos para o formulário de autenticação */
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --primary-light: rgba(79, 70, 229, 0.05);
+    --danger: #ef4444;
+    --danger-dark: #dc2626;
+    --radius: 12px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .auth-container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 450px;
-    margin: 40px auto;
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: min(450px, 100% - 2rem);
+    margin: 2rem auto;
+    border: 1px solid #e5e7eb;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .auth-container h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
     text-align: center;
-    font-size: 26px;
-    color: #333;
-    margin-bottom: 30px;
+    color: #111827;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.auth-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
 }
 
 .auth-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: grid;
+    gap: 1.25rem;
 }
 
-.auth-container input[type="text"],
-.auth-container input[type="password"],
-.auth-container input[type="email"] {
-    padding: 14px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
+.auth-container input {
     width: 100%;
+    padding: 0.875rem 1.25rem;
+    border: 2px solid #e5e7eb;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    background: #fff;
+    position: relative;
 }
 
-.auth-container input[type="text"]:focus,
-.auth-container input[type="password"]:focus,
-.auth-container input[type="email"]:focus {
-    border-color: #3498db;
+.auth-container input:hover {
+    border-color: #d1d5db;
+    background: var(--primary-light);
+}
+
+.auth-container input:focus {
     outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    background: #fff;
 }
 
-/* Estilo do botão de login */
-.auth-container button {
-    padding: 12px;
-    background-color: #3498db;
-    color: white;
+.auth-container input::placeholder {
+    color: #9ca3af;
+    transition: var(--transition);
+}
+
+.auth-container input:focus::placeholder {
+    opacity: 0.7;
+    transform: translateX(4px);
+}
+
+.auth-container button,
+.header form button {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-container button {
+    background: var(--primary);
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.auth-container button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: transform 0.6s;
 }
 
 .auth-container button:hover {
-    background-color: #2980b9;
+    background: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    transform: translateY(-1px);
 }
 
-/* Estilo de links */
-.auth-container .link {
-    text-align: center;
-    margin-top: 10px;
+.auth-container button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
 }
 
-.auth-container .link a {
-    color: #3498db;
-    text-decoration: none;
+.auth-container button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
 }
 
-.auth-container .link a:hover {
-    text-decoration: underline;
-}
-
-/* Logout Button */
 .header form button {
-    background-color: #e74c3c;
+    background: var(--danger);
     color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    max-width: 200px;
 }
 
 .header form button:hover {
-    background-color: #c0392b;
+    background: var(--danger-dark);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    transform: translateY(-1px);
+}
+
+.header form button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.auth-container .link {
+    text-align: center;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #f3f4f6;
+}
+
+.auth-container .link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.auth-container .link a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
 }

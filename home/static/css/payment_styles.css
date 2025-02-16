@@ -1,50 +1,155 @@
-/* Estilizando o formulário de pagamento */
 .payment-form {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
     max-width: 500px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
+    margin: 2rem auto;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilo geral dos inputs */
+.payment-form:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
 .payment-form input {
     width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    font-size: 16px;
+    padding: 0.875rem 1rem;
+    margin: 0.75rem 0;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+    font-size: 1rem;
     box-sizing: border-box;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: #2d3748;
 }
 
-/* Estilos para os campos de entrada em foco */
+.payment-form input::placeholder {
+    color: #a0aec0;
+    opacity: 1;
+}
+
+.payment-form input:hover {
+    border-color: #cbd5e0;
+}
+
 .payment-form input:focus {
-    border-color: #4CAF50;
+    border-color: #3b82f6;
     outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    background-color: #fff;
 }
 
-/* Estilizando os campos de erro (inputs inválidos) */
 .payment-form input:invalid {
-    border-color: #ff4d4d;
-    background-color: #ffe6e6;
+    border-color: #ef4444;
+    background-color: #fff;
 }
 
-@media (max-width: 480px) {
+.payment-form input:invalid:focus {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+
+.payment-form input:-webkit-autofill,
+.payment-form input:-webkit-autofill:hover,
+.payment-form input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #2d3748;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.payment-form .error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+    display: none;
+}
+
+.payment-form input:invalid + .error-message {
+    display: block;
+}
+
+.payment-form .submit-btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.payment-form .submit-btn:hover {
+    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form .submit-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+@media (max-width: 640px) {
     .payment-form {
         width: 90%;
-        padding: 20px;
-    }
-
-    .submit-btn {
-        font-size: 16px;
+        padding: 1.5rem;
+        margin: 1rem auto;
+        border-radius: 12px;
     }
 
     .payment-form input {
-        padding: 10px;
-        font-size: 14px;
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .payment-form .submit-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .payment-form {
+        background: linear-gradient(to bottom right, #1a1a1a, #2d3748);
+        color: #e2e8f0;
+    }
+
+    .payment-form input {
+        background-color: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+
+    .payment-form input::placeholder {
+        color: #718096;
+    }
+
+    .payment-form input:hover {
+        border-color: #4a5568;
+    }
+
+    .payment-form input:focus {
+        background-color: #2d3748;
+        border-color: #3b82f6;
+    }
+
+    .payment-form input:-webkit-autofill,
+    .payment-form input:-webkit-autofill:hover,
+    .payment-form input:-webkit-autofill:focus {
+        -webkit-text-fill-color: #e2e8f0;
+        -webkit-box-shadow: 0 0 0px 1000px #2d3748 inset;
     }
 }

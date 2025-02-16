@@ -4,10 +4,26 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --danger: #e74c3c;
+    --danger-dark: #c0392b;
+    --success: #4CAF50;
+    --success-dark: #45a049;
+    --text-dark: #2c3e50;
+    --border-color: #e3e6ea;
+    --bg-light: #f9f9f9;
+    --bg-white: #ffffff;
+    --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    --transition: 0.3s ease;
+}
+
 body {
-    background: #f9f9f9;
+    background: var(--bg-light);
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
+    color: var(--text-dark);
 }
 
 .header {
@@ -15,127 +31,119 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #f7f9fc;
-    border-bottom: 2px solid #e3e6ea;
-    margin: 0;
+    background-color: var(--bg-white);
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: var(--shadow);
 }
 
 .header a {
-    color: #2c3e50;
+    color: var(--text-dark);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.2rem;
-    transition: color 0.3s;
+    transition: color var(--transition);
 }
 
 .header a:hover {
-    color: #2980b9;
-}
-
-.header-text a {
-    font-size: 1.8rem;
-    color: #3498db;
-    font-weight: bold;
-}
-
-.header-text a:hover {
-    color: #2980b9;
-}
-
-.header .back-link {
-    color: #3498db;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.header .back-link:hover {
-    color: #2980b9;
+    color: var(--primary);
 }
 
 .header-text {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: #3498db;
+    font-weight: 700;
 }
 
-form button {
-    padding: 10px 16px;
-    background-color: #e74c3c;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.header-text a {
+    font-size: 1.8rem;
+    color: var(--primary);
 }
 
-form button:hover {
-    background-color: #c0392b;
+.header .back-link {
+    color: var(--primary);
+    font-weight: 600;
 }
 
-/* Estilos para o botão de envio */
-.submit-btn {
-    background-color: #3498db;
-    color: white;
-    padding: 15px 25px;
+.button {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
     border: none;
     border-radius: 6px;
-    font-size: 18px;
-    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: all var(--transition);
 }
 
-/* Efeito de hover para o botão */
+.button-primary {
+    background-color: var(--primary);
+    color: var(--bg-white);
+}
+
+.button-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.button-danger {
+    background-color: var(--danger);
+    color: var(--bg-white);
+}
+
+.button-danger:hover {
+    background-color: var(--danger-dark);
+    transform: translateY(-1px);
+}
+
+.submit-btn {
+    background-color: var(--primary);
+    color: var(--bg-white);
+    padding: 1rem 1.6rem;
+    border-radius: 6px;
+    font-size: 1.125rem;
+    width: 100%;
+    font-weight: 500;
+    transition: all var(--transition);
+}
+
 .submit-btn:hover {
-    background-color: #2980b9;
-    transform: scale(1.05);
+    background-color: var(--primary-dark);
+    transform: scale(1.02);
 }
 
-/* Estilos para a exibição de erros */
 .form-errors {
-    margin-top: 20px;
-    color: #ff4d4d;
-    font-size: 14px;
+    margin-top: 1.25rem;
+    color: var(--danger);
 }
 
 .error-list {
-    list-style-type: none;
-    padding: 0;
+    list-style: none;
 }
 
 .error-item {
-    font-size: 14px;
-    margin-bottom: 5px;
+    font-size: 0.875rem;
+    margin-bottom: 0.3rem;
 }
 
-/* Estilo do botão de deletar */
 .form-delete button {
-    display: inline-block;
-    padding: 14px 26px;
-    background-color: #e74c3c;
-    color: white;
-    border: none;
+    padding: 0.875rem 1.625rem;
+    background-color: var(--danger);
+    color: var(--bg-white);
     border-radius: 4px;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
+    font-size: 0.9rem;
+    margin-top: 0.625rem;
 }
 
 .form-delete button:hover {
-    background-color: #c0392b;
+    background-color: var(--danger-dark);
 }
 
-/* support client */
 .submit-question-container {
-    max-width: 600px;
+    max-width: 37.5rem;
     margin: 3rem auto;
     padding: 2rem;
-    background-color: #ffffff;
+    background-color: var(--bg-white);
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
 }
 
 .form-container {
@@ -146,126 +154,125 @@ form button:hover {
 
 .form-label {
     font-size: 1rem;
-    color: #333;
+    color: var(--text-dark);
+    font-weight: 500;
 }
 
 textarea {
     width: 100%;
     padding: 0.8rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     font-size: 1rem;
-    resize: none;
+    resize: vertical;
+    min-height: 100px;
+    transition: all var(--transition);
 }
 
 textarea:focus {
-    border-color: #2980b9;
+    border-color: var(--primary);
     outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
 .submit-button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--success);
+    color: var(--bg-white);
     padding: 0.8rem;
-    border: none;
     border-radius: 5px;
     font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    font-weight: 500;
 }
 
 .submit-button:hover {
-    background-color: #45a049;
+    background-color: var(--success-dark);
 }
 
-/* Estilo para a paginação */
 .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
+    margin: 1.25rem 0;
+    gap: 0.625rem;
 }
 
 .step-links {
     display: flex;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .step-links a {
     text-decoration: none;
-    color: #007bff;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
+    color: var(--primary);
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
-    transition: all 0.3s ease;
+    transition: all var(--transition);
 }
 
 .step-links a:hover {
-    background-color: #f0f0f0;
-    color: #0056b3;
-    border-color: #ccc;
-}
-
-.step-links a:active {
-    background-color: #e9ecef;
-    color: #003865;
-    border-color: #bbb;
+    background-color: var(--primary);
+    color: var(--bg-white);
+    border-color: var(--primary);
 }
 
 .step-links .current {
-    font-weight: bold;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
+    font-weight: 600;
+    padding: 0.5rem 0.8rem;
+    background-color: var(--primary);
+    color: var(--bg-white);
     border-radius: 5px;
 }
 
-/* Estilo geral para o contêiner de mensagens */
 .messages {
-    margin: 20px 0;
-    padding: 0 15px;
+    margin: 1.25rem 0;
+    padding: 0 1rem;
 }
 
-/* Estilo base para cada mensagem */
 .message {
-    padding: 15px;
+    padding: 1rem;
     border-radius: 5px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
+    margin-bottom: 0.625rem;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: var(--shadow);
 }
 
-/* Estilo para mensagens de sucesso */
 .message.success {
-    background-color: #d4edda; /* Verde claro */
-    color: #155724; /* Verde escuro */
-    border: 1px solid #c3e6cb; /* Bordas em verde mais suave */
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
 
-/* Estilo para mensagens de erro */
 .message.error {
-    background-color: #f8d7da; /* Vermelho claro */
-    color: #721c24; /* Vermelho escuro */
-    border: 1px solid #f5c6cb; /* Bordas em vermelho mais suave */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
-/* Estilo para mensagens de aviso */
 .message.warning {
-    background-color: #fff3cd; /* Amarelo claro */
-    color: #856404; /* Amarelo escuro */
-    border: 1px solid #ffeeba; /* Bordas em amarelo mais suave */
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
 }
 
-/* Estilo para mensagens informativas */
 .message.info {
-    background-color: #cce5ff; /* Azul claro */
-    color: #004085; /* Azul escuro */
-    border: 1px solid #b8daff; /* Bordas em azul mais suave */
+    background-color: #cce5ff;
+    color: #004085;
+    border: 1px solid #b8daff;
 }
 
-/* Estilo para a mensagem quando há múltiplas */
-.message + .message {
-    margin-top: 10px;
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+
+    .submit-question-container {
+        margin: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .button {
+        width: 100%;
+    }
 }
