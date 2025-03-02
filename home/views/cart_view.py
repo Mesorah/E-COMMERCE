@@ -128,16 +128,18 @@ class RemoveFromCartView(AddToCartView):
 
     def post(self, request, id, *args, **kwargs):
         self.get_itens(id)
+        quantity = int(self.request.POST.get('quantity-to-remove', 1))
 
         # usando o -1 pois o self.get_itens adiciona +1 no
         # self.id_variation
-        del self.request.session['cart'][str(self.id_variation-1)]
+        product = self.request.session['cart'][str(self.id_variation-1)]
+        product['quantity'] -= quantity
 
         self.request.session.modified = True
 
         print(self.request.session['cart'])
 
-        return redirect('home:index')
+        return redirect('home:cart_detail')
 
 
 # class RemoveFromCartView(LoginRequiredMixin, View):
