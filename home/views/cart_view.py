@@ -107,6 +107,19 @@ class AddToCartView(LoginRequiredMixin, View):
 class RemoveFromCartView(AddToCartView):
     login_url = reverse_lazy('authors:login')
 
+    def post(self, request, id, *args, **kwargs):
+        self.get_itens(id)
+
+        # usando o -1 pois o self.get_itens adiciona +1 no
+        # self.id_variation
+        del self.request.session['cart'][str(self.id_variation-1)]
+
+        self.request.session.modified = True
+
+        print(self.request.session['cart'])
+
+        return redirect('home:index')
+
 
 # class RemoveFromCartView(LoginRequiredMixin, View):
 #     login_url = reverse_lazy('authors:login')
