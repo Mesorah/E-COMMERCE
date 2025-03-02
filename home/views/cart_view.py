@@ -104,8 +104,9 @@ class AddToCartView(LoginRequiredMixin, View):
 #         return redirect('home:index')
 
 
-class RemoveFromCartView(LoginRequiredMixin, View):
+class RemoveFromCartView(AddToCartView):
     login_url = reverse_lazy('authors:login')
+
 
 # class RemoveFromCartView(LoginRequiredMixin, View):
 #     login_url = reverse_lazy('authors:login')
@@ -143,6 +144,32 @@ class RemoveFromCartView(LoginRequiredMixin, View):
 
 class CartDetailView(LoginRequiredMixin, View):
     login_url = reverse_lazy('authors:login')
+
+    def get_render(self, products=None, total_price=0):
+        return render(self.request, 'home/pages/cart_detail.html', context={
+            'title': 'Cart Detail',
+            'products': products,
+            'total_price': total_price
+        })
+
+    def get_item(self):
+        products = self.request.session.get('cart')
+
+        return products
+
+    def get(self, request):
+        products = self.get_item()
+
+        total_price = 0
+
+        for k, v in products.items():
+            if int(v['quantity']) <= 0:
+                del product
+                return redirect('home:cart_detail')
+
+            total_price += int(v['product']['price']) * int(v['quantity'])
+
+        return self.get_render(products, total_price)
 
 # class CartDetailView(LoginRequiredMixin, View):
 #     login_url = reverse_lazy('authors:login')
