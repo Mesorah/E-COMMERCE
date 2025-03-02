@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
@@ -10,6 +11,12 @@ class AuthorRegisterView(CreateView):
     template_name = "authors/pages/base_page.html"
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('authors:login')
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('home:index')
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -24,7 +31,7 @@ class AuthorRegisterView(CreateView):
 
 class AuthorLoginView(LoginView):
     template_name = "authors/pages/base_page.html"
-    # redirect_authenticated_user = True
+    redirect_authenticated_user = True
     success_url = reverse_lazy('home:index')
 
     def get_context_data(self, *args, **kwargs):
