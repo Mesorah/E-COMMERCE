@@ -24,7 +24,7 @@
                             <form class="buy-form" method="post" action="{% url "home:remove_from_cart" value.product.id %}">
                                 {% csrf_token %}
                                 <label for="quantity-to-remove">Quantity:</label>
-                                <input type="number" id="quantity-to-remove" name="quantity-to-remove" min="1" max="{{ product.quantity }}" value="1">
+                                <input type="number" id="quantity-to-remove" name="quantity-to-remove" min="1" max="{{ value.quantity }}" value="1">
 
                                 <button type="submit" class="remove-btn">Remover</button>
                             </form>
