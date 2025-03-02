@@ -186,22 +186,25 @@ class CartDetailView(LoginRequiredMixin, View):
             'total_price': total_price
         })
 
-    def get_item(self):
-        products = self.request.session.get('cart')
-
-        return products
-
-    def get(self, request):
-        products = self.get_item()
-
+    def is_quantity_zero_or_less(self, products):
         total_price = 0
 
         for k, v in products.items():
             if int(v['quantity']) <= 0:
-                del product
-                return redirect('home:cart_detail')
+                del self.request.session['cart'][k]
+
+                self.request.session.modified = True
+
+                return total_price
 
             total_price += int(v['product']['price']) * int(v['quantity'])
+
+        return total_price
+
+    def get(self, request):
+        products = self.request.session.get('cart')
+
+        total_price = self.is_quantity_zero_or_less(products)
 
         return self.get_render(products, total_price)
 
