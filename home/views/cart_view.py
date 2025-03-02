@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 
-from home.models import Cart, CartItem, Products
+from home.models import Products
 
 
 class AddToCartView(LoginRequiredMixin, View):
@@ -28,6 +28,22 @@ class AddToCartView(LoginRequiredMixin, View):
             self.set_max_id_variation(cart)
 
         return cart
+
+    def verify_if_has_exist(self, cart, product, quantity):
+        product_name = product.get('name')
+
+        if cart:
+            for k, v in cart.items():
+                if v['product']['name'] == product_name:
+                    v['quantity'] += quantity
+
+                    self.request.session.modified = True
+
+                    return cart
+
+            # Se o produto não estiver na session
+            # ou seja, um novo produto
+            return False
 
     def get_itens(self, id):
         cart = self.init_cart()
@@ -59,9 +75,12 @@ class AddToCartView(LoginRequiredMixin, View):
                            'Não temos essa quantidade em estoque!'
                            )
 
-            return redirect('home:view_page', slug=product.slug)
+            return redirect('home:view_page', slug=product['slug'])
 
-        self.set_itens(quantity, product)
+        has_product = self.verify_if_has_exist(cart, product, quantity)
+
+        if not has_product:
+            self.set_itens(quantity, product)
 
         print(self.request.session['cart'])
 

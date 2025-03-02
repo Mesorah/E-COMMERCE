@@ -18,7 +18,7 @@
                         <img src="{{ value.product.cover.url }}" alt="Produto 1">
                     </div>
                     <div class="item-details">
-                        <h3 class="item-name">{{ value.product.name }}</h3>
+                        <h3 class="item-name">{{ value.product.name }} x{{ value.quantity }}</h3>
                         <p class="item-price">R$: {{ value.product.price }}</p>
                         <div class="item-actions">
                             <form class="buy-form" method="post" action="{% url "home:remove_from_cart" value.product.id %}">
