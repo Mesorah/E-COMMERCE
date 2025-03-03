@@ -1,16 +1,10 @@
-from home.models import Cart, CartItem
-
-
 def cart_item_count(request):
     if request.user.is_authenticated:
+        try:
+            cart = request.session['cart']
+        except KeyError:
+            return {'cart_item_count': 0}
 
-        cart = Cart.objects.filter(user=request.user).first()
-
-        cart_item = CartItem.objects.filter(
-            cart=cart,
-            is_ordered=False
-        )
-
-        return {'cart_item_count': cart_item.count()}
+        return {'cart_item_count': len(cart)}
 
     return {'cart_item_count': 0}

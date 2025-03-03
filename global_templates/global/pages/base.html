@@ -10,7 +10,10 @@
 <body>
     <header>
         {% include "global/partials/header.html" %}
-        {% include 'global/partials/search.html' %}
+        
+        {% if search_url %}
+            {% include 'global/partials/search.html' %}
+        {% endif %}
     </header>
 
     <main>
