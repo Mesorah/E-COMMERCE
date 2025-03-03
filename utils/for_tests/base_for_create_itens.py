@@ -1,5 +1,4 @@
 from home.models import (  # noqa E501
-    Cart,
     CartItem,
     Category,
     CustomerQuestion,

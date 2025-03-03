@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from home.models import (  # noqa E501
-    Cart,
     CartItem,
     Category,
     CustomerQuestion,
@@ -20,11 +19,6 @@ class ProductsAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ('name',)
     }
-
-
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(CartItem)

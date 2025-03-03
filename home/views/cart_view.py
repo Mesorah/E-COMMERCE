@@ -156,6 +156,7 @@ class CartDetailView(LoginRequiredMixin, View):
 
     def get(self, request):
         products = self.request.session.get('cart')
+
         total_price = 0
 
         if products:

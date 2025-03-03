@@ -2,6 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 
+from authors.models import UserProfile
+
 
 class Category(models.Model):
     class Meta:
@@ -52,36 +54,10 @@ class Products(models.Model):
         return super().save(*args, **kwargs)
 
 
-class Cart(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='cart'  # user.cart  Retorna o carrinho
-                             # associado ao usuário
-    )
-
-    def __str__(self):
-        return f'Carrinho do {self.user}'
-
-
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart,
-                             related_name='items',
-                             on_delete=models.CASCADE
-                             )
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveIntegerField(default=1)
-    is_ordered = models.BooleanField(default=False)
-
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(fields=['cart', 'product'],
-    #                                 name='unique_cart_product'
-    #                                 )
-    #     ]
-
-    # Não faz sentido ser unique por causa do is_ordered
 
     def __str__(self):
         return f'{self.quantity} x {self.product.name} no carrinho'
