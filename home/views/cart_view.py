@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.forms.models import model_to_dict
+
+# from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
@@ -56,7 +58,16 @@ class CartView(LoginRequiredMixin, View):
         quantity = int(self.request.POST.get('quantity', 1))
         product = get_object_or_404(Products, id=id)
 
-        product = model_to_dict(product)
+        # Dados para apenas MOSTRAR para o usuário
+        product = {
+            'id': product.id,
+            'cover': product.cover,
+            'name': product.name,
+            'slug': product.slug,
+            'stock': product.stock,
+            'price': product.price
+        }
+
         product['cover'] = str(product['cover'])
 
         return cart, quantity, product
@@ -118,7 +129,8 @@ class CartDetailView(LoginRequiredMixin, View):
         return render(self.request, 'home/pages/cart_detail.html', context={
             'title': 'Cart Detail',
             'products': products,
-            'total_price': total_price
+            'total_price': total_price,
+            'MEDIA_URL': settings.MEDIA_URL,
         })
 
     def is_quantity_zero_or_less(self, products):

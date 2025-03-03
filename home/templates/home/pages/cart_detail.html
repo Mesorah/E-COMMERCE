@@ -15,7 +15,7 @@
             {% for key, value in products.items %}
                 <div class="cart-item">
                     <div class="item-img">
-                        <img src="{{ value.product.cover.url }}" alt="Produto 1">
+                        <img src="{{ MEDIA_URL }}{{ value.product.cover }}" alt="Produto {{ key }}">
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">{{ value.product.name }} x{{ value.quantity }}</h3>
