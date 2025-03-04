@@ -60,7 +60,6 @@ class PageDetailView(DetailView):
         product = self.object
 
         cart_item = CartItem.objects.filter(
-            cart=self.kwargs.get('pk'),
             product=product,
         ).first()
 

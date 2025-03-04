@@ -59,9 +59,10 @@ class ClientListOrderedDetailView(UserPassesTestMixin, ListView):
 
         # Pegando os users dos Cart_items e
         # do Cart_item pegando o User base
+
         queryset = queryset.filter(
             products__user__user=user
-        ).all()
+        ).distinct()
 
         return queryset
 
@@ -94,7 +95,8 @@ class StaffClientsSearchListView(ListView):
 
         queryset = queryset.filter(
             Q(
-                Q(id__icontains=search_term)
+                Q(id__icontains=search_term) |
+                Q(user__username__icontains=search_term)
             )
         )
 
