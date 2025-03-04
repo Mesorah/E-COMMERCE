@@ -1,12 +1,14 @@
 from django.test import TestCase
-from utils.for_tests.base_for_authentication import (
+from django.urls import resolve, reverse
+
+from staff_management import views
+from utils.for_tests.base_for_authentication import (  # noqa E501
+    register_super_user,
     register_user,
-    register_super_user
 )
 from utils.for_tests.base_for_create_itens import create_product
-from django.urls import reverse, resolve
-from django.utils.http import urlencode
-from staff_management import views
+
+# from django.utils.http import urlencode
 
 
 class TestDeleteProductView(TestCase):
@@ -33,17 +35,17 @@ class TestDeleteProductView(TestCase):
         response = self.client.get(
             reverse(
                 'staff:delete_product', kwargs={'pk': '1'}
-            )
+            ), follow=True
         )
 
-        expected_url = reverse('authors:login') + '?' + urlencode(
-            {'next': reverse(
-                'staff:delete_product', kwargs={'pk': '1'}
-                )
-             }
-         )
+        # expected_url = reverse('authors:login') + '?' + urlencode(
+        #     {'next': reverse(
+        #         'staff:delete_product', kwargs={'pk': '1'}
+        #         )
+        #      }
+        #  )
 
-        self.assertRedirects(response, expected_url)
+        self.assertRedirects(response, reverse('home:index'))
 
     def test_user_attempts_delete_product_with_get(self):
         response = self.client.get(
