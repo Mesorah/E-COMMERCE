@@ -11,11 +11,11 @@ class TestViewAddToCart(TestCase):
     def setUp(self):
         (self.product,
          self.product2,
-         self.cart,
          self.cart_item,
-         self.cart_item2) = create_cart_item_setup(
-             staff=True,
-             product_2=True
+         self.cart_item2,
+         self.user_profile) = create_cart_item_setup(
+            staff=True,
+            product_2=True
         )
 
         self.client.login(username='test', password='123')
@@ -32,7 +32,7 @@ class TestViewAddToCart(TestCase):
                                            kwargs={'id': '2'}))
 
         cart_item = CartItem.objects.filter(
-            cart=self.cart
+            user=self.user_profile
         )
 
         products = cart_item.all()
@@ -43,7 +43,7 @@ class TestViewAddToCart(TestCase):
 
     def test_if_home_add_to_cart_is_post(self):
         cart_item = CartItem.objects.filter(
-            cart=self.cart
+            user=self.user_profile
         )
 
         self.product.stock = 100

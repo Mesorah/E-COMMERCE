@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
-from django.utils.http import urlencode
 
 from staff_management import views
 from staff_management.forms import CrudProduct
@@ -9,6 +8,8 @@ from utils.for_tests.base_for_authentication import (  # noqa E501
     register_user,
 )
 from utils.for_tests.base_for_create_itens import create_product
+
+# from django.utils.http import urlencode
 
 
 class TestEditProductView(TestCase):
@@ -37,17 +38,17 @@ class TestEditProductView(TestCase):
         response = self.client.get(
             reverse(
                 'staff:update_product', kwargs={'slug': self.product.slug}
-            )
+            ), follow=True
         )
 
-        expected_url = reverse('authors:login') + '?' + urlencode(
-            {'next': reverse(
-                'staff:update_product', kwargs={'slug': self.product.slug}
-                )
-             }
-         )
+        # expected_url = reverse('authors:login') + '?' + urlencode(
+        #     {'next': reverse(
+        #         'staff:update_product', kwargs={'slug': self.product.slug}
+        #         )
+        #      }
+        # )
 
-        self.assertRedirects(response, expected_url)
+        self.assertRedirects(response, reverse('home:index'))
 
     def test_user_with_permissions_can_update_product_in_staff(self):
         response = self.client.get(

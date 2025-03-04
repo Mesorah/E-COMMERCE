@@ -8,7 +8,6 @@ from home.models import Products
 
 
 class TestProductCoverDelete(TestCase):
-
     @mock.patch('os.remove')
     def test_delete_cover_when_product_is_deleted(self, mock_remove):
         product = Products.objects.create(
