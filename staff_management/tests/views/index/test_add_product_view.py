@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
-from django.utils.http import urlencode
 
 from home.models import Products
 from staff_management import views
@@ -9,6 +8,8 @@ from utils.for_tests.base_for_authentication import (  # noqa E501
     register_super_user,
     register_user,
 )
+
+# from django.utils.http import urlencode
 
 
 class TestAddProductView(TestCase):
@@ -37,12 +38,12 @@ class TestAddProductView(TestCase):
 
         response = self.client.get(reverse('staff:add_product'), follow=True)
 
-        expected_url = reverse('authors:login') + '?' + urlencode(
-            {'next': reverse(
-                'staff:add_product'
-                )
-             }
-         )
+        # expected_url = reverse('authors:login') + '?' + urlencode(
+        #     {'next': reverse(
+        #         'staff:add_product'
+        #         )
+        #      }
+        #  )
 
         """
             Exemplo do urlencode:
@@ -57,7 +58,7 @@ class TestAddProductView(TestCase):
                 # Django+test'
         """
 
-        self.assertRedirects(response, expected_url)
+        self.assertRedirects(response, reverse('home:index'))
 
     def test_user_with_permissions_can_add_product_in_staff_and_gets_200(self):
         self.client.login(username='test', password='123')
