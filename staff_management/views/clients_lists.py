@@ -4,6 +4,7 @@ from django.http import Http404
 from django.urls import reverse
 from django.views.generic import ListView
 
+from authors.models import UserProfile
 from home.models import Ordered
 
 from .index import UserPassesTestMixin
@@ -12,7 +13,7 @@ from .index import UserPassesTestMixin
 class ClientsListView(UserPassesTestMixin, ListView):
     template_name = 'staff_management/pages/clients.html'
     context_object_name = 'clients'
-    model = Ordered  # Arrumar era Cart
+    model = UserProfile
     paginate_by = 10
     paginator_class = Paginator
     ordering = ['-id']
@@ -50,11 +51,17 @@ class ClientListOrderedDetailView(UserPassesTestMixin, ListView):
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
 
-        cart = Cart.objects.filter(pk=self.kwargs.get('pk')).first()
+        user_profile = UserProfile.objects.filter(
+            pk=self.kwargs.get('pk')
+        ).first()
 
+        user = user_profile.user
+
+        # Pegando os users dos Cart_items e
+        # do Cart_item pegando o User base
         queryset = queryset.filter(
-            products__cart=cart
-        ).distinct()
+            products__user__user=user
+        ).all()
 
         return queryset
 
@@ -72,7 +79,7 @@ class ClientListOrderedDetailView(UserPassesTestMixin, ListView):
 class StaffClientsSearchListView(ListView):
     template_name = 'staff_management/pages/search_clients.html'
     context_object_name = 'clients'
-    model = Ordered  # Arrumar era Cart
+    model = UserProfile
     paginator_class = Paginator
     paginate_by = 10
     ordering = ['-id']
