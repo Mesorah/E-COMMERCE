@@ -51,16 +51,16 @@ class CartView(LoginRequiredMixin, View):
             # ou seja, um novo produto
             return False
 
-    def get_itens(self, id):
+    def get_itens(self, pk):
         cart = self.init_cart()
         self.id_variation += 1
 
         quantity = int(self.request.POST.get('quantity', 1))
-        product = get_object_or_404(Products, id=id)
+        product = get_object_or_404(Products, pk=pk)
 
         # Dados para apenas MOSTRAR para o usuário
         product = {
-            'id': product.id,
+            'id': product.pk,
             'cover': product.cover,
             'name': product.name,
             'slug': product.slug,
@@ -82,8 +82,8 @@ class CartView(LoginRequiredMixin, View):
 
         return self.request.session['cart'][self.id_variation]
 
-    def post(self, request, id, *args, **kwargs):
-        cart, quantity, product = self.get_itens(id)
+    def post(self, *args, **kwargs):
+        cart, quantity, product = self.get_itens(self.kwargs.get('pk'))
 
         if quantity > product['stock']:
             messages.error(self.request,
@@ -107,9 +107,9 @@ class AddToCartView(CartView):
 class RemoveFromCartView(CartView):
     login_url = reverse_lazy('authors:login')
 
-    def post(self, request, id, *args, **kwargs):
+    def post(self, *args, **kwargs):
         quantity = int(self.request.POST.get('quantity-to-remove', 1))
-        cart, _, product = self.get_itens(id)
+        cart, _, product = self.get_itens(self.kwargs.get('pk'))
 
         self.id_variation = self.verify_if_has_exist(
             cart, product, quantity, False

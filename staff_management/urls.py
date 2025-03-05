@@ -10,25 +10,25 @@ urlpatterns = [
           views.ProductCreateView.as_view(),
           name='add_product'
           ),
-     path('update_product/<slug:slug>/',
+     path('product/update/<slug:slug>/',
           views.ProductUpdateView.as_view(),
           name='update_product'
           ),
-     path('delete_product/<pk>/',
+     path('product/delete/<int:pk>/',
           views.ProductDeleteView.as_view(),
           name='delete_product'
           ),
 
-     path('ordered_index/',
+     path('ordered/index/',
           views.OrderedIndexView.as_view(),
           name='ordered_index'
           ),
-     path('ordered_detail/<pk>/',
+     path('ordered/detail/<int:pk>/',
           views.OrderedDetailView.as_view(),
           name='ordered_detail'
           ),
 
-     path('ordered/complete/<pk>/',
+     path('ordered/complete/<int:pk>/',
           views.OrderedCompleteView.as_view(),
           name='complete_ordered'
           ),
@@ -37,24 +37,24 @@ urlpatterns = [
           views.ClientsListView.as_view(),
           name='clients'
           ),
-     path('client/<pk>/',
+     path('client/<int:pk>/',
           views.ClientListOrderedDetailView.as_view(),
           name='client_list_ordered'
           ),
 
-     path('support_staff/',
+     path('support/staff/',
           views.SupportStaff.as_view(),
           name='support_staff'
           ),
-     path('support_view_staff/',
+     path('support/view/',
           views.SupportViewStaff.as_view(),
           name='support_view_staff'
           ),
-     path('support_question_delete/<pk>/',
+     path('support/question/delete/<int:pk>/',
           views.SupportQuestionDelete.as_view(),
           name='support_question_delete'
           ),
-     path('support_question_detail/<pk>/',
+     path('support/question/detail/<int:pk>/',
           views.SupportQuestionDetail.as_view(),
           name='support_question_detail'
           ),

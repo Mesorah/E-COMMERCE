@@ -74,7 +74,7 @@ class SupportViewStaff(UserPassesTestMixin, ListView):
     context_object_name = 'questions'
     paginate_by = 10
     paginator_class = Paginator
-    ordering = ['id']
+    ordering = ['-pk']
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)

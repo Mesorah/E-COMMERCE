@@ -16,7 +16,7 @@ class ClientsListView(UserPassesTestMixin, ListView):
     model = UserProfile
     paginate_by = 10
     paginator_class = Paginator
-    ordering = ['-id']
+    ordering = ['-pk']
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
@@ -46,7 +46,7 @@ class ClientListOrderedDetailView(UserPassesTestMixin, ListView):
     model = Ordered
     paginate_by = 10
     paginator_class = Paginator
-    ordering = ['id']
+    ordering = ['-pk']
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
@@ -83,7 +83,7 @@ class StaffClientsSearchListView(ListView):
     model = UserProfile
     paginator_class = Paginator
     paginate_by = 10
-    ordering = ['-id']
+    ordering = ['-pk']
 
     def get_queryset(self, *args, **kwargs):
         search_term = self.request.GET.get('q', '')
@@ -95,7 +95,7 @@ class StaffClientsSearchListView(ListView):
 
         queryset = queryset.filter(
             Q(
-                Q(id__icontains=search_term) |
+                Q(pk__icontains=search_term) |
                 Q(user__username__icontains=search_term)
             )
         )

@@ -11,15 +11,15 @@ urlpatterns = [
           name='view_page'
           ),
 
-     path('add_to_cart/<id>/',
+     path('cart/add/<int:pk>/',
           views.AddToCartView.as_view(),
           name='add_to_cart'
           ),
-     path('remove_to_cart/<id>/',
+     path('cart/remove/<int:pk>/',
           views.RemoveFromCartView.as_view(),
           name='remove_from_cart'
           ),
-     path('cart_detail/',
+     path('cart/detail/',
           views.CartDetailView.as_view(),
           name='cart_detail'
           ),
@@ -38,7 +38,7 @@ urlpatterns = [
           views.SupportClient.as_view(),
           name='support_client',
           ),
-     path('support_completed/',
+     path('support/completed/',
           views.SupportCompleted.as_view(),
           name='support_completed',
           ),

@@ -23,7 +23,7 @@ class PaymentView(LoginRequiredMixin, View):
             product_ids.append(product_id)
             products_quantity.append(quantity)
 
-        products = Products.objects.filter(id__in=product_ids)
+        products = Products.objects.filter(pk__in=product_ids)
 
         return products, products_quantity
 

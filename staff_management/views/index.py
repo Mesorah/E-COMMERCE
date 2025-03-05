@@ -26,7 +26,7 @@ class HomeListView(UserPassesTestMixin, ListView):
     context_object_name = 'products'
     paginate_by = 10
     paginator_class = Paginator
-    ordering = ['-id']
+    ordering = ['-pk']
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

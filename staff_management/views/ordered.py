@@ -17,7 +17,7 @@ class OrderedIndexView(UserPassesTestMixin, ListView):
     model = Ordered
     paginate_by = 10
     paginator_class = Paginator
-    ordering = ['id']
+    ordering = ['-pk']
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -80,7 +80,7 @@ class StaffOrderedSearchListView(ListView):
     model = Ordered
     paginator_class = Paginator
     paginate_by = 10
-    ordering = ['id']
+    ordering = ['-pk']
 
     def get_queryset(self, *args, **kwargs):
         search_term = self.request.GET.get('q', '')

@@ -13,7 +13,7 @@ class HomeListView(ListView):
     context_object_name = 'products'
     paginate_by = 10
     paginator_class = Paginator
-    ordering = ['-id']
+    ordering = ['-pk']
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
@@ -80,7 +80,7 @@ class BaseSearchListView(ListView):
     paginate_by = 10
     paginator_class = Paginator
     context_object_name = 'products'
-    ordering = ['-id']
+    ordering = ['-pk']
     is_published = True
 
     def get_queryset(self, *args, **kwargs):
