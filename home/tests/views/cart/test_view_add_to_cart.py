@@ -82,3 +82,34 @@ class TestViewAddToCart(TestCase):
             str(messages[0]),
             'Não temos essa quantidade em estoque!'
         )
+
+    def test_add_to_cart_using_sessions(self):
+        response = self.client.post(
+            reverse('home:add_to_cart', kwargs={'id': '1'})
+        )
+
+        self.assertEqual(response.status_code, 302)
+
+        response2 = self.client.post(
+            reverse('home:add_to_cart', kwargs={'id': '2'})
+        )
+
+        self.assertEqual(response2.status_code, 302)
+
+    def test_add_to_cart_quantity_is_correct(self):
+        self.client.post(
+            reverse('home:add_to_cart', kwargs={'id': '1'})
+        )
+
+        self.client.post(
+            reverse('home:add_to_cart', kwargs={'id': '1'})
+        )
+
+        self.client.post(
+            reverse('home:add_to_cart', kwargs={'id': '2'})
+        )
+
+        session = self.client.session['cart']
+
+        self.assertEqual(session['1']['quantity'], 2)
+        self.assertEqual(session['2']['quantity'], 1)

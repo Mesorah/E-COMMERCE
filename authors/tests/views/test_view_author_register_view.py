@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from authors import views
+from utils.for_tests.base_for_authentication import register_user
 
 
 class TestAuthorRegisterView(TestCase):
@@ -28,6 +29,13 @@ class TestAuthorRegisterView(TestCase):
         )
 
         self.assertEqual(response.status_code, 302)
+
+    def test_if_the_user_logged_is_redirect_to_home(self):
+        register_user()
+        self.client.login(username='Test', password='Test')
+        response = self.client.get(reverse('authors:register'))
+
+        self.assertRedirects(response, reverse('home:index'))
 
     def test_if_author_register_context_is_correct(self):
         response = self.client.get(

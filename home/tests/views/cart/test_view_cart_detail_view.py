@@ -2,7 +2,6 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from home import views
-from home.models import CartItem
 from utils.for_tests.base_for_setup import create_cart_item_setup
 
 
@@ -30,23 +29,16 @@ class TestViewCartDetailView(TestCase):
 
         self.assertTemplateUsed(response, 'home/pages/cart_detail.html')
 
-    # USAR SESSION
-    # def test_item_deletion_removes_item_from_cart(self):
-    #     cart_items = CartItem.objects.filter(
-    #         user=self.user_profile
-    #     )
+    def test_cart_detail_has_a_session(self):
+        self.client.post(
+            reverse('home:add_to_cart', kwargs={'id': '1'})
+        )
 
-    #     self.assertEqual(cart_items.count(), 2)
+        response = self.client.get(reverse('home:cart_detail'))
 
-    #     self.cart_item2.quantity = 0
-    #     self.cart_item2.save()
+        self.assertEqual(response.status_code, 200)
 
-    #     self.fail(self.client.session['cart'])
+    def test_cart_detail_does_not_have_a_session(self):
+        response = self.client.get(reverse('home:cart_detail'))
 
-    #     response = self.client.get(reverse('home:cart_detail'))
-
-    #     cart_items = CartItem.objects.filter(user=self.user_profile)
-
-    #     self.assertEqual(cart_items.count(), 1)
-
-    #     self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
