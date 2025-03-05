@@ -72,6 +72,7 @@ class Ordered(models.Model):
     house_number = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     products = models.ManyToManyField(CartItem, related_name='ordered')
+    ordered = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.number_ordered}: {self.first_name} {self.last_name}'

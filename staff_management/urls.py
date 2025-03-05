@@ -27,9 +27,10 @@ urlpatterns = [
           views.OrderedDetailView.as_view(),
           name='ordered_detail'
           ),
-     path('delete_ordered/<pk>/',
-          views.OrderedDeleteView.as_view(),
-          name='delete_ordered'
+
+     path('ordered/complete/<pk>/',
+          views.OrderedCompleteView.as_view(),
+          name='complete_ordered'
           ),
 
      path('clients/',

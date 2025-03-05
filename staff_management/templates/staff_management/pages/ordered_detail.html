@@ -31,9 +31,9 @@
         <div class="order-action-container">
             <p class="order-link"><a href="{% url 'staff:ordered_index' %}">Voltar para a lista de pedidos</a></p>
 
-            <form class="form-delete" action="{% url 'staff:delete_ordered' order.id %}" method="post">
+            <form class="form-delete" action="{% url 'staff:complete_ordered' order.id %}" method="post">
                 {% csrf_token %}
-                <button type="submit">Deletar Pedido</button>
+                <button type="submit">Concluir Pedido</button>
             </form>
         </div>
     </div>

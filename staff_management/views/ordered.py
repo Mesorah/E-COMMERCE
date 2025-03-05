@@ -1,12 +1,14 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import redirect
+from django.urls import reverse
+from django.views import View
 from django.views.generic import DetailView, ListView
 
 from home.models import Ordered
 
-from .index import DeleteViewMixin, UserPassesTestMixin
+from .index import UserPassesTestMixin
 
 
 class OrderedIndexView(UserPassesTestMixin, ListView):
@@ -16,6 +18,13 @@ class OrderedIndexView(UserPassesTestMixin, ListView):
     paginate_by = 10
     paginator_class = Paginator
     ordering = ['id']
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        qs = qs.filter(ordered=False)
+
+        return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -30,9 +39,15 @@ class OrderedIndexView(UserPassesTestMixin, ListView):
         return context
 
 
-class OrderedDeleteView(DeleteViewMixin):
-    success_url = reverse_lazy('staff:ordered_index')
-    model = Ordered
+class OrderedCompleteView(UserPassesTestMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        product = Ordered.objects.filter(pk=pk).first()
+
+        product.ordered = True
+
+        product.save()
+
+        return redirect('staff:ordered_index')
 
 
 class OrderedDetailView(UserPassesTestMixin, DetailView):

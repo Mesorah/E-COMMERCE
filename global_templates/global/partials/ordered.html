@@ -10,9 +10,9 @@
     <p class="order-link"><a href="{% url 'staff:ordered_detail' ordered.id %}">Visualizar</a></p>
     
     {% if title != 'Cliente' %}
-        <form class="form-delete" action="{% url 'staff:delete_ordered' ordered.id %}" method="post">
+        <form class="form-delete" action="{% url 'staff:complete_ordered' ordered.id %}" method="post">
             {% csrf_token %}
-            <button type="submit">Deletar</button>
+            <button type="submit">Concluir</button>
         </form>
     {% endif %}
 </div>
