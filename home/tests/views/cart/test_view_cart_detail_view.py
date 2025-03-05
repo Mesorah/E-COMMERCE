@@ -31,7 +31,7 @@ class TestViewCartDetailView(TestCase):
 
     def test_cart_detail_has_a_session(self):
         self.client.post(
-            reverse('home:add_to_cart', kwargs={'id': '1'})
+            reverse('home:add_to_cart', kwargs={'pk': '1'})
         )
 
         response = self.client.get(reverse('home:cart_detail'))

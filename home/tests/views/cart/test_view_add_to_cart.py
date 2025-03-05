@@ -23,13 +23,13 @@ class TestViewAddToCart(TestCase):
         return super().setUp()
 
     def test_if_home_add_to_cart_load_the_correct_view(self):
-        response = resolve(reverse('home:add_to_cart', kwargs={'id': '1'}))
+        response = resolve(reverse('home:add_to_cart', kwargs={'pk': '1'}))
 
         self.assertEqual(response.func.view_class, views.AddToCartView)
 
     def test_if_home_add_to_cart_is_get(self):
         response = self.client.get(reverse('home:add_to_cart',
-                                           kwargs={'id': '2'}))
+                                           kwargs={'pk': '2'}))
 
         cart_item = CartItem.objects.filter(
             user=self.user_profile
@@ -51,7 +51,7 @@ class TestViewAddToCart(TestCase):
 
         response = self.client.post(reverse(
             'home:add_to_cart',
-            kwargs={'id': '1'}),
+            kwargs={'pk': '1'}),
             data={'quantity': '1'},
             follow=True
         )
@@ -65,7 +65,7 @@ class TestViewAddToCart(TestCase):
     def test_if_add_to_cart_stock_is_not_enough(self):
         response = self.client.post(reverse(
             'home:add_to_cart',
-            kwargs={'id': '2'}),
+            kwargs={'pk': '2'}),
             data={'quantity': '10'},
             follow=True
         )
@@ -85,28 +85,28 @@ class TestViewAddToCart(TestCase):
 
     def test_add_to_cart_using_sessions(self):
         response = self.client.post(
-            reverse('home:add_to_cart', kwargs={'id': '1'})
+            reverse('home:add_to_cart', kwargs={'pk': '1'})
         )
 
         self.assertEqual(response.status_code, 302)
 
         response2 = self.client.post(
-            reverse('home:add_to_cart', kwargs={'id': '2'})
+            reverse('home:add_to_cart', kwargs={'pk': '2'})
         )
 
         self.assertEqual(response2.status_code, 302)
 
     def test_add_to_cart_quantity_is_correct(self):
         self.client.post(
-            reverse('home:add_to_cart', kwargs={'id': '1'})
+            reverse('home:add_to_cart', kwargs={'pk': '1'})
         )
 
         self.client.post(
-            reverse('home:add_to_cart', kwargs={'id': '1'})
+            reverse('home:add_to_cart', kwargs={'pk': '1'})
         )
 
         self.client.post(
-            reverse('home:add_to_cart', kwargs={'id': '2'})
+            reverse('home:add_to_cart', kwargs={'pk': '2'})
         )
 
         session = self.client.session['cart']

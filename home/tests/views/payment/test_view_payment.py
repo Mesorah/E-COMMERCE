@@ -167,7 +167,7 @@ class TestViewPayment(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_payment_using_sessions(self):
-        self.client.post(reverse('home:add_to_cart', kwargs={'id': '1'}))
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
 
         response = self.client.post(reverse('home:payment'), data=self.data)
 
