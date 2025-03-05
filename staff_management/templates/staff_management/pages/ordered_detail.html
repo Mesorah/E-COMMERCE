@@ -5,11 +5,11 @@
 {% block content %}
 <div class="order-detail-container">
     <div class="header">
-        <h1>Detalhes do Pedido #{{ order.number_ordered }}</h1>
+        <h1>Detalhes do Pedido #{{ order.id }}</h1>
     </div>
     <div class="order-detail-card">
         <div class="order-info">
-            <p class="order-title">Pedido #{{ order.number_ordered }}</p>
+            <p class="order-title">Pedido #{{ order.id }}</p>
             <p class="order-text"><strong>Nome:</strong> {{ order.first_name }} {{ order.last_name }}</p>
             {% comment %} <p class="order-text"><strong>Email:</strong> {{ order.email }}</p> {% endcomment %}
             <p class="order-text"><strong>Bairro:</strong> {{ order.neighborhood }}</p>

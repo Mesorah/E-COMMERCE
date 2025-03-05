@@ -64,7 +64,6 @@ class CartItem(models.Model):
 
 
 class Ordered(models.Model):
-    number_ordered = models.PositiveIntegerField(default=1)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     neighborhood = models.CharField(max_length=100, default='')
@@ -75,17 +74,7 @@ class Ordered(models.Model):
     ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.number_ordered}: {self.first_name} {self.last_name}'
-
-    def save(self, *args, **kwargs):
-        last_order = Ordered.objects.order_by('-number_ordered').first()
-
-        if last_order:
-            self.number_ordered = last_order.number_ordered + 1
-        else:
-            self.number_ordered = 1
-
-        return super().save(*args, **kwargs)
+        return f'{self.id}: {self.first_name} {self.last_name}'
 
 
 class CustomerQuestion(models.Model):

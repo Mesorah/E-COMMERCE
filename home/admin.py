@@ -23,7 +23,7 @@ class ProductsAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    search_fields = 'number_ordered', 'first_name', 'street_name',
+    search_fields = 'id', 'quantity',
 
 
 @admin.register(Ordered)
