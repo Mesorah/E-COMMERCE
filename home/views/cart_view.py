@@ -142,9 +142,6 @@ class CartDetailView(LoginRequiredMixin, View):
             if int(v['quantity']) <= 0:
                 product_to_remove.append(k)
 
-                if not products:
-                    return total_price
-
             total_price += int(v['product']['price']) * int(v['quantity'])
 
         for k in product_to_remove:
