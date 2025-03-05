@@ -11,13 +11,13 @@
             <button type="submit">Entrar</button>
         </form>
         <div class="link">
-
-            {% if title != 'Alterar senha' %}
-                <a href="#">Esqueceu sua senha?</a><br>
+            {% if title == 'Register' %}
+                <a href="{% url "authors:login" %}">Já tem uma conta?</a>
             {% endif %}
-            
 
-            {% if title != 'Register' and title != 'Alterar senha'  %}
+            {% if title == 'Login' %}
+                <a href="#">Esqueceu sua senha?</a><br>
+            
                 <br><a href="{% url "authors:register" %}">Não tem uma conta?</a>
             {% endif %}
         </div>
