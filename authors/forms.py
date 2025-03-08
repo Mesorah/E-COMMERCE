@@ -26,6 +26,11 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'cpf', 'password1', 'password2')
 
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     def save(self, commit=True):
         user = super().save(commit=False)
 

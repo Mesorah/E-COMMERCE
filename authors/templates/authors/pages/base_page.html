@@ -1,11 +1,12 @@
 {% extends "global/pages/base.html" %}
+{% load static %}
 
 {% block title %} {{ title }} {% endblock title %}
 
 {% block content %}
     <div class="auth-container">
         <h2>{{ msg }}</h2>
-        <form method="post">
+        <form method="post" class="author-form">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Entrar</button>
@@ -22,4 +23,6 @@
             {% endif %}
         </div>
     </div>
+
+    <script type="module" src="{% static 'authors/js/form-verify.js' %}"></script>
 {% endblock content %}
