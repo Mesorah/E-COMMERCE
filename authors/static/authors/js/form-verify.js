@@ -125,4 +125,6 @@ function isNumeric(password) {
     }   
 }
 
-main();
+
+// If you are not on the login page
+if(!document.querySelector('#id_password')) main();
