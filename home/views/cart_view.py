@@ -1,8 +1,5 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-# from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
@@ -10,7 +7,7 @@ from django.views import View
 from home.models import Products
 
 
-class CartView(LoginRequiredMixin, View):
+class CartView(View):
     login_url = reverse_lazy('authors:login')
 
     def set_max_id_variation(self, cart):
@@ -122,7 +119,7 @@ class RemoveFromCartView(CartView):
         return redirect('home:cart_detail')
 
 
-class CartDetailView(LoginRequiredMixin, View):
+class CartDetailView(View):
     login_url = reverse_lazy('authors:login')
 
     def get_render(self, products=None, total_price=0):

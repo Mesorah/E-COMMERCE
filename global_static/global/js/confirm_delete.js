@@ -3,7 +3,7 @@ function my_scope() {
     for (const form of forms) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        const confirmed = confirm('Você tem certeza que quer concluir?');
+        const confirmed = confirm('Você tem certeza que quer excluir?');
         if (confirmed) {
           form.submit();
         }
