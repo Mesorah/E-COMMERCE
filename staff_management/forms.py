@@ -42,16 +42,6 @@ class CrudProduct(forms.ModelForm):
 
         return price
 
-    def clean_stock(self):
-        stock = self.cleaned_data['stock']
-
-        if int(stock) < 0:
-            self.add_error('stock',
-                           'o valor do stock não pode ser menor que 0'
-                           )
-
-        return stock
-
 
 class SupportStaffForm(forms.Form):
     email = forms.CharField(
