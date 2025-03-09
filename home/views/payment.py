@@ -11,19 +11,34 @@ from home.models import CartItem, Ordered, Products
 class PaymentView(LoginRequiredMixin, View):
     login_url = reverse_lazy('authors:login')
 
+    def set_stock_products(self, cart_item):
+        products = []
+        for i, item in enumerate(cart_item):
+            print(item.product, item.product.stock, item.quantity)
+            item.product.stock -= item.quantity
+            products.append(item.product)
+
+        Products.objects.bulk_update(products, ['stock'])
+
     def get_itens(self):
         cart = self.request.session.get('cart', {})
 
-        product_ids = []
-        products_quantity = []
+        items = []
         for value in cart.values():
             product_id = value['product']['id']
             quantity = value['quantity']
+            items.append((product_id, quantity))
 
-            product_ids.append(product_id)
-            products_quantity.append(quantity)
+        # ordena os itens pelo primeiro elemento da tupla (o product_id)
+        items.sort(key=lambda item: item[0])
 
-        products = Products.objects.filter(pk__in=product_ids)
+        product_ids = []
+        products_quantity = []
+        for item in items:
+            product_ids.append(item[0])         # product_id
+            products_quantity.append(item[1])   # quantity
+
+        products = Products.objects.filter(pk__in=product_ids).order_by('pk')
 
         return products, products_quantity
 
@@ -85,6 +100,8 @@ class PaymentView(LoginRequiredMixin, View):
 
             self.request.session['cart'] = {}
             self.request.session.modified = True
+
+            self.set_stock_products(cart_items)
 
             return redirect('home:index')
 
