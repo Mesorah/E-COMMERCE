@@ -7,7 +7,7 @@ app_name = 'staff'
 urlpatterns = [
      path('', views.HomeListView.as_view(), name='index'),
 
-     path('add_product/',
+     path('product/create/',
           views.ProductCreateView.as_view(),
           name='add_product'
           ),

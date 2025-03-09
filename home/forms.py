@@ -97,8 +97,6 @@ class PaymentForm(forms.Form):
                 "Formato de data inválido. Use MM/AA ou MM/YYYY."
             )
 
-        # return expiration_date
-
     def clean_zip_code(self):
         zip_code = self.cleaned_data['zip_code']
 
