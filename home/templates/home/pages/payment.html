@@ -1,4 +1,5 @@
 {% extends "global/pages/base.html" %}
+{% load static %}
 
 {% block title %} {{ title }} {% endblock title %}
 
@@ -44,4 +45,6 @@
             {% endif %}
         </div> {% endcomment %}
     </div>
+
+    <script type="module" src="{% static 'home/js/formVerify.js' %}"></script>
 {% endblock content %}

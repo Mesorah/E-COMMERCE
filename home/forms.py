@@ -62,6 +62,12 @@ class PaymentForm(forms.Form):
         }),
     )
 
+    def __init__(self, *args, **kwargs):
+        super(PaymentForm, self).__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     def clean_expiration_date(self):
         expiration_date = self.cleaned_data['expiration_date']
         try:

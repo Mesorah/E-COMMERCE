@@ -1,4 +1,4 @@
-import { ValidateCPF } from "./CPF-verify.js";
+import { ValidateCPF } from "./CPFVerify.js";
 
 
 function main() {
