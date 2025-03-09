@@ -56,7 +56,7 @@ urlpatterns = [
           name="staff_client_search"
           ),
 
-     path('support/staff/',
+     path('support/',
           views.SupportStaff.as_view(),
           name='support_staff'
           ),
