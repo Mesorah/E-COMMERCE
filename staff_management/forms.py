@@ -15,6 +15,12 @@ class CrudProduct(forms.ModelForm):
             'cover'
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     def clean_name(self):
         name = self.cleaned_data['name']
 
@@ -36,15 +42,15 @@ class CrudProduct(forms.ModelForm):
 
         return price
 
-    # def clean_stock(self):
-    #     stock = self.cleaned_data['stock']
+    def clean_stock(self):
+        stock = self.cleaned_data['stock']
 
-    #     if int(stock) < 0:
-    #         self.add_error('stock',
-    #                        'o valor do stock não pode ser menor que 0'
-    #                        )
+        if int(stock) < 0:
+            self.add_error('stock',
+                           'o valor do stock não pode ser menor que 0'
+                           )
 
-    #     return stock
+        return stock
 
 
 class SupportStaffForm(forms.Form):
