@@ -4,7 +4,7 @@ from django.http import Http404
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
-from home.models import CartItem, Products
+from home.models import Products
 
 
 class HomeListView(ListView):
@@ -59,14 +59,9 @@ class PageDetailView(DetailView):
 
         product = self.object
 
-        cart_item = CartItem.objects.filter(
-            product=product,
-        ).first()
-
         context.update({
             'title': 'View Page',
             'stock': product.stock,
-            'have_product': cart_item,
             'search_url': reverse('home:home_search'),
             'name': 'product'
         })

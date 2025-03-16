@@ -79,20 +79,47 @@ class CartView(View):
 
         return self.request.session['cart'][self.id_variation]
 
-    def post(self, *args, **kwargs):
-        cart, quantity, product = self.get_itens(self.kwargs.get('pk'))
+    def get_items(self, session_cart):
+        items = []
+        for k, value in session_cart.items():
+            quantity = value['quantity']
+            id = value['product']['id']
+            items.append((id, quantity))
 
-        if quantity > product['stock']:
+        print(items)
+
+        return items
+
+    def get_session_quantity(self, items, pk):
+        session_quantity = 0
+        for item in items:
+            # id
+            if item[0] == pk:
+                session_quantity = item[1]
+
+        return session_quantity
+
+    def post(self, *args, **kwargs):
+        cart, quantity, product = self.get_itens(
+            self.kwargs.get('pk')
+        )
+
+        has_product = self.verify_if_has_exist(cart, product, quantity)
+        if not has_product:
+            self.set_itens(quantity, product)
+
+        session_cart = self.request.session['cart']
+        items = self.get_items(session_cart)
+        pk = self.kwargs.get('pk')
+        session_quantity = self.get_session_quantity(items, pk)
+
+        if quantity > product['stock'] or session_quantity > product['stock']:
+
             messages.error(self.request,
                            'Não temos essa quantidade em estoque!'
                            )
 
             return redirect('home:view_page', slug=product['slug'])
-
-        has_product = self.verify_if_has_exist(cart, product, quantity)
-
-        if not has_product:
-            self.set_itens(quantity, product)
 
         return redirect('home:index')
 
