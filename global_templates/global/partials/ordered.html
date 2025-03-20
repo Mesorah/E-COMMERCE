@@ -9,7 +9,7 @@
 <div class="order-action-container">
     <p class="order-link"><a href="{% url 'staff:ordered_detail' ordered.id %}">Visualizar</a></p>
     
-    {% if title != 'Cliente' %}
+    {% if title != 'Cliente' and complete != True %}
         <form class="form-delete" action="{% url 'staff:complete_ordered' ordered.id %}" method="post">
             {% csrf_token %}
             <button type="submit">Concluir</button>

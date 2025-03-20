@@ -33,6 +33,11 @@ urlpatterns = [
           name='ordered_detail'
           ),
 
+     path('ordered/complete/',
+          views.CompleteOrderedView.as_view(),
+          name='ordered_complete'
+          ),
+
      path('ordered/complete/<int:pk>/',
           views.OrderedCompleteView.as_view(),
           name='complete_ordered'

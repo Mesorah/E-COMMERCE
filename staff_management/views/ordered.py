@@ -11,20 +11,13 @@ from home.models import Ordered
 from .index import UserPassesTestMixin
 
 
-class OrderedIndexView(UserPassesTestMixin, ListView):
+class OrderedMixin(UserPassesTestMixin, ListView):
     template_name = 'staff_management/pages/ordered.html'
     context_object_name = 'ordereds'
     model = Ordered
     paginate_by = 10
     paginator_class = Paginator
     ordering = ['-pk']
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-
-        qs = qs.filter(ordered=False)
-
-        return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -37,6 +30,15 @@ class OrderedIndexView(UserPassesTestMixin, ListView):
         })
 
         return context
+
+
+class OrderedIndexView(OrderedMixin):
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        qs = qs.filter(ordered=False)
+
+        return qs
 
 
 class OrderedCompleteView(UserPassesTestMixin, View):
@@ -69,6 +71,24 @@ class OrderedDetailView(UserPassesTestMixin, DetailView):
             'is_staff': True,
             'products': products,
             'total_price': total_price
+        })
+
+        return context
+
+
+class CompleteOrderedView(OrderedMixin):
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        qs = qs.filter(ordered=True)
+
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context.update({
+            'complete': True
         })
 
         return context
