@@ -15,7 +15,8 @@ class TestViewAddToCart(TestCase):
          self.cart_item2,
          self.user_profile) = create_cart_item_setup(
             staff=True,
-            product_2=True
+            product_2=True,
+            stock1=2
         )
 
         self.client.login(username='test', password='123')
@@ -111,5 +112,7 @@ class TestViewAddToCart(TestCase):
 
         session = self.client.session['cart']
 
-        self.assertEqual(session['1']['quantity'], 2)
-        self.assertEqual(session['2']['quantity'], 1)
+        quantities = [data['quantity'] for data in session.values()]
+
+        self.assertEqual(quantities[0], 2)
+        self.assertEqual(quantities[1], 1)

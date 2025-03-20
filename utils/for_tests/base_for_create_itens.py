@@ -9,10 +9,10 @@ from home.models import (  # noqa E501
 
 def create_product(
         user,
+        stock=1,
         name='Test Product',
         price=150,
         description='Test',
-        stock=1,
         is_published=True
         ):
     product = Products.objects.create(

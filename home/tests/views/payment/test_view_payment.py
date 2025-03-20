@@ -72,9 +72,18 @@ class TestViewPayment(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_if_payment_informations_is_correct_and_is_get(self):
+        self.client.post(
+            reverse('home:add_to_cart', kwargs={'pk': '1'})
+        )
+
         response = self.client.get(reverse('home:payment'), data=self.data)
 
         self.assertEqual(response.status_code, 200)
+
+    def test_if_payment_informations_is_correct_but_no_has_product(self):
+        response = self.client.get(reverse('home:payment'), data=self.data)
+
+        self.assertRedirects(response, reverse('home:index'))
 
     def test_if_payment_len_expiration_date_is_invalid(self):
         self.data['expiration_date'] = '1212'

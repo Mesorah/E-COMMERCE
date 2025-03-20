@@ -11,7 +11,7 @@ from utils.for_tests.base_for_create_itens import (
 )
 
 
-def create_cart_item_setup(staff=False, product_2=False):
+def create_cart_item_setup(staff=False, product_2=False, stock1=1, stock2=1):
     if staff:
         user = register_super_user()
     else:
@@ -19,11 +19,11 @@ def create_cart_item_setup(staff=False, product_2=False):
 
     user_profile = register_user_profile(user)
 
-    product = create_product(user)
+    product = create_product(user, stock1)
     cart_item = create_cart_item(product, user_profile)
 
     if product_2:
-        product_2 = create_product(user, name='teste product 2')
+        product_2 = create_product(user, stock2, name='teste product 2')
         cart_item2 = create_cart_item(product_2, user_profile)
 
         return product, product_2, cart_item, cart_item2, user_profile
