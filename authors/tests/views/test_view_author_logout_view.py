@@ -11,7 +11,7 @@ from utils.for_tests.base_for_authentication import (  # noqa E501
 class TestAuthorLogoutView(TestCase):
     def setUp(self):
         self.user = register_user()
-        self.profile = register_user_profile(self.user)
+        register_user_profile(self.user)
 
         self.client.login(username='Test', password='Test')
 

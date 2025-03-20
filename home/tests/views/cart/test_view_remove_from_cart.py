@@ -2,20 +2,16 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from home import views
-from utils.for_tests.base_for_setup import create_cart_item_setup
+from utils.for_tests.base_for_authentication import register_super_user
+from utils.for_tests.base_for_create_itens import create_product
 
 
 class TestViewRemoveFromCart(TestCase):
     def setUp(self):
-        (self.product,
-         self.product2,
-         self.cart_item,
-         self.cart_item2,
-         self.user_profile) = create_cart_item_setup(
-            product_2=True
-        )
+        user = register_super_user()
+        self.client.login(username='test', password='123')
 
-        self.client.login(username='Test', password='Test')
+        self.product1 = create_product(user, stock=2)
 
         return super().setUp()
 

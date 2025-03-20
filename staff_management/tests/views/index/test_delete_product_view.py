@@ -13,11 +13,12 @@ from utils.for_tests.base_for_create_itens import create_product
 
 class TestDeleteProductView(TestCase):
     def setUp(self):
-        user = register_super_user()
-
+        super_user = register_super_user()
         self.client.login(username='test', password='123')
 
-        self.product = create_product(user)
+        self.product = create_product(super_user)
+
+        register_user()
 
         return super().setUp()
 
@@ -27,9 +28,6 @@ class TestDeleteProductView(TestCase):
         self.assertEqual(response.func.view_class, views.ProductDeleteView)
 
     def test_user_without_permission_redirects_from_staff_delete_product(self):
-        self.client.logout()
-        register_user()
-
         self.client.login(username='Test', password='Test')
 
         response = self.client.get(

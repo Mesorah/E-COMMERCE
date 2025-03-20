@@ -7,7 +7,7 @@ from utils.for_tests.base_for_authentication import register_user
 
 class TestSupportClient(TestCase):
     def setUp(self):
-        self.user = register_user()
+        register_user()
 
         self.client.login(username='Test', password='Test')
 

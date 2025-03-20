@@ -15,10 +15,11 @@ from utils.for_tests.base_for_create_itens import create_product
 class TestEditProductView(TestCase):
     def setUp(self):
         user = register_super_user()
-
         self.client.login(username='test', password='123')
 
         self.product = create_product(user)
+
+        register_user()
 
         return super().setUp()
 
@@ -30,9 +31,6 @@ class TestEditProductView(TestCase):
         self.assertEqual(response.func.view_class, views.ProductUpdateView)
 
     def test_user_without_permission_redirects_from_staff_update_product(self):
-        self.client.logout()
-        register_user()
-
         self.client.login(username='Test', password='Test')
 
         response = self.client.get(

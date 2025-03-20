@@ -1,8 +1,9 @@
-from django.test import TestCase
 from django.core.exceptions import ValidationError
-from utils.for_tests.base_for_authentication import (
+from django.test import TestCase
+
+from utils.for_tests.base_for_authentication import (  # noqa E501
     register_user,
-    register_user_profile
+    register_user_profile,
 )
 
 

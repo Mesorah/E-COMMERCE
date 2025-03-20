@@ -3,23 +3,17 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from home import views
-from home.models import CartItem
-from utils.for_tests.base_for_setup import create_cart_item_setup
+from utils.for_tests.base_for_authentication import register_super_user
+from utils.for_tests.base_for_create_itens import create_product
 
 
 class TestViewAddToCart(TestCase):
     def setUp(self):
-        (self.product,
-         self.product2,
-         self.cart_item,
-         self.cart_item2,
-         self.user_profile) = create_cart_item_setup(
-            staff=True,
-            product_2=True,
-            stock1=2
-        )
-
+        user = register_super_user()
         self.client.login(username='test', password='123')
+
+        self.product1 = create_product(user, stock=2)
+        self.product2 = create_product(user, name='teste product 2')
 
         return super().setUp()
 
@@ -32,24 +26,9 @@ class TestViewAddToCart(TestCase):
         response = self.client.get(reverse('home:add_to_cart',
                                            kwargs={'pk': '2'}))
 
-        cart_item = CartItem.objects.filter(
-            user=self.user_profile
-        )
-
-        products = cart_item.all()
-
-        self.assertEqual(products.count(), 2)
-
         self.assertEqual(response.status_code, 405)  # Navegador recusa
 
     def test_if_home_add_to_cart_is_post(self):
-        cart_item = CartItem.objects.filter(
-            user=self.user_profile
-        )
-
-        self.product.stock = 100
-        self.product.save()
-
         response = self.client.post(reverse(
             'home:add_to_cart',
             kwargs={'pk': '1'}),
@@ -57,9 +36,7 @@ class TestViewAddToCart(TestCase):
             follow=True
         )
 
-        products = cart_item.all()
-
-        self.assertEqual(products.count(), 2)
+        self.assertEqual(len(self.client.session['cart']), 1)
 
         self.assertRedirects(response, reverse('home:index'))
 

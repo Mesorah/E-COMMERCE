@@ -3,13 +3,16 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from home.forms import PaymentForm
-from utils.for_tests.base_for_setup import create_cart_item_setup
+from utils.for_tests.base_for_authentication import register_user
+from utils.for_tests.base_for_create_itens import create_product
 
 
 class TestViewPayment(TestCase):
     def setUp(self):
-        self.cart_item = create_cart_item_setup()
+        user = register_user()
         self.client.login(username='Test', password='Test')
+
+        create_product(user)
 
         # Tudo daqui é falso(nem vem kk)
         self.data = {
