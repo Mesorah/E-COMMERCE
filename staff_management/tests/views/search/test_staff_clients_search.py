@@ -1,11 +1,9 @@
-import pytest
 from django.test import TestCase
 from django.urls import resolve, reverse
 
 from staff_management import views
 
 
-@pytest.mark.test
 class StaffClientsSearchTest(TestCase):
     def test_staff_client_search_uses_correct_view_function(self):
         resolved = resolve(reverse('staff:staff_client_search'))
