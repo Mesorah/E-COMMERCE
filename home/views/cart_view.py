@@ -1,3 +1,5 @@
+import uuid
+
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,21 +12,13 @@ from home.models import Products
 class CartView(View):
     login_url = reverse_lazy('authors:login')
 
-    def set_max_id_variation(self, cart):
-        self.id_variation = 0
-        for product in cart:
-            self.id_variation = max(self.id_variation, int(product))
-
-        return self.id_variation
-
     def init_cart(self):
         cart = self.request.session.get('cart')
 
         if not cart:
             self.request.session['cart'] = {}
-            self.id_variation = 0
-        else:
-            self.set_max_id_variation(cart)
+
+        self.id_variation = str(uuid.uuid4())
 
         return cart
 
@@ -50,7 +44,6 @@ class CartView(View):
 
     def get_itens(self, pk):
         cart = self.init_cart()
-        self.id_variation += 1
 
         quantity = int(self.request.POST.get('quantity', 1))
         product = get_object_or_404(Products, pk=pk)
