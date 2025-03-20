@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -20,7 +21,7 @@ class PaymentView(LoginRequiredMixin, View):
 
         Products.objects.bulk_update(products, ['stock'])
 
-    def get_itens(self):
+    def get_items(self):
         cart = self.request.session.get('cart', {})
 
         items = []
@@ -80,11 +81,16 @@ class PaymentView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         form = PaymentForm()
+        cart = self.request.session.get('cart', {})
+
+        if not cart:
+            messages.error(self.request, 'Nenhum item no carrinho.')
+            return redirect('home:index')
 
         return self.get_render(form)
 
     def post(self, *args, **kwargs):
-        products, products_quantity = self.get_itens()
+        products, products_quantity = self.get_items()
 
         form = PaymentForm(self.request.POST)
 

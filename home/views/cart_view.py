@@ -42,7 +42,7 @@ class CartView(View):
             # ou seja, um novo produto
             return False
 
-    def get_itens(self, pk):
+    def get_item(self, pk):
         cart = self.init_cart()
 
         quantity = int(self.request.POST.get('quantity', 1))
@@ -93,7 +93,7 @@ class CartView(View):
         return session_quantity
 
     def post(self, *args, **kwargs):
-        cart, quantity, product = self.get_itens(
+        cart, quantity, product = self.get_item(
             self.kwargs.get('pk')
         )
 
@@ -127,9 +127,9 @@ class RemoveFromCartView(CartView):
 
     def post(self, *args, **kwargs):
         quantity = int(self.request.POST.get('quantity-to-remove', 1))
-        cart, _, product = self.get_itens(self.kwargs.get('pk'))
+        cart, _, product = self.get_item(self.kwargs.get('pk'))
 
-        self.id_variation = self.find_product_in_cart(
+        self.find_product_in_cart(
             cart, product, quantity, False
         )
 

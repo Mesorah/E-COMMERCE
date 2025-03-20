@@ -7,6 +7,15 @@
     <div class="header">
         <h1>Produtos Disponíveis</h1>
     </div>
+
+    <div class="form-errors">
+        {% for message in messages %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+
     <div class="products-container">
         {% for product in products %}
             <div class="product">
@@ -14,5 +23,6 @@
             </div>
         {% endfor %}
     </div>
+
 </div>
 {% endblock content %}
