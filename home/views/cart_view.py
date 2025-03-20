@@ -79,8 +79,6 @@ class CartView(View):
             id = value['product']['id']
             items.append((id, quantity))
 
-        print(items)
-
         return items
 
     def get_session_quantity(self, items, pk):

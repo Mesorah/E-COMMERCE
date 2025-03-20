@@ -15,7 +15,6 @@ class PaymentView(LoginRequiredMixin, View):
     def set_stock_products(self, cart_item):
         products = []
         for i, item in enumerate(cart_item):
-            print(item.product, item.product.stock, item.quantity)
             item.product.stock -= item.quantity
             products.append(item.product)
 
