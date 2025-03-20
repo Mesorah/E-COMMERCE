@@ -28,7 +28,7 @@ class CartView(View):
 
         return cart
 
-    def verify_if_has_exist(self, cart, product, quantity, sum=True):
+    def find_product_in_cart(self, cart, product, quantity, sum=True):
         product_name = product.get('name')
 
         if cart:
@@ -104,7 +104,7 @@ class CartView(View):
             self.kwargs.get('pk')
         )
 
-        has_product = self.verify_if_has_exist(cart, product, quantity)
+        has_product = self.find_product_in_cart(cart, product, quantity)
         if not has_product:
             self.set_itens(quantity, product)
 
@@ -114,6 +114,7 @@ class CartView(View):
         session_quantity = self.get_session_quantity(items, pk)
 
         if quantity > product['stock'] or session_quantity > product['stock']:
+            self.find_product_in_cart(cart, product, quantity, False)
 
             messages.error(self.request,
                            'Não temos essa quantidade em estoque!'
@@ -135,7 +136,7 @@ class RemoveFromCartView(CartView):
         quantity = int(self.request.POST.get('quantity-to-remove', 1))
         cart, _, product = self.get_itens(self.kwargs.get('pk'))
 
-        self.id_variation = self.verify_if_has_exist(
+        self.id_variation = self.find_product_in_cart(
             cart, product, quantity, False
         )
 
