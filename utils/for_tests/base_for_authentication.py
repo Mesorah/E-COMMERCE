@@ -1,35 +1,32 @@
-from django.contrib.auth.models import User
 from authors.models import UserProfile
 
 
-def register_user(username='Test', password='Test'):
-    user = User.objects.create_user(
+def register_user(
+        username='Test',
+        password='Test',
+        cpf='21257890000'
+     ):
+    user = UserProfile.objects.create_user(
         username=username,
-        password=password
+        password=password,
+        cpf=cpf
     )
 
     return user
 
 
-def register_user_profile(user, cpf='04887398026'):
-    profile = UserProfile.objects.create(
-        user=user,
-        cpf=cpf
-    )
-
-    return profile
-
-
 def register_super_user(
         username='test',
         email='test@example.com',
-        password='123'
+        password='123',
+        cpf='04887398026'
      ):
 
-    profile = User.objects.create_superuser(
+    profile = UserProfile.objects.create_superuser(
             username=username,
             email=email,
             password=password,
+            cpf=cpf
         )
 
     return profile

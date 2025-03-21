@@ -1,7 +1,7 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
-from authors.models import UserProfile
+
 from authors.forms import CustomUserCreationForm
+from authors.models import UserProfile
 
 
 class TestModelUserProfile(TestCase):
@@ -35,7 +35,7 @@ class TestModelUserProfile(TestCase):
         self.form.save()
 
         self.assertIsNotNone(user.id)
-        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(UserProfile.objects.count(), 1)
         self.assertEqual(user.username, 'Test')
 
     def test_if_user_profile_is_created(self):

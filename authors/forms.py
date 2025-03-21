@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from validate_docbr import CPF
 
 from authors.models import UserProfile
@@ -23,21 +22,10 @@ class CustomUserCreationForm(UserCreationForm):
     )
 
     class Meta:
-        model = User
+        model = UserProfile
         fields = ('username', 'email', 'cpf', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-
-        if commit:
-            user.save()
-
-            profile = UserProfile(user=user, cpf=self.cleaned_data['cpf'])
-            profile.save()
-
-        return user

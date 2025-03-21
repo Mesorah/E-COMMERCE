@@ -18,13 +18,6 @@ class ClientsListView(UserPassesTestMixin, ListView):
     paginator_class = Paginator
     ordering = ['-pk']
 
-    def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
-
-        queryset = queryset.select_related('user')
-
-        return queryset
-
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -55,13 +48,11 @@ class ClientListOrderedDetailView(UserPassesTestMixin, ListView):
             pk=self.kwargs.get('pk')
         ).first()
 
-        user = user_profile.user
-
         # Pegando os users dos Cart_items e
         # do Cart_item pegando o User base
 
         queryset = queryset.filter(
-            products__user__user=user
+            products__user=user_profile
         ).distinct()
 
         return queryset
@@ -96,7 +87,7 @@ class StaffClientsSearchListView(ListView):
         queryset = queryset.filter(
             Q(
                 Q(pk__icontains=search_term) |
-                Q(user__username__icontains=search_term)
+                Q(username__icontains=search_term)
             )
         )
 

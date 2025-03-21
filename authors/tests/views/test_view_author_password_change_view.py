@@ -2,16 +2,12 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from authors import views
-from utils.for_tests.base_for_authentication import (  # noqa E501
-    register_user,
-    register_user_profile,
-)
+from utils.for_tests.base_for_authentication import register_user
 
 
 class TestAuthorPasswordChangeView(TestCase):
     def setUp(self):
         self.user = register_user()
-        register_user_profile(self.user)
 
         self.client.login(username='Test', password='Test')
 

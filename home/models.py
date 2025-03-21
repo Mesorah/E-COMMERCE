@@ -2,8 +2,6 @@ from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 
-from authors.models import UserProfile
-
 
 class Category(models.Model):
     class Meta:
@@ -56,7 +54,9 @@ class Products(models.Model):
 
 class CartItem(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
-    user = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.SET_NULL,
+                             null=True)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):

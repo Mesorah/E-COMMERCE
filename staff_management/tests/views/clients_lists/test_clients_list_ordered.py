@@ -5,7 +5,6 @@ from staff_management import views
 from utils.for_tests.base_for_authentication import (  # noqa E501
     register_super_user,
     register_user,
-    register_user_profile,
 )
 from utils.for_tests.base_for_create_itens import create_product
 
@@ -13,7 +12,6 @@ from utils.for_tests.base_for_create_itens import create_product
 class TestClientsListOrdered(TestCase):
     def setUp(self):
         super_user = register_super_user()
-        register_user_profile(super_user)
         self.client.login(username='test', password='123')
 
         create_product(super_user)

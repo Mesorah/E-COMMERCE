@@ -1,7 +1,7 @@
-from django.db import models
-from django.contrib.auth.models import User
-from validate_docbr import CPF
+from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
+from django.db import models
+from validate_docbr import CPF
 
 
 def validate_cpf(value):
@@ -10,8 +10,7 @@ def validate_cpf(value):
         raise ValidationError('CPF inválido.')
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class UserProfile(AbstractUser):
     cpf = models.CharField(
         max_length=11,
         unique=True,
@@ -19,4 +18,4 @@ class UserProfile(models.Model):
     )
 
     def __str__(self):
-        return f'{self.user.username} - {self.cpf}'
+        return f'{self.username} - {self.cpf}'

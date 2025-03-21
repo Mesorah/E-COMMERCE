@@ -45,7 +45,7 @@ class PaymentView(LoginRequiredMixin, View):
     def create_cart_items(self, products, products_quantity):
         cart_items = []
         user_profile = UserProfile.objects.filter(
-            user=self.request.user
+            id=self.request.user.pk
         ).first()
 
         for i, product in enumerate(products):
