@@ -21,6 +21,10 @@
             <div class="product">
                 {% include "global/partials/product.html" %}
             </div>
+        {% empty %}
+            <div class="empty-base-page">
+                <p>Nenhum produto disponível</p>
+            </div>
         {% endfor %}
     </div>
 
