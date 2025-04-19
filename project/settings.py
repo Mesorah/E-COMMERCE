@@ -162,3 +162,11 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'senha_de_app')
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+# Fast Tests (NO USE IN PRODUCTION)
+if os.environ.get('FAST_TESTS') == '1':
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    ]
+
+    # STATIC_ROOT = BASE_DIR / 'staticfiles_test'
