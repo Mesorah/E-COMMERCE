@@ -39,3 +39,11 @@ def create_ordered_setup():
     ordered.products.set(cart_item)
 
     return ordered
+
+
+def create_product_setup():
+    user = register_super_user()
+
+    product = create_product(user)
+
+    return product

@@ -1,5 +1,6 @@
 import time
 
+# from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import LiveServerTestCase
 
 from utils.browser import get_chrome_driver
