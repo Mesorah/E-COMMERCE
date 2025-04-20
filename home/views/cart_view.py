@@ -96,7 +96,7 @@ class CartView(View):
         )
 
         has_product = self.find_product_in_cart(cart, product, quantity)
-        if not has_product:
+        if not has_product and quantity <= product['stock']:
             self.set_itens(quantity, product)
 
         session_cart = self.request.session['cart']

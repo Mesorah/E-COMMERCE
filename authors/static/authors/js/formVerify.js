@@ -66,7 +66,7 @@ function validUsername(username) {
         username, `O ${username.name} não pode ter mais que 150 caracteres`
     );
 
-    if(username.value.length < 3) addError(
+    if(username.value.length <= 3) addError(
         username, `O ${username.name} precisa de pelo menos 3 caracteres`
     );
 

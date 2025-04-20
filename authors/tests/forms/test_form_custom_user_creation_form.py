@@ -18,16 +18,16 @@ class TestModelUserProfile(TestCase):
 
         return super().setUp()
 
-    def test_if_the_forms_is_valid(self):
+    def test_custom_user_creation_forms_is_valid(self):
         self.assertTrue(self.form.is_valid())
 
-    def test_if_cpf_is_not_valid(self):
+    def test_custom_user_creation_cpf_is_not_valid(self):
         self.data['cpf'] = '12345678901'
 
         self.assertFalse(self.form.is_valid())
         self.assertIn('cpf', self.form.errors)
 
-    def test_if_user_is_created(self):
+    def test_custom_user_creation_user_is_created(self):
         user = self.form.save(commit=False)
 
         self.assertIsNone(user.id)
@@ -38,7 +38,7 @@ class TestModelUserProfile(TestCase):
         self.assertEqual(UserProfile.objects.count(), 1)
         self.assertEqual(user.username, 'Test')
 
-    def test_if_user_profile_is_created(self):
+    def test_custom_user_creation_user_profile_is_created(self):
         profile = self.form.save(commit=False)
 
         self.assertIsNone(profile.id)
@@ -48,3 +48,12 @@ class TestModelUserProfile(TestCase):
         self.assertIsNotNone(profile.id)
         self.assertEqual(UserProfile.objects.count(), 1)
         self.assertEqual(profile.username, 'Test')
+
+    # def test_custom_user_creation_username_is_not_valid(self):
+    #     self.data['username'] = 'ab'
+
+    #     self.assertFalse(self.form.is_valid())
+    #     self.assertIn(
+    #         'Nome precisa de pelo menos 3 caracteres',
+    #         self.form.errors['username']
+    #     )
