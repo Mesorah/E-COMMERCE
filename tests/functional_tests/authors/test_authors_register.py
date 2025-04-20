@@ -1,3 +1,4 @@
+from django.urls import reverse
 from selenium.webdriver.common.by import By
 
 from tests.functional_tests.authors.base import AuthorsBaseFunctionalTest
@@ -6,7 +7,7 @@ from tests.functional_tests.authors.base import AuthorsBaseFunctionalTest
 class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
     def setUp(self):
         super().setUp()
-        self.browser.get(self.live_server_url + '/authors/register/')
+        self.browser.get(self.live_server_url + reverse('authors:register'))
         self.form = self.browser.find_element(By.CLASS_NAME, 'author-form')
 
     def fill_form_dummy_data(
