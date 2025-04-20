@@ -15,24 +15,33 @@ class HomeDetailFunctionalTest(BaseFunctionalTest):
             'home:view_page', kwargs={'slug': product.name.lower()})
         )
 
-        #
+        # User viewed the price of the product
         price = self.browser.find_element(By.CLASS_NAME, 'buy-price').text
         self.assertEqual(price, 'R$: 150,0')
 
-        #
+        # User tries to add 2 items to cart
         quantity = self.browser.find_element(By.ID, 'quantity')
         quantity.send_keys(2)
         quantity.send_keys(Keys.ENTER)
 
-        #
+        # User sees error message that he does not have
+        # this quantity of product in stock
         errors = self.browser.find_elements(By.CLASS_NAME, 'messages')
 
-        for error in errors:
+        for error in errors:  # Usar list-comprehension
             self.assertEqual(
                 error.text, 'Não temos essa quantidade em estoque!'
             )
 
-        # self.sleep()
-        # quantity.send_keys(1)
-        # self.sleep()
-        # quantity.send_keys(Keys.ENTER)
+        # User tries to add an item to the cart
+        quantity = self.browser.find_element(By.ID, 'quantity')
+        quantity.clear()
+        quantity.send_keys(1)
+        quantity.send_keys(Keys.ENTER)
+
+        cart_count = self.browser.find_element(
+            By.CLASS_NAME, 'cart-count'
+        ).text
+
+        # User sees that he has 1 product in his cart
+        self.assertEqual(cart_count, '1')
