@@ -5,13 +5,21 @@ from tests.functional_tests.authors.base import AuthorsBaseFunctionalTest
 
 
 class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
+    def setUp(self):
+        super().setUp()
+        self.browser.get(self.live_server_url + '/authors/register/')
+        self.form = self.browser.find_element(By.CLASS_NAME, 'author-form')
+        self.errors = self.browser.find_elements(
+            By.CLASS_NAME, 'error-message'
+        )
+
     def fill_form_dummy_data(
             self, form, override_field=None, override_value=None
     ):
         fields_data = {
             'id_username': 'dummyuser',
             'id_email': 'dummy@email.com',
-            'id_cpf': '11111111111',
+            'id_cpf': '89511513010',
             'id_password1': 'password123!',
             'id_password2': 'password123!',
         }
@@ -36,13 +44,24 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
         return errors_messages
 
     def test_authors_register_username_message_error(self):
-        self.browser.get(self.live_server_url + '/authors/register/')
-        form = self.browser.find_element(By.CLASS_NAME, 'author-form')
-        self.fill_form_dummy_data(form, 'id_username', 'me')
-        errors = self.browser.find_elements(By.CLASS_NAME, 'error-message')
-        errors_messages = self.get_errors(errors)
+        self.fill_form_dummy_data(self.form, 'id_username', 'me')
+        errors_messages = self.get_errors(self.errors)
         self.assertIn(
             'O username precisa de pelo menos 3 caracteres', errors_messages
+        )
+
+    def test_authors_register_cpf_message_error(self):
+        self.fill_form_dummy_data(self.form, 'id_cpf', '11111111111')
+        errors_messages = self.get_errors(self.errors)
+        self.assertIn(
+            'cpf inválido', errors_messages
+        )
+
+    def test_authors_register_password_message_error(self):
+        self.fill_form_dummy_data(self.form, 'id_password1', 'password1!')
+        errors_messages = self.get_errors(self.errors)
+        self.assertIn(
+            'A password1 tem que ser igual a password2', errors_messages
         )
 
     # test placeholder
