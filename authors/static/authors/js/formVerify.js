@@ -66,7 +66,11 @@ function validUsername(username) {
         username, `O ${username.name} não pode ter mais que 150 caracteres`
     );
 
-    return username.value.length < 150;
+    if(username.value.length < 3) addError(
+        username, `O ${username.name} precisa de pelo menos 3 caracteres`
+    );
+
+    return username.name.length < 3 && username.name.length > 150;
 }
 
 function validCPF(cpf) {

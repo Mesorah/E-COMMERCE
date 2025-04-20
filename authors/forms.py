@@ -29,3 +29,13 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+
+        if len(username.strip()) < 3:
+            raise forms.ValidationError(
+                "Nome precisa de pelo menos 3 caracteres"
+            )
+
+        return username
