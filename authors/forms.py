@@ -12,13 +12,49 @@ def validate_cpf(value):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'placeholder': 'Ex.: Gabriel'
+        }
+    ))
+
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                'placeholder': 'Ex.: exemplo@email.com',
+            }
+        )
+    )
 
     cpf = forms.CharField(
         min_length=11,
         max_length=11,
         required=True,
-        validators=[validate_cpf]
+        validators=[validate_cpf],
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Ex.: 32470317070'
+            }
+        )
+    )
+
+    password1 = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Ex.: y897`YuA/u/e',
+            }
+        )
+    )
+
+    password2 = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Ex.: y897`YuA/u/e',
+            }
+        )
     )
 
     class Meta:
