@@ -43,12 +43,6 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
 
         return errors_messages
 
-    def get_by_placeholder(self, form, placeholder):
-        return form.find_element(
-            By.XPATH,
-            f'//input[@placeholder="{placeholder}"]'
-        )
-
     def test_authors_register_username_message_error(self):
         errors = self.fill_form_dummy_data(self.form, 'id_username', 'me')
         errors_messages = self.get_errors(errors)
