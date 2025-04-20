@@ -169,4 +169,4 @@ if os.environ.get('FAST_TESTS') == '1':
         'django.contrib.auth.hashers.MD5PasswordHasher',
     ]
 
-    # STATIC_ROOT = BASE_DIR / 'staticfiles_test'
+    STATIC_ROOT = BASE_DIR / 'staticfiles_test'
