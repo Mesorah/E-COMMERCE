@@ -61,14 +61,23 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
         errors = self.fill_form_dummy_data(
             self.form, 'id_password1', 'password1!'
         )
-        self.errors = self.browser.find_elements(
-            By.CLASS_NAME, 'error-message'
-        )
         errors_messages = self.get_errors(errors)
         self.assertIn(
             'A password1 tem que ser igual a password2', errors_messages
         )
 
-    def test_authors_register_username_placeholder(self):
-        # self.get_by_placeholder(self.form,)
-        pass
+    def test_all_placeholders(self):
+        self.browser.get(self.live_server_url + '/authors/register/')
+
+        expected_placeholders = {
+            'id_username': 'Ex.: Gabriel',
+            'id_email': 'Ex.: exemplo@email.com',
+            'id_cpf': 'Ex.: 32470317070',
+            'id_password1': 'Ex.: y897`YuA/u/e',
+            'id_password2': 'Ex.: y897`YuA/u/e',
+        }
+
+        for field_id, expected_text in expected_placeholders.items():
+            field = self.browser.find_element(By.ID, field_id)
+            placeholder = field.get_attribute('placeholder')
+            self.assertEqual(placeholder, expected_text)
