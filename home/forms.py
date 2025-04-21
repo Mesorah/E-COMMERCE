@@ -12,8 +12,18 @@ def validate_credit_card(card_number):
 
 
 class PaymentForm(forms.Form):
-    first_name = forms.CharField(max_length=50)
-    last_name = forms.CharField(max_length=50)
+    first_name = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Seu primeiro nome'
+        })
+    )
+    last_name = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Seu último nome'
+        })
+    )
     credit_card = forms.CharField(
         max_length=16,
         widget=forms.TextInput(attrs={
@@ -46,7 +56,7 @@ class PaymentForm(forms.Form):
     neighborhood = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
-            'placeholder': 'Bairo'
+            'placeholder': 'Bairro'
         }),
     )
     street_name = forms.CharField(
