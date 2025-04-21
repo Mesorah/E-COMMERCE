@@ -2,21 +2,13 @@ from django.urls import reverse
 from selenium.webdriver.common.by import By
 
 from tests.functional_tests.base import BaseFunctionalTest
-from utils.for_tests.base_for_setup import create_product_setup
 
 
 class CartDetailFunctionalTest(BaseFunctionalTest):
     def setUp(self):
         super().setUp()
 
-        product = create_product_setup()
-
-        self.browser.get(self.live_server_url + reverse(
-            'home:view_page', kwargs={'slug': product.name.lower()})
-        )
-
-        form = self.browser.find_element(By.CLASS_NAME, 'buy-form')
-        form.submit()
+        self.get_product_in_cart()
 
         self.browser.get(self.live_server_url + reverse(
             'home:cart_detail')
