@@ -1,6 +1,5 @@
 from django.urls import reverse
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 
 from tests.functional_tests.base import BaseFunctionalTest
 
@@ -10,62 +9,38 @@ class PaymentFunctionalTest(BaseFunctionalTest):
         super().setUp()
 
         self.get_product_in_cart()
+        self.browser.get(self.live_server_url + reverse('home:payment'))
+
+        self.informations = {
+            'id_first_name': '',
+            'id_last_name': '',
+            'id_credit_card': '',
+            'id_expiration_date': '',
+            'id_cvv': '',
+            'id_cardholder_name': '',
+            'id_zip_code': '',
+            'id_neighborhood': '',
+            'id_street_name': '',
+            'id_house_number': ''
+        }
 
     def test_home_payment_works_if_all_data_is_correctly(self):
-        # User view the page
-        self.browser.get(self.live_server_url + reverse('home:payment'))
+        informations_list = [
+            'Camila',
+            'Oliveira',
+            '4242424242424242',
+            '09/2028',
+            '737',
+            'Camila Oliveira',
+            '86390000',
+            'Itaim Bibi',
+            'Rua Joaquim Floriano',
+            '450'
+        ]
 
-        # He saw that he was not logged in
-        self.assertEqual(self.browser.title, 'Login')
-
-        username = self.browser.find_element(By.ID, 'id_username')
-        password = self.browser.find_element(By.ID, 'id_password')
-
-        # Then logs into the site
-        username.send_keys('Test')
-        password.send_keys('Test')
-        password.send_keys(Keys.ENTER)
-
-        # He realized he was logged in and was redirected to Home
-        self.assertEqual(self.browser.title, 'Home')
-
-        # He goes to the payment page
-        self.browser.get(self.live_server_url + reverse('home:payment'))
-
-        # View the forms placeholders
-        expected_placeholders = {
-            'id_first_name': 'Seu primeiro nome',
-            'id_last_name': 'Seu último nome',
-            'id_credit_card': 'Número do cartão de crédito',
-            'id_expiration_date': 'MM/AA ou MM/YYYY',
-            'id_cvv': 'CVV',
-            'id_cardholder_name': 'Nome do titular do cartão',
-            'id_zip_code': 'XXXXXXXX',
-            'id_neighborhood': 'Bairro',
-            'id_street_name': 'Rua',
-            'id_house_number': 'Número da casa',
-        }
-
-        for field_id, expected_text in expected_placeholders.items():
-            field = self.browser.find_element(By.ID, field_id)
-            placeholder = field.get_attribute('placeholder')
-            self.assertEqual(placeholder, expected_text)
-
-        # then it fills in your information
-        informations = {
-            'id_first_name': 'Camila',
-            'id_last_name': 'Oliveira',
-            'id_credit_card': '4242424242424242',
-            'id_expiration_date': '09/2028',
-            'id_cvv': '737',
-            'id_cardholder_name': 'Camila Oliveira',
-            'id_zip_code': '86390000',
-            'id_neighborhood': 'Itaim Bibi',
-            'id_street_name': 'Rua Joaquim Floriano',
-            'id_house_number': '450'
-        }
-
-        for field_id, expected_text in informations.items():
+        for field_id, expected_text in zip(
+            self.informations.keys(), informations_list
+        ):
             field = self.browser.find_element(By.ID, field_id)
             field.send_keys(expected_text)
 
@@ -79,3 +54,25 @@ class PaymentFunctionalTest(BaseFunctionalTest):
         ).text
 
         self.assertEqual(cart_count, '0')
+
+    def test_home_payment_all_placeholders(self):
+        # View the forms placeholders
+        placeholders = [
+            'Seu primeiro nome',
+            'Seu último nome',
+            'Número do cartão de crédito',
+            'MM/AA ou MM/YYYY',
+            'CVV',
+            'Nome do titular do cartão',
+            'XXXXXXXX',
+            'Bairro',
+            'Rua',
+            'Número da casa',
+        ]
+
+        for field_id, expected_text in zip(
+            self.informations.keys(), placeholders
+        ):
+            field = self.browser.find_element(By.ID, field_id)
+            placeholder = field.get_attribute('placeholder')
+            self.assertEqual(placeholder, expected_text)

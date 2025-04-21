@@ -67,7 +67,7 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
             'A password1 tem que ser igual a password2', errors_messages
         )
 
-    def test_all_placeholders(self):
+    def test_authors_register_all_placeholders(self):
         self.browser.get(self.live_server_url + '/authors/register/')
 
         expected_placeholders = {

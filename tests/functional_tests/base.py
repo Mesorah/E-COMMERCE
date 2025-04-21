@@ -4,6 +4,7 @@ import time
 from django.test import LiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 from utils.browser import get_chrome_driver
 from utils.for_tests.base_for_authentication import register_user
@@ -25,6 +26,15 @@ class BaseFunctionalTest(LiveServerTestCase):
     def get_product_in_cart(self):
         register_user()
         product = create_product_setup()
+
+        self.browser.get(self.live_server_url + reverse('authors:login'))
+
+        username = self.browser.find_element(By.ID, 'id_username')
+        password = self.browser.find_element(By.ID, 'id_password')
+
+        username.send_keys('Test')
+        password.send_keys('Test')
+        password.send_keys(Keys.ENTER)
 
         self.browser.get(self.live_server_url + reverse(
             'home:view_page', kwargs={'slug': product.name.lower()})
