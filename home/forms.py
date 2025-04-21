@@ -115,6 +115,6 @@ class PaymentForm(forms.Form):
         ]
 
         if zip_code not in allowed_zip_codes:
-            raise forms.ValidationError("CEP diferente de cambará")
+            raise forms.ValidationError("CEP diferente de cambará.")
 
         return zip_code

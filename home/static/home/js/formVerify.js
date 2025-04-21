@@ -50,7 +50,7 @@ function validElements(elemets) {
 
     for(const element of elemets) {
         if(!element.value){
-            addError(element, `O ${element.name} não estar ser vazio`);
+            addError(element, `O ${element.name} não estar ser vazio.`);
 
             valid = false;
         }
@@ -62,7 +62,7 @@ function validElements(elemets) {
 function validCreditCard(cardNumber) {
     if(!validateCreditCard(cardNumber.value)) {
         addError(
-            cardNumber, 'Cartão inválido'
+            cardNumber, 'Cartão inválido.'
         );
 
         return false;
