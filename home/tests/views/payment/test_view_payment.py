@@ -172,7 +172,7 @@ class TestViewPayment(TestCase):
         self.assertFalse(self.form.is_valid())
 
         self.assertIn(
-            'CEP diferente de cambará',
+            'CEP diferente de cambará.',
             self.form['zip_code'].errors
         )
 
