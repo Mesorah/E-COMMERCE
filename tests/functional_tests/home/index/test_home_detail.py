@@ -27,11 +27,10 @@ class HomeDetailFunctionalTest(BaseFunctionalTest):
         # User sees error message that he does not have
         # this quantity of product in stock
         errors = self.browser.find_elements(By.CLASS_NAME, 'messages')
-
-        for error in errors:  # Usar list-comprehension
-            self.assertEqual(
-                error.text, 'Não temos essa quantidade em estoque!'
-            )
+        self.assertIn(
+            'Não temos essa quantidade em estoque!',
+            [error.text for error in errors]
+        )
 
         # User tries to add an item to the cart
         quantity = self.browser.find_element(By.ID, 'quantity')

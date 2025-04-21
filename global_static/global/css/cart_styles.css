@@ -42,6 +42,13 @@
     transform: scale(0.95);
 }
 
+.empty-cart {
+    text-align: center;
+    margin-top: 3rem;
+    font-weight: bolder;
+    font-size: large;
+}
+
 @keyframes popIn {
     0% {
         transform: scale(0);
