@@ -71,7 +71,7 @@ function validName(name) {
 
 function validPrice(price) {
     if(price.value < 0) {
-        self.addError(
+        addError(
             price, 'O valor do produto não pode ser menor ou igual a 0.'
         );
 
@@ -83,8 +83,8 @@ function validPrice(price) {
 
 function validStock(stock) {
     if(stock.value < 0) {
-        self.addError(
-            price, 'o valor do stock não pode ser menor que 0'
+        addError(
+            stock, 'O valor do stock não pode ser menor que 0'
         );
 
         return false;
