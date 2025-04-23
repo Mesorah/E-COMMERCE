@@ -117,9 +117,9 @@ class TestAddProductView(TestCase):
         self.assertIn('price', form.errors)
         self.assertIn('stock', form.errors)
         self.assertIn('Nome de produto muito pequeno,', form.errors['name'][0])
-        self.assertIn('O valor do produto nãopode ser menor ou igual a 0.',
+        self.assertIn('O valor do produto não pode ser menor ou igual a 0.',
                       form.errors['price'][0]
                       )
-        self.assertIn('Certifique-se que este valor seja maior ou igual a 0.',
+        self.assertIn('O valor do stock não pode ser menor que 0',
                       form.errors['stock'][0]
                       )

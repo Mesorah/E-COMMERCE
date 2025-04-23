@@ -38,7 +38,7 @@ class BaseFunctionalTest(LiveServerTestCase):
             register_super_user()
 
         if create_product:
-            create_product_setup()
+            product = create_product_setup()
 
         self.browser.get(self.live_server_url + reverse('authors:login'))
 
@@ -48,6 +48,11 @@ class BaseFunctionalTest(LiveServerTestCase):
         username_id.send_keys(username)
         password_id.send_keys(password)
         password_id.send_keys(Keys.ENTER)
+
+        if create_product:
+            return product
+
+        return
 
     def get_product_in_cart(self, username='Test', password='Test'):
         product = self.login_user(username, password)

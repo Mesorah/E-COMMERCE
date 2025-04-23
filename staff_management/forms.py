@@ -15,6 +15,31 @@ class CrudProduct(forms.ModelForm):
             'cover'
         ]
 
+    name = forms.CharField(
+        max_length=55,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Nome do produto'
+        })
+    )
+
+    price = forms.FloatField(
+        widget=forms.NumberInput(attrs={
+            'placeholder': 'Preço do produto'
+        })
+    )
+
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Descrição do produto'
+        })
+    )
+
+    stock = forms.IntegerField(
+        widget=forms.NumberInput(attrs={
+            'placeholder': 'Quantidade de estoque do produto'
+        })
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -36,11 +61,23 @@ class CrudProduct(forms.ModelForm):
         price = self.cleaned_data['price']
 
         if int(price) <= 0:
-            self.add_error('price',
-                           'O valor do produto nãopode ser menor ou igual a 0.'
-                           )
+            self.add_error(
+                'price',
+                'O valor do produto não pode ser menor ou igual a 0.'
+            )
 
         return price
+
+    def clean_stock(self):
+        stock = self.cleaned_data['stock']
+
+        if int(stock) < 0:
+            self.add_error(
+                'stock',
+                'O valor do stock não pode ser menor que 0'
+            )
+
+        return stock
 
 
 class SupportStaffForm(forms.Form):

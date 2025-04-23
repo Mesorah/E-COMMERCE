@@ -4,6 +4,8 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from utils.browser import get_chrome_driver
 from utils.for_tests.base_for_authentication import register_user
@@ -23,9 +25,6 @@ class PaymentBaseFunctionalTest(StaticLiveServerTestCase):
         time.sleep(seconds)
 
     def get_product_in_cart(self):
-        from selenium.webdriver.support import expected_conditions as EC
-        from selenium.webdriver.support.ui import WebDriverWait
-
         register_user()
         product = create_product_setup()
 
