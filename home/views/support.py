@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 
@@ -20,6 +21,7 @@ class Faq(TemplateView):
 
 
 class SupportCompleted(LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy('authors:login')
     template_name = 'home/pages/support_completed.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -33,6 +35,8 @@ class SupportCompleted(LoginRequiredMixin, TemplateView):
 
 
 class SupportClient(LoginRequiredMixin, View):
+    login_url = reverse_lazy('authors:login')
+
     def get_render(self):
         return render(self.request, 'home/pages/support.html', context={
             'title': 'Suporte'
