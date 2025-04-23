@@ -7,7 +7,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 from utils.browser import get_chrome_driver
-from utils.for_tests.base_for_authentication import register_user
+from utils.for_tests.base_for_authentication import (  # noqa E501
+    register_super_user,
+    register_user,
+)
 from utils.for_tests.base_for_setup import create_product_setup
 
 
@@ -23,18 +26,31 @@ class BaseFunctionalTest(LiveServerTestCase):
     def sleep(self, seconds=5):
         time.sleep(seconds)
 
-    def get_product_in_cart(self):
-        register_user()
-        product = create_product_setup()
+    def login_user(
+            self, username='Test', password='Test',
+            normal_user=True, super_user=False,
+            create_product=True
+    ):
+        if normal_user:
+            register_user()
+
+        if super_user:
+            register_super_user()
+
+        if create_product:
+            create_product_setup()
 
         self.browser.get(self.live_server_url + reverse('authors:login'))
 
-        username = self.browser.find_element(By.ID, 'id_username')
-        password = self.browser.find_element(By.ID, 'id_password')
+        username_id = self.browser.find_element(By.ID, 'id_username')
+        password_id = self.browser.find_element(By.ID, 'id_password')
 
-        username.send_keys('Test')
-        password.send_keys('Test')
-        password.send_keys(Keys.ENTER)
+        username_id.send_keys(username)
+        password_id.send_keys(password)
+        password_id.send_keys(Keys.ENTER)
+
+    def get_product_in_cart(self, username='Test', password='Test'):
+        product = self.login_user(username, password)
 
         self.browser.get(self.live_server_url + reverse(
             'home:view_page', kwargs={'slug': product.name.lower()})
