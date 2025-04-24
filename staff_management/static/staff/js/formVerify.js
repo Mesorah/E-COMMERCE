@@ -25,7 +25,8 @@ function getElements() {
 }
 
 function isValid(validElements, validName, ValidPrice, ValidStock) {
-    if(validElements && validName && ValidPrice, ValidStock) return true;
+    console.log('estou validando a funçao')
+    if(validElements && validName && ValidPrice && ValidStock) return true;
 
     return false;
 }
