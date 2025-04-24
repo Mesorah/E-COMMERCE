@@ -25,7 +25,6 @@ function getElements() {
 }
 
 function isValid(validElements, validName, ValidPrice, ValidStock) {
-    console.log('estou validando a funçao')
     if(validElements && validName && ValidPrice && ValidStock) return true;
 
     return false;
@@ -49,7 +48,7 @@ function validElements(elemets) {
 
     for(const element of elemets) {
         if(!element.value){
-            addError(element, `O ${element.name} não estar ser vazio`);
+            addError(element, `O ${element.name} não estar ser vazio.`);
 
             valid = false;
         }
@@ -59,9 +58,9 @@ function validElements(elemets) {
 }
 
 function validName(name) {
-    if(name.value.length < 2) {
+    if(name.value.length <= 2) {
         addError(
-            name, 'Nome de produto muito pequeno, precisa-se de pelo menos 3 caracteres'
+            name, 'Nome de produto muito pequeno, precisa-se de pelo menos 3 caracteres.'
         );
 
         return false;
@@ -73,7 +72,7 @@ function validName(name) {
 function validPrice(price) {
     if(price.value < 0) {
         addError(
-            price, 'O valor do produto não pode ser menor ou igual a 0.'
+            price, 'O preço do produto não pode ser menor ou igual a 0.'
         );
 
         return false;
@@ -85,7 +84,7 @@ function validPrice(price) {
 function validStock(stock) {
     if(stock.value < 0) {
         addError(
-            stock, 'O valor do stock não pode ser menor que 0'
+            stock, 'O valor do stock não pode ser menor que 0.'
         );
 
         return false;
