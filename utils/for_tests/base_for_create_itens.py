@@ -1,3 +1,8 @@
+import tempfile
+from pathlib import Path
+
+from PIL import Image
+
 from home.models import (  # noqa E501
     CartItem,
     Category,
@@ -69,3 +74,13 @@ def create_category(name):
     )
 
     return category
+
+
+def create_test_image_file():
+    temp_dir = tempfile.gettempdir()
+    file_path = Path(temp_dir) / "test.jpg"
+
+    image = Image.new("RGB", (100, 100), color="blue")
+    image.save(file_path, format="JPEG")
+
+    return str(file_path)
