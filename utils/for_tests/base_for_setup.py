@@ -41,10 +41,11 @@ def create_ordered_setup():
     return ordered
 
 
-def create_product_setup(qtd=1, username='test', cpf='04887398026'):
-    user = register_super_user(username=username, cpf=cpf)
+def create_product_setup(qtd=1, super_user_profile=None):
+    if super_user_profile is None:
+        super_user_profile = register_super_user()
 
     for i in range(qtd):
-        product = create_product(user, name=f'Product-{i}')
+        product = create_product(super_user_profile, name=f'Product-{i}')
 
     return product

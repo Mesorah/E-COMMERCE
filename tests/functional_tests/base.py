@@ -35,10 +35,16 @@ class BaseFunctionalTest(LiveServerTestCase):
             register_user()
 
         if super_user:
-            register_super_user()
+            super_user_profile = register_super_user()
 
         if create_product:
-            product = create_product_setup()
+            if super_user:
+                product = create_product_setup(
+                    super_user_profile=super_user_profile
+                )
+
+            else:
+                product = create_product_setup()
 
         self.browser.get(self.live_server_url + reverse('authors:login'))
 
