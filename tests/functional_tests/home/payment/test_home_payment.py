@@ -1,5 +1,7 @@
 from django.urls import reverse
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from tests.functional_tests.home.payment.base import PaymentBaseFunctionalTest
 
@@ -51,6 +53,13 @@ class PaymentFunctionalTest(PaymentBaseFunctionalTest):
         # He send the informations
         form = self.browser.find_element(By.CLASS_NAME, 'payment-form')
         form.submit()
+
+        # Wait until the cart count appears on the page
+        WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located(
+                (By.CLASS_NAME, 'cart-count')
+            )
+        )
 
         # The user saw that the cart emptied and his money was gone
         cart_count = self.browser.find_element(

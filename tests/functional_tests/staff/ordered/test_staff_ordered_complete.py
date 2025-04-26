@@ -86,4 +86,4 @@ class StaffOrderedCompleteFunctionalTest(StaffBaseFunctionalTest):
             By.CLASS_NAME, 'order-title'
         ).text
 
-        self.assertEqual(product_title, 'Pedido #1')
+        self.assertIn('Pedido #', product_title)

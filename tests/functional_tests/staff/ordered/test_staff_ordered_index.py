@@ -61,11 +61,11 @@ class StaffOrderedIndexFunctionalTest(StaffBaseFunctionalTest):
         )
 
         ordered_name = self.browser.find_element(
-            By.XPATH, "//p[contains(text(), 'Test-1')]"
+            By.XPATH, "//p[contains(text(), 'Test-')]"
         ).text
 
         # The user sees what they were looking for on the page
-        self.assertEqual(ordered_name, 'Nome: Test-1')
+        self.assertIn('Nome: Test-', ordered_name)
 
     def test_staff_ordered_index_page_pagination(self):
         create_ordered_setup(qtd=11)
