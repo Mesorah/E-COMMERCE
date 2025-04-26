@@ -18,12 +18,6 @@ class OrderedIndexFunctionalTest(StaffBaseFunctionalTest):
 
         self.browser.get(self.live_server_url + reverse('staff:ordered_index'))
 
-    def create_ordered(self, super_user=False, qtd=1):
-        create_ordered_setup(super_user, qtd)
-        self.browser.refresh()
-
-        return
-
     def test_ordered_index_without_products_not_found_message(self):
         # See the empty page and realized that you don't
         # have any ordered registered
