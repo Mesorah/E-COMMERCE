@@ -5,6 +5,8 @@ from django.test import LiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from utils.browser import get_chrome_driver
 from utils.for_tests.base_for_authentication import (  # noqa E501
@@ -65,6 +67,12 @@ class BaseFunctionalTest(LiveServerTestCase):
 
         self.browser.get(self.live_server_url + reverse(
             'home:view_page', kwargs={'slug': product.name.lower()})
+        )
+
+        WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located(
+                (By.CLASS_NAME, 'buy-form')
+            )
         )
 
         form = self.browser.find_element(By.CLASS_NAME, 'buy-form')

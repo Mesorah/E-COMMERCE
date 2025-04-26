@@ -33,7 +33,7 @@ class StaffIndexFunctionalTest(BaseFunctionalTest):
 
         self.assertNotIn('Nenhum produto disponível', body.text)
 
-    def test_staff_index_serach_input_can_find_correct_product(self):
+    def test_staff_index_search_input_can_find_correct_product(self):
         create_product_setup(10)
 
         # User view the page

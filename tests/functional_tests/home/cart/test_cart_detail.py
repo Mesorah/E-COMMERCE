@@ -1,5 +1,7 @@
 from django.urls import reverse
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from tests.functional_tests.base import BaseFunctionalTest
 
@@ -36,6 +38,12 @@ class CartDetailFunctionalTest(BaseFunctionalTest):
         # Try to remove product
         remove_product = self.browser.find_element(By.CLASS_NAME, 'remove-btn')
         remove_product.click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located(
+                (By.CLASS_NAME, 'empty-cart-message')
+            )
+        )
 
         # View te message of your empty cart
         empty_cart_message = self.browser.find_element(

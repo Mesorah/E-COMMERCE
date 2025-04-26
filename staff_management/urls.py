@@ -32,17 +32,14 @@ urlpatterns = [
           views.OrderedDetailView.as_view(),
           name='ordered_detail'
           ),
-
      path('ordered/complete/',
           views.CompleteOrderedView.as_view(),
           name='ordered_complete'
           ),
-
      path('ordered/complete/<int:pk>/',
           views.OrderedCompleteView.as_view(),
           name='complete_ordered'
           ),
-
      path('ordereds/search/',
           views.StaffOrderedSearchListView.as_view(),
           name="staff_ordered_search"

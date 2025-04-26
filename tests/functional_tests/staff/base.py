@@ -23,8 +23,11 @@ class StaffBaseFunctionalTest(StaticLiveServerTestCase):
     def sleep(self, seconds=5):
         time.sleep(seconds)
 
-    def login_user(self, reverse_url, username='test', password='123'):
-        create_product_setup()
+    def login_user(
+            self, reverse_url, username='test', password='123',
+            return_super_user=False
+    ):
+        super_user = create_product_setup(return_super_user=return_super_user)
 
         self.browser.get(self.live_server_url + reverse('authors:login'))
 
@@ -42,3 +45,5 @@ class StaffBaseFunctionalTest(StaticLiveServerTestCase):
         )
 
         self.browser.get(self.live_server_url + reverse(reverse_url))
+
+        return super_user
