@@ -13,7 +13,7 @@ class HomeIndexFunctionalTest(BaseFunctionalTest):
         # See the body and realized that you don't have any product registered
         body = self.browser.find_element(By.TAG_NAME, 'body')
 
-        self.assertIn('Nenhum produto disponível', body.text)
+        self.assertIn('Nenhum produto disponível.', body.text)
 
     def test_home_index_hides_no_product_msg_with_products(self):
         create_product_setup()
@@ -24,7 +24,7 @@ class HomeIndexFunctionalTest(BaseFunctionalTest):
         # See the body and realized that you have any product registered
         body = self.browser.find_element(By.TAG_NAME, 'body')
 
-        self.assertNotIn('Nenhum produto disponível', body.text)
+        self.assertNotIn('Nenhum produto disponível.', body.text)
 
     def test_home_index_search_input_can_find_correct_product(self):
         create_product_setup(10)
