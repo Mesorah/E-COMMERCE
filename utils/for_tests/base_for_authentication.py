@@ -16,17 +16,18 @@ def register_user(
 
 
 def register_super_user(
-        username='test',
-        email='test@example.com',
-        password='123',
-        cpf='04887398026'
-     ):
+    username='test',
+    email='test@example.com',
+    password='123',
+    cpf='04887398026'
+):
+    try:
+        return UserProfile.objects.get(username=username)
 
-    profile = UserProfile.objects.create_superuser(
+    except UserProfile.DoesNotExist:
+        return UserProfile.objects.create_superuser(
             username=username,
             email=email,
             password=password,
             cpf=cpf
         )
-
-    return profile
