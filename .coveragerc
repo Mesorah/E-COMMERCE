@@ -1,3 +1,15 @@
 [run]
 branch = True
-omit = venv/*,**/*test*.py,manage.py,__localcode/*,**/base_for_setup.py,utils/browser.py,project/settings.py,tests/functional_tests/base.py,tests/functional_tests/authors/base.py
+omit = 
+    venv/*,
+    **/*test*.py,
+    manage.py,
+    __localcode/*,
+    **/base_for_setup.py,
+    utils/browser.py,
+    project/settings.py,
+    utils/for_tests/base_for_create_itens.py,
+    tests/functional_tests/base.py,
+    tests/functional_tests/authors/base.py,
+    tests/functional_tests/staff/base.py,
+    tests/functional_tests/home/payment/base.py
