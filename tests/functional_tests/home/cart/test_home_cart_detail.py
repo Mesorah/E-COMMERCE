@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from tests.functional_tests.base import BaseFunctionalTest
 
 
-class CartDetailFunctionalTest(BaseFunctionalTest):
+class StaffCartDetailFunctionalTest(BaseFunctionalTest):
     def setUp(self):
         super().setUp()
 
@@ -16,7 +16,7 @@ class CartDetailFunctionalTest(BaseFunctionalTest):
             'home:cart_detail')
         )
 
-    def test_cart_detail_can_see_product_name_and_total_price_in_cart(self):
+    def test_staff_cart_detail_shows_product_and_total(self):
         # View the product name
         product_name = self.browser.find_element(
             By.CLASS_NAME, 'item-name'
@@ -34,7 +34,7 @@ class CartDetailFunctionalTest(BaseFunctionalTest):
 
         self.assertEqual('Valor Total: R$ 150', total_value)
 
-    def test_cart_detail_can_remove_product_and_see_empty_cart_message(self):
+    def test_staff_cart_detail_remove_product_and_see_empty_message(self):
         # Try to remove product
         remove_product = self.browser.find_element(By.CLASS_NAME, 'remove-btn')
         remove_product.click()

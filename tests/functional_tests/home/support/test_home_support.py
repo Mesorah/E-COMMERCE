@@ -1,7 +1,11 @@
 from django.urls import reverse
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from tests.functional_tests.authors.base import AuthorsBaseFunctionalTest
+from utils.for_tests.base_for_authentication import register_user
 
 
 class SupportFunctionalTest(AuthorsBaseFunctionalTest):
@@ -48,3 +52,61 @@ class SupportFunctionalTest(AuthorsBaseFunctionalTest):
         self.get_question_and_answer_is_correct(**expected_args)
 
         self.assertEqual(len(questions), 4)
+
+    def test_home_support_is_correct(self):
+        register_user()
+
+        # Go to the login page
+        self.browser.get(self.live_server_url + reverse('authors:login'))
+
+        # Find username and password input fields
+        username_id = self.browser.find_element(By.ID, 'id_username')
+        password_id = self.browser.find_element(By.ID, 'id_password')
+
+        # Fill in login credentials and submit the form
+        username_id.send_keys('Test')
+        password_id.send_keys('Test')
+        password_id.send_keys(Keys.ENTER)
+
+        # Wait until the products container appears after login
+        WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located(
+                (By.CLASS_NAME, 'products-container')
+            )
+        )
+
+        # User navigates to the support page
+        self.browser.get(self.live_server_url + reverse('home:support_client'))
+
+        # User sees the placeholder in the question field
+        field = self.browser.find_element(By.ID, 'question')
+        placeholder = field.get_attribute('placeholder')
+
+        self.assertEqual('Escreva sua dúvida aqui...', placeholder)
+
+        # User types a question into the field
+        field.send_keys('Test question')
+
+        # User clicks the submit button
+        submit_button = self.browser.find_element(
+            By.CLASS_NAME, 'submit-button'
+        )
+        submit_button.click()
+
+        # Wait until the support message appears after submitting the question
+        WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located(
+                (By.CLASS_NAME, 'support_message')
+            )
+        )
+
+        # Check if the success message is displayed correctly
+        support_message = self.browser.find_element(
+            By.CLASS_NAME, 'support_message'
+        ).text
+
+        self.assertEqual(
+            ('Sua pergunta foi enviada, quando respondermos '
+             'enviaremos para o seu e-mail'),
+            support_message
+        )

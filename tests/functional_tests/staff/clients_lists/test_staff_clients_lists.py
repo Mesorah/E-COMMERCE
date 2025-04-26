@@ -8,7 +8,7 @@ from tests.functional_tests.staff.base import StaffBaseFunctionalTest
 from utils.for_tests.base_for_setup import create_ordered_setup
 
 
-class ClientsListsFunctionalTest(StaffBaseFunctionalTest):
+class StaffClientsListsFunctionalTest(StaffBaseFunctionalTest):
     def setUp(self):
         super().setUp()
 
@@ -18,7 +18,7 @@ class ClientsListsFunctionalTest(StaffBaseFunctionalTest):
 
         self.browser.get(self.live_server_url + reverse('staff:clients'))
 
-    def test_clients_lists_hide_a_correct_user(self):
+    def test_staff_clients_lists_hide_a_correct_user(self):
         # Find a username
         order_text = self.browser.find_element(
             By.CLASS_NAME, 'order-text'
@@ -26,7 +26,7 @@ class ClientsListsFunctionalTest(StaffBaseFunctionalTest):
 
         self.assertEqual('Nome: test', order_text)
 
-    def test_clients_lists_user_get_a_empty_orders_message(self):
+    def test_staff_clients_lists_user_get_a_empty_orders_message(self):
         # Find and click the "View" button
         visualization_button = self.browser.find_element(
             By.XPATH, "//a[text()='Visualizar']"
@@ -48,7 +48,7 @@ class ClientsListsFunctionalTest(StaffBaseFunctionalTest):
 
         self.assertEqual('Nenhum pedido feito.', empty_base_page)
 
-    def test_clients_lists_user_get_orders(self):
+    def test_staff_clients_lists_user_get_orders(self):
         create_ordered_setup(self.super_user)
 
         # Find and click the "View" button
@@ -72,7 +72,7 @@ class ClientsListsFunctionalTest(StaffBaseFunctionalTest):
 
         self.assertEqual('Nome: Test-1', ordered_name)
 
-    def test_clients_lists_search_input_can_find_correct_client(self):
+    def test_staff_clients_lists_search_input_can_find_correct_client(self):
         # See a search field with the text "Search for a client"
         search_input = self.browser.find_element(
             By.XPATH,

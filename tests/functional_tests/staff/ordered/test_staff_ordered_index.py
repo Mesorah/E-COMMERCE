@@ -8,7 +8,7 @@ from tests.functional_tests.staff.base import StaffBaseFunctionalTest
 from utils.for_tests.base_for_setup import create_ordered_setup
 
 
-class OrderedIndexFunctionalTest(StaffBaseFunctionalTest):
+class StaffOrderedIndexFunctionalTest(StaffBaseFunctionalTest):
     def setUp(self):
         super().setUp()
 
@@ -18,7 +18,7 @@ class OrderedIndexFunctionalTest(StaffBaseFunctionalTest):
 
         self.browser.get(self.live_server_url + reverse('staff:ordered_index'))
 
-    def test_ordered_index_without_products_not_found_message(self):
+    def test_staff_ordered_index_without_products_not_found_message(self):
         # See the empty page and realized that you don't
         # have any ordered registered
         empyty_page = self.browser.find_element(
@@ -27,7 +27,7 @@ class OrderedIndexFunctionalTest(StaffBaseFunctionalTest):
 
         self.assertIn('Nenhum pedido feito.', empyty_page)
 
-    def test_ordered_index_hides_no_product_msg_with_products(self):
+    def test_staff_ordered_index_hides_no_product_msg_with_products(self):
         create_ordered_setup(self.super_user)
         self.browser.refresh()
 
@@ -39,7 +39,7 @@ class OrderedIndexFunctionalTest(StaffBaseFunctionalTest):
 
         self.assertNotIn('Nenhum pedido feito.', body)
 
-    def test_ordered_index_search_input_can_find_correct_product(self):
+    def test_staff_ordered_index_search_input_can_find_correct_product(self):
         create_ordered_setup()
         self.browser.refresh()
 
@@ -67,7 +67,7 @@ class OrderedIndexFunctionalTest(StaffBaseFunctionalTest):
         # The user sees what they were looking for on the page
         self.assertEqual(ordered_name, 'Nome: Test-1')
 
-    def test_ordered_index_page_pagination(self):
+    def test_staff_ordered_index_page_pagination(self):
         create_ordered_setup(qtd=11)
         self.browser.refresh()
 

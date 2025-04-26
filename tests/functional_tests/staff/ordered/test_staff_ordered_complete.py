@@ -7,7 +7,7 @@ from tests.functional_tests.staff.base import StaffBaseFunctionalTest
 from utils.for_tests.base_for_setup import create_ordered_setup
 
 
-class OrderedCompleteFunctionalTest(StaffBaseFunctionalTest):
+class StaffOrderedCompleteFunctionalTest(StaffBaseFunctionalTest):
     def setUp(self):
         super().setUp()
 
@@ -15,7 +15,7 @@ class OrderedCompleteFunctionalTest(StaffBaseFunctionalTest):
             reverse_url='staff:ordered_index', return_super_user=True
         )
 
-    def test_ordered_complete_without_ordered_complete_not_found_message(self):
+    def test_staff_ordered_complete_shows_not_found_without_orders(self):
         self.browser.get(self.live_server_url + reverse(
             'staff:ordered_complete'
         ))
@@ -28,7 +28,7 @@ class OrderedCompleteFunctionalTest(StaffBaseFunctionalTest):
 
         self.assertIn('Nenhum pedido completo.', empyty_page)
 
-    def test_ordered_complete_hides_a_correct_products(self):
+    def test_staff_ordered_complete_hides_a_correct_products(self):
         create_ordered_setup(self.super_user)
         self.browser.refresh()
 

@@ -47,3 +47,23 @@ class StaffBaseFunctionalTest(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url + reverse(reverse_url))
 
         return super_user
+
+    def create_question(self):
+        self.browser.get(self.live_server_url + reverse('home:support_client'))
+
+        field = self.browser.find_element(By.ID, 'question')
+
+        field.send_keys('Test question')
+
+        submit_button = self.browser.find_element(
+            By.CLASS_NAME, 'submit-button'
+        )
+        submit_button.click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located(
+                (By.CLASS_NAME, 'support_message')
+            )
+        )
+
+        return

@@ -7,7 +7,7 @@ from tests.functional_tests.staff.base import StaffBaseFunctionalTest
 from utils.for_tests.base_for_setup import create_ordered_setup
 
 
-class OrderedDetailFunctionalTest(StaffBaseFunctionalTest):
+class StaffOrderedDetailFunctionalTest(StaffBaseFunctionalTest):
     def setUp(self):
         super().setUp()
 
@@ -22,7 +22,7 @@ class OrderedDetailFunctionalTest(StaffBaseFunctionalTest):
             'staff:ordered_detail', kwargs={'pk': '5'})
         )
 
-    def test_ordered_detail_informations_is_correct(self):
+    def test_staff_ordered_detail_informations_is_correct(self):
         WebDriverWait(self.browser, 10).until(
             EC.presence_of_element_located(
                 (By.TAG_NAME, 'li')
