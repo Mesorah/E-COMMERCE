@@ -14,7 +14,11 @@
             </div>
         {% empty %}
             <div class="empty-base-page">
-                <p>Nenhum pedido feito.</p>
+                {% if complete %}
+                    <p>Nenhum pedido completo.</p>
+                {% else %}
+                    <p>Nenhum pedido feito.</p>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

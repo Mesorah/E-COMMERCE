@@ -23,9 +23,9 @@ class OrderedIndexFunctionalTest(StaffBaseFunctionalTest):
         # have any ordered registered
         empyty_page = self.browser.find_element(
             By.CLASS_NAME, 'empty-base-page'
-        )
+        ).text
 
-        self.assertIn('Nenhum pedido feito.', empyty_page.text)
+        self.assertIn('Nenhum pedido feito.', empyty_page)
 
     def test_ordered_index_hides_no_product_msg_with_products(self):
         create_ordered_setup(self.super_user)
@@ -33,9 +33,11 @@ class OrderedIndexFunctionalTest(StaffBaseFunctionalTest):
 
         # See the empty page and realized that you
         # have any ordered registered
-        body = self.browser.find_element(By.TAG_NAME, 'body')
+        body = self.browser.find_element(
+            By.TAG_NAME, 'body'
+        ).text
 
-        self.assertNotIn('Nenhum pedido feito.', body.text)
+        self.assertNotIn('Nenhum pedido feito.', body)
 
     def test_ordered_index_search_input_can_find_correct_product(self):
         create_ordered_setup()
