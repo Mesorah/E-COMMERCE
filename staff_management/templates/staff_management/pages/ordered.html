@@ -12,6 +12,10 @@
             <div class="order-card">
                 {% include "global/partials/ordered.html" %}
             </div>
+        {% empty %}
+            <div class="empty-base-page">
+                <p>Nenhum pedido feito.</p>
+            </div>
         {% endfor %}
     </div>
 </div>

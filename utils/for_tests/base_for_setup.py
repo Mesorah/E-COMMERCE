@@ -28,24 +28,34 @@ def create_cart_item_setup(staff=False, product_2=False, stock1=1, stock2=1):
     return product, cart_item
 
 
-def create_ordered_setup():
-    user = register_super_user()
+def create_ordered_setup(user=False, qtd=1):
+    if not user:
+        user = register_super_user()
 
     product = create_product(user)
 
     cart_item = create_cart_item(product, user)
     cart_item = CartItem.objects.filter(user=user)
-    ordered = create_ordered()
-    ordered.products.set(cart_item)
+
+    for i in range(qtd):
+        ordered = create_ordered(first_name=f'Test-{qtd}', last_name='')
+        ordered.products.set(cart_item)
 
     return ordered
 
 
-def create_product_setup(qtd=1, super_user_profile=None):
+def create_product_setup(
+        qtd=1, super_user_profile=None,
+        username='test', password='123',
+        return_super_user=False
+):
     if super_user_profile is None:
-        super_user_profile = register_super_user()
+        super_user_profile = register_super_user(username, password)
 
     for i in range(qtd):
         product = create_product(super_user_profile, name=f'Product-{i}')
+
+    if return_super_user:
+        return super_user_profile
 
     return product
