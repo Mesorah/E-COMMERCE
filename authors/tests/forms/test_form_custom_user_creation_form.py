@@ -49,11 +49,12 @@ class TestModelUserProfile(TestCase):
         self.assertEqual(UserProfile.objects.count(), 1)
         self.assertEqual(profile.username, 'Test')
 
-    # def test_custom_user_creation_username_is_not_valid(self):
-    #     self.data['username'] = 'ab'
+    def test_custom_user_creation_forms_invalid_username(self):
+        self.data['username'] = 'ab'
 
-    #     self.assertFalse(self.form.is_valid())
-    #     self.assertIn(
-    #         'Nome precisa de pelo menos 3 caracteres',
-    #         self.form.errors['username']
-    #     )
+        self.assertFalse(self.form.is_valid())
+        self.assertIn('username', self.form.errors)
+        self.assertIn(
+            'Nome precisa de pelo menos 3 caracteres',
+            self.form.errors['username']
+        )
