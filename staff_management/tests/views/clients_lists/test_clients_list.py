@@ -18,7 +18,7 @@ class TestClientsList(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_clients_list_load_the_correct_view(self):
+    def test_staff_clients_list_load_the_correct_view(self):
         response = resolve(reverse('staff:clients'))
 
         self.assertEqual(response.func.view_class, views.ClientsListView)
@@ -35,7 +35,7 @@ class TestClientsList(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_staff_clients_list_have_the_correct_template(self):
+    def test_staff_clients_list_have_the_correct_template(self):
         response = self.client.get(reverse('staff:clients'))
 
         self.assertTemplateUsed(

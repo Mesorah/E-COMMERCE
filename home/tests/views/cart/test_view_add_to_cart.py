@@ -17,18 +17,18 @@ class TestViewAddToCart(TestCase):
 
         return super().setUp()
 
-    def test_if_home_add_to_cart_load_the_correct_view(self):
+    def test_home_add_to_cart_load_the_correct_view(self):
         response = resolve(reverse('home:add_to_cart', kwargs={'pk': '1'}))
 
         self.assertEqual(response.func.view_class, views.AddToCartView)
 
-    def test_if_home_add_to_cart_is_get(self):
+    def test_home_add_to_cart_is_get(self):
         response = self.client.get(reverse('home:add_to_cart',
                                            kwargs={'pk': '2'}))
 
         self.assertEqual(response.status_code, 405)  # Navegador recusa
 
-    def test_if_home_add_to_cart_is_post(self):
+    def test_home_add_to_cart_is_post(self):
         response = self.client.post(reverse(
             'home:add_to_cart',
             kwargs={'pk': '1'}),
@@ -40,7 +40,7 @@ class TestViewAddToCart(TestCase):
 
         self.assertRedirects(response, reverse('home:index'))
 
-    def test_if_add_to_cart_stock_is_not_enough(self):
+    def test_add_to_cart_stock_is_not_enough(self):
         response = self.client.post(reverse(
             'home:add_to_cart',
             kwargs={'pk': '2'}),

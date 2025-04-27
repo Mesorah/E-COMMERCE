@@ -30,7 +30,7 @@ class TestAddProductView(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_add_product_load_the_correct_view(self):
+    def test_staff_add_product_load_the_correct_view(self):
         response = resolve(reverse('staff:add_product'))
 
         self.assertEqual(response.func.view_class, views.ProductCreateView)
@@ -67,7 +67,7 @@ class TestAddProductView(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_add_product_have_the_correct_template(self):
+    def test_add_product_have_the_correct_template(self):
         response = self.client.get(reverse('staff:add_product'))
 
         self.assertTemplateUsed(

@@ -15,21 +15,21 @@ class TestViewPage(TestCase):
 
         return super().setUp()
 
-    def test_if_home_view_page_load_the_correct_view(self):
+    def test_home_view_page_load_the_correct_view(self):
         response = resolve(reverse('home:view_page', kwargs={
             'slug': self.product.slug
         }))
 
         self.assertEqual(response.func.view_class, views.PageDetailView)
 
-    def test_if_home_view_page_load_the_correct_template(self):
+    def test_home_view_page_load_the_correct_template(self):
         response = self.client.get(reverse('home:view_page', kwargs={
             'slug': self.product.slug
         }))
 
         self.assertTemplateUsed(response, 'home/pages/view_page.html')
 
-    def test_if_view_page_retuns_200(self):
+    def test_view_page_retuns_200(self):
         response = self.client.get(
             reverse(
                 'home:view_page',
@@ -39,7 +39,7 @@ class TestViewPage(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_view_page_retuns_404(self):
+    def test_view_page_retuns_404(self):
         response = self.client.get(
             reverse(
                 'home:view_page',
@@ -49,7 +49,7 @@ class TestViewPage(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
-    def test_if_is_published_is_false(self):
+    def test_is_published_is_false(self):
         product2 = create_product(
             user=self.user,
             name='Test Product2',

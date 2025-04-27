@@ -22,7 +22,7 @@ class TestDeleteProductView(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_delete_product_load_the_correct_view(self):
+    def test_staff_delete_product_load_the_correct_view(self):
         response = resolve(reverse('staff:delete_product', kwargs={'pk': '1'}))
 
         self.assertEqual(response.func.view_class, views.ProductDeleteView)
@@ -64,7 +64,7 @@ class TestDeleteProductView(TestCase):
         self.assertEqual(response.status_code, 302)
 
     """ Depois se tiver a página de confirmação """
-    # def test_if_delete_product_have_the_correct_template(self):
+    # def test_delete_product_have_the_correct_template(self):
     #     response = self.client.get(
     #         reverse(
     #             'staff:delete_product', kwargs={'id': '1'}

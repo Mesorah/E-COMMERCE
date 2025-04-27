@@ -20,7 +20,7 @@ class TestClientsListOrdered(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_clients_list_ordered_load_the_correct_view(self):
+    def test_staff_clients_list_ordered_load_the_correct_view(self):
         response = resolve(
             reverse(
                 'staff:client_list_ordered',

@@ -17,7 +17,7 @@ class TestSupportQuestionDelete(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_support_question_delete_load_the_correct_view(self):
+    def test_staff_support_question_delete_load_the_correct_view(self):
         response = resolve(
             reverse('staff:support_question_delete',
                     kwargs={'pk': '1'}
@@ -26,7 +26,7 @@ class TestSupportQuestionDelete(TestCase):
 
         self.assertEqual(response.func.view_class, views.SupportQuestionDelete)
 
-    def test_if_staff_support_question_delete_returns_302(self):
+    def test_staff_support_question_delete_returns_302(self):
         response = self.client.post(
             reverse('staff:support_question_delete',
                     kwargs={'pk': '1'}
@@ -35,7 +35,7 @@ class TestSupportQuestionDelete(TestCase):
 
         self.assertEqual(response.status_code, 302)
 
-    def test_if_staff_support_question_delete_works(self):
+    def test_staff_support_question_delete_works(self):
         questions = CustomerQuestion.objects.all()
 
         self.assertEqual(len(questions), 1)
@@ -50,7 +50,7 @@ class TestSupportQuestionDelete(TestCase):
 
         self.assertEqual(len(questions), 0)
 
-    def test_if_staff_support_question_delete_is_get(self):
+    def test_staff_support_question_delete_is_get(self):
         response = self.client.get(
             reverse('staff:support_question_delete',
                     kwargs={'pk': '1'}

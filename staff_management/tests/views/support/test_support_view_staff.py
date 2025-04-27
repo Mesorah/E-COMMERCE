@@ -13,12 +13,12 @@ class TestSupportViewStaff(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_support_view_staff_load_the_correct_view(self):
+    def test_staff_support_view_staff_load_the_correct_view(self):
         response = resolve(reverse('staff:support_view_staff'))
 
         self.assertEqual(response.func.view_class, views.SupportViewStaff)
 
-    def test_if_staff_support_view_staff_load_the_correct_template(self):
+    def test_staff_support_view_staff_load_the_correct_template(self):
         response = self.client.get(reverse('staff:support_view_staff'))
 
         self.assertTemplateUsed(
@@ -26,7 +26,7 @@ class TestSupportViewStaff(TestCase):
             'staff_management/pages/support_view_staff.html'
         )
 
-    def test_if_staff_support_view_staff_returns_200(self):
+    def test_staff_support_view_staff_returns_200(self):
         response = self.client.get(reverse('staff:support_view_staff'))
 
         self.assertEqual(response.status_code, 200)

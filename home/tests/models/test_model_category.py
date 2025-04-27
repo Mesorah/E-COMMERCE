@@ -9,7 +9,7 @@ class TestModelCategory(TestCase):
 
         return super().setUp()
 
-    def test_if_category_returns_correct_name(self):
+    def test_category_returns_correct_name(self):
         name = 'foods'
 
         self.assertEqual(str(self.category), name)

@@ -36,7 +36,7 @@ class StaffOrderedSearchTest(TestCase):
             response.content.decode('utf-8')
         )
 
-    def test_if_staff_ordered_search_is_found(self):
+    def test_staff_ordered_search_is_found(self):
         title1 = 'This is ordered one'
         ordered1 = create_ordered(first_name=title1)
 
@@ -59,7 +59,7 @@ class StaffOrderedSearchTest(TestCase):
         self.assertIn(ordered2, response.context['ordereds'])
         self.assertNotIn(ordered1, response.context['ordereds'])
 
-    def test_if_staff_ordered_search_is_not_found(self):
+    def test_staff_ordered_search_is_not_found(self):
         title = 'This is test'
         create_ordered(first_name=title)
 

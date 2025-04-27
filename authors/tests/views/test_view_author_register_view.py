@@ -17,12 +17,12 @@ class TestAuthorRegisterView(TestCase):
 
         return super().setUp()
 
-    def test_if_author_register_load_the_correct_view(self):
+    def test_author_register_load_the_correct_view(self):
         response = resolve(reverse('authors:register'))
 
         self.assertEqual(response.func.view_class, views.AuthorRegisterView)
 
-    def test_if_the_correct_register_is_redirected(self):
+    def test_the_correct_register_is_redirected(self):
         response = self.client.post(
             reverse('authors:register'),
             data=self.data
@@ -30,14 +30,14 @@ class TestAuthorRegisterView(TestCase):
 
         self.assertEqual(response.status_code, 302)
 
-    def test_if_the_user_logged_is_redirect_to_home(self):
+    def test_the_user_logged_is_redirect_to_home(self):
         register_user()
         self.client.login(username='Test', password='Test')
         response = self.client.get(reverse('authors:register'))
 
         self.assertRedirects(response, reverse('home:index'))
 
-    def test_if_author_register_context_is_correct(self):
+    def test_author_register_context_is_correct(self):
         response = self.client.get(
             reverse('authors:register'),
             data=self.data

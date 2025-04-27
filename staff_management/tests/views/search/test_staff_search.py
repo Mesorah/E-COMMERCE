@@ -11,7 +11,7 @@ class StaffSearchTest(TestCase):
         resolved = resolve(reverse('staff:staff_search'))
         self.assertIs(resolved.func.view_class, views.StaffSearchListView)
 
-    def test_if_staff_search_is_not_published(self):
+    def test_staff_search_is_not_published(self):
         user = register_super_user()
         self.client.login(username='test', password='123')
 

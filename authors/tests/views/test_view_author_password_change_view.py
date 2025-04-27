@@ -19,7 +19,7 @@ class TestAuthorPasswordChangeView(TestCase):
 
         return super().setUp()
 
-    def test_if_author_password_change_load_the_correct_view(self):
+    def test_author_password_change_load_the_correct_view(self):
         response = resolve(reverse('authors:change_password'))
 
         self.assertEqual(
@@ -27,13 +27,13 @@ class TestAuthorPasswordChangeView(TestCase):
             views.AuthorPasswordChangeView
         )
 
-    def test_if_the_correct_password_change_is_redirected(self):
+    def test_the_correct_password_change_is_redirected(self):
         response = self.client.post(reverse('authors:change_password'),
                                     data=self.data)
 
         self.assertEqual(response.status_code, 302)
 
-    def test_if_author_password_change_context_is_correct(self):
+    def test_author_password_change_context_is_correct(self):
         response = self.client.get(
             reverse('authors:change_password'),
             data=self.data

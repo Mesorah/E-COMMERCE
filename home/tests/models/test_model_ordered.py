@@ -23,7 +23,7 @@ class TestModelOrdered(TestCase):
 
         return super().setUp()
 
-    def test_if_ordered_returns_correct_name(self):
+    def test_ordered_returns_correct_name(self):
         name = '1: Test First Test Last'
 
         self.assertEqual(str(self.ordered), name)

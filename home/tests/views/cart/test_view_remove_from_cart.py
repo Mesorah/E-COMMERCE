@@ -15,13 +15,13 @@ class TestViewRemoveFromCart(TestCase):
 
         return super().setUp()
 
-    def test_if_home_remove_from_cart_load_the_correct_view(self):
+    def test_home_remove_from_cart_load_the_correct_view(self):
         response = resolve(reverse('home:remove_from_cart',
                                    kwargs={'pk': '1'}))
 
         self.assertEqual(response.func.view_class, views.RemoveFromCartView)
 
-    def test_if_home_remove_from_cart_is_get(self):
+    def test_home_remove_from_cart_is_get(self):
         self.client.post(
             reverse('home:add_to_cart', kwargs={'pk': '1'})
         )

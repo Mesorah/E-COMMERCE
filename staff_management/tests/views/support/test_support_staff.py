@@ -19,12 +19,12 @@ class TestSupportStaff(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_support_staff_load_the_correct_view(self):
+    def test_staff_support_staff_load_the_correct_view(self):
         response = resolve(reverse('staff:support_staff'))
 
         self.assertEqual(response.func.view_class, views.SupportStaff)
 
-    def test_if_staff_support_staff_load_the_correct_template(self):
+    def test_staff_support_staff_load_the_correct_template(self):
         response = self.client.get(reverse('staff:support_staff'))
 
         self.assertTemplateUsed(
@@ -32,12 +32,12 @@ class TestSupportStaff(TestCase):
             'staff_management/pages/support_staff.html'
         )
 
-    def test_if_staff_support_staff_returns_200(self):
+    def test_staff_support_staff_returns_200(self):
         response = self.client.get(reverse('staff:support_staff'))
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_staff_support_staff_returns_302(self):
+    def test_staff_support_staff_returns_302(self):
         response = self.client.post(
             reverse('staff:support_staff'),
             data=self.data
@@ -45,7 +45,7 @@ class TestSupportStaff(TestCase):
 
         self.assertRedirects(response, reverse('staff:support_view_staff'))
 
-    def test_if_support_staff_email_not_found(self):
+    def test_support_staff_email_not_found(self):
         data = {
             'answer': 'Answer test'
         }
@@ -61,7 +61,7 @@ class TestSupportStaff(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_support_staff_answer_not_found(self):
+    def test_support_staff_answer_not_found(self):
         data = {
             'email': 'testemail@gmail.com',
         }
@@ -77,7 +77,7 @@ class TestSupportStaff(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_support_staff_email_answer_not_found(self):
+    def test_support_staff_email_answer_not_found(self):
         data = {
             'email': 'email_not_found',
             'answer': 'answer_not_found'

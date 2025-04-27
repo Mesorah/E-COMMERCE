@@ -12,14 +12,14 @@ class TestOrderedDetail(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_detail_load_the_correct_view(self):
+    def test_staff_detail_load_the_correct_view(self):
         response = resolve(reverse('staff:ordered_detail', kwargs={
             'pk': '1'
         }))
 
         self.assertEqual(response.func.view_class, views.OrderedDetailView)
 
-    def test_if_ordered_detail_load_the_correct_template(self):
+    def test_ordered_detail_load_the_correct_template(self):
         response = self.client.get(reverse('staff:ordered_detail', kwargs={
             'pk': '1'
         }))

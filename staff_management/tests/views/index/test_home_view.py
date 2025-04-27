@@ -17,7 +17,7 @@ class TestHomeView(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_index_load_the_correct_view(self):
+    def test_staff_index_load_the_correct_view(self):
         response = resolve(reverse('staff:index'))
 
         self.assertEqual(response.func.view_class, views.HomeListView)
@@ -34,7 +34,7 @@ class TestHomeView(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_staff_index_have_the_correct_template(self):
+    def test_staff_index_have_the_correct_template(self):
         response = self.client.get(reverse('staff:index'))
 
         self.assertTemplateUsed(response, 'global/pages/base_page.html')

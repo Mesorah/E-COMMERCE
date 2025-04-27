@@ -14,7 +14,7 @@ class TestModelCustumerQuestion(TestCase):
 
         return super().setUp()
 
-    def test_if_custumer_question_returns_correct_name(self):
+    def test_custumer_question_returns_correct_name(self):
         name = 'Test - 21257890000'
 
         self.assertEqual(str(self.question), name)

@@ -17,7 +17,7 @@ class TestModelCartItem(TestCase):
 
         return super().setUp()
 
-    def test_if_cart_item_returns_correct_name(self):
+    def test_cart_item_returns_correct_name(self):
         name = '1 x Test Product no carrinho'
 
         self.assertEqual(str(self.cart_item), name)

@@ -10,12 +10,12 @@ class TestModelUserProfile(TestCase):
 
         return super().setUp()
 
-    def test_if_profile_returns_correct_name(self):
+    def test_profile_returns_correct_name(self):
         completed_sentence = 'Test - 21257890000'
 
         self.assertEqual(str(self.user), completed_sentence)
 
-    def test_if_cpf_is_not_valid(self):
+    def test_cpf_is_not_valid(self):
         self.user.cpf = '12345678901'
 
         with self.assertRaises(ValidationError) as cm:
@@ -23,5 +23,5 @@ class TestModelUserProfile(TestCase):
 
         self.assertIn('CPF inválido.', str(cm.exception))
 
-    def test_if_cpf_is_valid(self):
+    def test_cpf_is_valid(self):
         self.user.full_clean()

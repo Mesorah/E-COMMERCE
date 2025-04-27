@@ -12,12 +12,12 @@ class TestOrderedIndex(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_index_load_the_correct_view(self):
+    def test_staff_index_load_the_correct_view(self):
         response = resolve(reverse('staff:ordered_index'))
 
         self.assertEqual(response.func.view_class, views.OrderedIndexView)
 
-    def test_if_staff_index_load_the_correct_template(self):
+    def test_staff_index_load_the_correct_template(self):
         response = self.client.get(reverse('staff:ordered_index'))
 
         self.assertTemplateUsed(

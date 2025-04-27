@@ -32,7 +32,7 @@ class TestViewPayment(TestCase):
 
         return super().setUp()
 
-    def test_if_payment_user_not_authenticated_is_redirected_to_index(self):
+    def test_payment_user_not_authenticated_is_redirected_to_index(self):
         self.client.logout()
 
         response = self.client.post(
@@ -49,7 +49,7 @@ class TestViewPayment(TestCase):
 
         self.assertRedirects(response, expected_url)
 
-    def test_if_payment_number_of_credit_card_is_invalid(self):
+    def test_payment_number_of_credit_card_is_invalid(self):
         self.data['credit_card'] = '1234567891011134'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -62,19 +62,19 @@ class TestViewPayment(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_payment_informations_is_correct_and_is_post(self):
+    def test_payment_informations_is_correct_and_is_post(self):
         response = self.client.post(reverse('home:payment'), data=self.data)
 
         self.assertEqual(response.status_code, 302)
 
-    def test_if_payment_informations_is_wrong_and_is_post(self):
+    def test_payment_informations_is_wrong_and_is_post(self):
         self.data['expiration_date'] = '12/12'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_payment_informations_is_correct_and_is_get(self):
+    def test_payment_informations_is_correct_and_is_get(self):
         self.client.post(
             reverse('home:add_to_cart', kwargs={'pk': '1'})
         )
@@ -83,12 +83,12 @@ class TestViewPayment(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_payment_informations_is_correct_but_no_has_product(self):
+    def test_payment_informations_is_correct_but_no_has_product(self):
         response = self.client.get(reverse('home:payment'), data=self.data)
 
         self.assertRedirects(response, reverse('home:index'))
 
-    def test_if_payment_len_expiration_date_is_invalid(self):
+    def test_payment_len_expiration_date_is_invalid(self):
         self.data['expiration_date'] = '1212'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -101,7 +101,7 @@ class TestViewPayment(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_payment_mount_is_less_than_1_expiration_date(self):
+    def test_payment_mount_is_less_than_1_expiration_date(self):
         self.data['expiration_date'] = '00/27'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -114,7 +114,7 @@ class TestViewPayment(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_payment_mount_is_greater_than_1_expiration_date(self):
+    def test_payment_mount_is_greater_than_1_expiration_date(self):
         self.data['expiration_date'] = '13/27'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -127,7 +127,7 @@ class TestViewPayment(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_payment_year_expiration_date_len_is_2(self):
+    def test_payment_year_expiration_date_len_is_2(self):
         response = self.client.post(reverse('home:payment'), data=self.data)
 
         self.assertTrue(self.form.is_valid())
@@ -138,7 +138,7 @@ class TestViewPayment(TestCase):
 
         self.assertEqual(cleaned_data['expiration_date'], '11/2027')
 
-    def test_if_payment_year_expiration_date_len_is_4(self):
+    def test_payment_year_expiration_date_len_is_4(self):
         self.data['expiration_date'] = '11/2027'
         response = self.client.post(reverse('home:payment'), data=self.data)
 
@@ -150,7 +150,7 @@ class TestViewPayment(TestCase):
 
         self.assertEqual(cleaned_data['expiration_date'], '11/2027')
 
-    def test_if_payment_year_expiration_date_not_is_a_number(self):
+    def test_payment_year_expiration_date_not_is_a_number(self):
         self.data['expiration_date'] = 'ab/cd'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -164,7 +164,7 @@ class TestViewPayment(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_payment_zip_code_is_not_allowed(self):
+    def test_payment_zip_code_is_not_allowed(self):
         self.data['zip_code'] = '01007050'
 
         response = self.client.post(reverse('home:payment'), data=self.data)

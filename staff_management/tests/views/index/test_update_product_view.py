@@ -23,7 +23,7 @@ class TestEditProductView(TestCase):
 
         return super().setUp()
 
-    def test_if_staff_edit_product_load_the_correct_view(self):
+    def test_staff_edit_product_load_the_correct_view(self):
         response = resolve(reverse('staff:update_product', kwargs={
             'slug': self.product.slug
         }))
@@ -57,7 +57,7 @@ class TestEditProductView(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_if_update_product_have_the_correct_template(self):
+    def test_update_product_have_the_correct_template(self):
         response = self.client.get(
             reverse(
                 'staff:update_product', kwargs={'slug': self.product.slug}

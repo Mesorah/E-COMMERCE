@@ -28,7 +28,7 @@ class HomeSearchTest(TestCase):
             response.content.decode('utf-8')
         )
 
-    def test_if_home_search_is_not_published(self):
+    def test_home_search_is_not_published(self):
         user = register_super_user()
         self.client.login(username='test', password='123')
 
