@@ -1,5 +1,7 @@
 from django.urls import reverse
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from tests.functional_tests.authors.base import AuthorsBaseFunctionalTest
 
@@ -43,6 +45,24 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
             errors_messages.append(error.text)
 
         return errors_messages
+
+    def test_authors_register_is_correct(self):
+        # User has registered
+        self.fill_form_dummy_data(self.form)
+
+        # Waited for the login page to appear
+        WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, "//a[text()='Não tem uma conta?']")
+            )
+        )
+
+        # Checked if it is the correct page
+        login_page = self.browser.find_element(
+            By.XPATH, "//h2[text()='Logue-se']"
+        ).text
+
+        self.assertEqual(login_page, 'Logue-se')
 
     def test_authors_register_username_message_error(self):
         errors = self.fill_form_dummy_data(self.form, 'id_username', 'me')
