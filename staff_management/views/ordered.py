@@ -113,7 +113,8 @@ class StaffOrderedSearchListView(ListView):
         queryset = queryset.filter(
             Q(
                 Q(first_name__icontains=search_term) |
-                Q(last_name__icontains=search_term)
+                Q(last_name__icontains=search_term) |
+                Q(id__icontains=search_term)
             ),
             ordered=False
         )

@@ -148,7 +148,8 @@ MESSAGE_TAGS = {
     messages.ERROR: 'error',
 }
 
-SESSION_COOKIE_AGE = 3600
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 14
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
