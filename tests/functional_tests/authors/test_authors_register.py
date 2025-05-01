@@ -68,14 +68,14 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
         errors = self.fill_form_dummy_data(self.form, 'id_username', 'me')
         errors_messages = self.get_errors(errors)
         self.assertIn(
-            'O username precisa de pelo menos 3 caracteres', errors_messages
+            'O username precisa de pelo menos 3 caracteres.', errors_messages
         )
 
     def test_authors_register_cpf_message_error(self):
         errors = self.fill_form_dummy_data(self.form, 'id_cpf', '11111111111')
         errors_messages = self.get_errors(errors)
         self.assertIn(
-            'cpf inválido', errors_messages
+            'cpf inválido.', errors_messages
         )
 
     def test_authors_register_password_message_error(self):
@@ -84,7 +84,7 @@ class AuthorsRegisterFunctionalTest(AuthorsBaseFunctionalTest):
         )
         errors_messages = self.get_errors(errors)
         self.assertIn(
-            'A password1 tem que ser igual a password2', errors_messages
+            'A password1 tem que ser igual a password2.', errors_messages
         )
 
     def test_authors_register_all_placeholders(self):

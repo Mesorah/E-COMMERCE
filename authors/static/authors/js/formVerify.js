@@ -52,7 +52,7 @@ function validElements(elemets) {
 
     for(const element of elemets) {
         if(!element.value){
-            addError(element, `O ${element.name} não estar ser vazio`);
+            addError(element, `O ${element.name} não estar ser vazio.`);
 
             valid = false;
         }
@@ -63,20 +63,20 @@ function validElements(elemets) {
 
 function validUsername(username) {
     if(username.value.length > 150) addError(
-        username, `O ${username.name} não pode ter mais que 150 caracteres`
+        username, `O ${username.name} não pode ter mais que 150 caracteres.`
     );
 
     if(username.value.length < 3) addError(
-        username, `O ${username.name} precisa de pelo menos 3 caracteres`
+        username, `O ${username.name} precisa de pelo menos 3 caracteres.`
     );
 
-    return username.name.length >= 3 && username.name.length < 150;
+    return username.value.length >= 3 && username.value.length < 150;
 }
 
 function validCPF(cpf) {
     const CPF = new ValidateCPF(cpf.value);
 
-    if(!CPF.validate()) addError(cpf, `${cpf.name} inválido`);
+    if(!CPF.validate()) addError(cpf, `${cpf.name} inválido.`);
 
     return CPF.validate();
 }
@@ -85,14 +85,14 @@ function validPassword(password1, password2, username) {
     let valid = true;
 
     if(password1.value !== password2.value) {
-        addError(password1, `A ${password1.name} tem que ser igual a ${password2.name}`);
-        addError(password2, `A ${password2.name} tem que ser igual a ${password1.name}`);
+        addError(password1, `A ${password1.name} tem que ser igual a ${password2.name}.`);
+        addError(password2, `A ${password2.name} tem que ser igual a ${password1.name}.`);
         valid = false;
     }
 
     if(password1.value.length < 8) {
         addError(
-            password1, `A ${password1.name} tem que ser maior que 8 caracteres`
+            password1, `A ${password1.name} tem que ser maior que 8 caracteres.`
         );
 
         valid = false;
@@ -102,7 +102,7 @@ function validPassword(password1, password2, username) {
 
     if(password1.value === username.value) {
         addError(
-            password1, `A ${password1.name} não pode ser igual ao ${username.name}`
+            password1, `A ${password1.name} não pode ser igual ao ${username.name}.`
         );
 
         valid = false;
@@ -118,7 +118,7 @@ function isNumeric(password) {
         // if you couldn't turn it into a numerical 
         if(value) {
             addError(
-                password, `A ${password.name} não pode ser interamente numérica`
+                password, `A ${password.name} não pode ser interamente numérica.`
             );
             
             return true;
