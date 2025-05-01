@@ -23,8 +23,10 @@ class TestViewAddToCart(TestCase):
         self.assertEqual(response.func.view_class, views.AddToCartView)
 
     def test_home_add_to_cart_is_get(self):
-        response = self.client.get(reverse('home:add_to_cart',
-                                           kwargs={'pk': '2'}))
+        response = self.client.get(reverse(
+            'home:add_to_cart',
+            kwargs={'pk': '2'}
+        ))
 
         self.assertEqual(response.status_code, 405)  # Navegador recusa
 

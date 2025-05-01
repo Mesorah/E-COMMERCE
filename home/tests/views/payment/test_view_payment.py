@@ -1,7 +1,8 @@
 from django.test import TestCase
-from django.urls import reverse
+from django.urls import resolve, reverse
 from django.utils.http import urlencode
 
+from home import views
 from home.forms import PaymentForm
 from utils.for_tests.base_for_authentication import register_user
 from utils.for_tests.base_for_create_itens import create_product
@@ -9,10 +10,10 @@ from utils.for_tests.base_for_create_itens import create_product
 
 class TestViewPayment(TestCase):
     def setUp(self):
-        user = register_user()
+        self.user = register_user()
         self.client.login(username='Test', password='Test')
 
-        create_product(user)
+        self.product = create_product(self.user)
 
         # Tudo daqui é falso(nem vem kk)
         self.data = {
@@ -32,6 +33,18 @@ class TestViewPayment(TestCase):
 
         return super().setUp()
 
+    def test_payment_view_load_the_correct_view(self):
+        response = resolve(reverse('home:payment'))
+
+        self.assertEqual(response.func.view_class, views.PaymentView)
+
+    def test_payment_view_load_the_correct_template(self):
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
+
+        response = self.client.get(reverse('home:payment'))
+
+        self.assertTemplateUsed(response, 'home/pages/payment.html')
+
     def test_payment_user_not_authenticated_is_redirected_to_index(self):
         self.client.logout()
 
@@ -50,6 +63,8 @@ class TestViewPayment(TestCase):
         self.assertRedirects(response, expected_url)
 
     def test_payment_number_of_credit_card_is_invalid(self):
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
+
         self.data['credit_card'] = '1234567891011134'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -68,6 +83,8 @@ class TestViewPayment(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_payment_informations_is_wrong_and_is_post(self):
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
+
         self.data['expiration_date'] = '12/12'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -89,6 +106,8 @@ class TestViewPayment(TestCase):
         self.assertRedirects(response, reverse('home:index'))
 
     def test_payment_len_expiration_date_is_invalid(self):
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
+
         self.data['expiration_date'] = '1212'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -102,6 +121,8 @@ class TestViewPayment(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_payment_mount_is_less_than_1_expiration_date(self):
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
+
         self.data['expiration_date'] = '00/27'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -115,6 +136,8 @@ class TestViewPayment(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_payment_mount_is_greater_than_1_expiration_date(self):
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
+
         self.data['expiration_date'] = '13/27'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -151,6 +174,8 @@ class TestViewPayment(TestCase):
         self.assertEqual(cleaned_data['expiration_date'], '11/2027')
 
     def test_payment_year_expiration_date_not_is_a_number(self):
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
+
         self.data['expiration_date'] = 'ab/cd'
 
         response = self.client.post(reverse('home:payment'), data=self.data)
@@ -165,6 +190,8 @@ class TestViewPayment(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_payment_zip_code_is_not_allowed(self):
+        self.client.post(reverse('home:add_to_cart', kwargs={'pk': '1'}))
+
         self.data['zip_code'] = '01007050'
 
         response = self.client.post(reverse('home:payment'), data=self.data)

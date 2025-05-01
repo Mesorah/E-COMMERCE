@@ -35,6 +35,14 @@ class TestAddProductView(TestCase):
 
         self.assertEqual(response.func.view_class, views.ProductCreateView)
 
+    def test_add_product_have_the_correct_template(self):
+        response = self.client.get(reverse('staff:add_product'))
+
+        self.assertTemplateUsed(
+            response,
+            'staff_management/pages/crud_item.html'
+        )
+
     def test_user_without_permission_redirects_from_staff_add_product(self):
         self.client.login(username='Test', password='Test')
 
@@ -66,14 +74,6 @@ class TestAddProductView(TestCase):
         response = self.client.get(reverse('staff:add_product'))
 
         self.assertEqual(response.status_code, 200)
-
-    def test_add_product_have_the_correct_template(self):
-        response = self.client.get(reverse('staff:add_product'))
-
-        self.assertTemplateUsed(
-            response,
-            'staff_management/pages/crud_item.html'
-        )
 
     def test_staff_add_product_post_redirects_with_302(self):
         response = self.client.post(

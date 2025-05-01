@@ -11,6 +11,21 @@ class StaffSearchTest(TestCase):
         resolved = resolve(reverse('staff:staff_search'))
         self.assertIs(resolved.func.view_class, views.StaffSearchListView)
 
+    def test_staff_client_search_loads_corret_template(self):
+        user = register_super_user()
+        self.client.login(username='test', password='123')
+
+        title = 'This is product one'
+        create_product(user, name=title, is_published=False)
+
+        search_url = reverse('staff:staff_search')
+        response = self.client.get(f'{search_url}?q={title}')
+
+        self.assertTemplateUsed(
+            response,
+            'global/pages/search_product.html'
+        )
+
     def test_staff_search_is_not_published(self):
         user = register_super_user()
         self.client.login(username='test', password='123')

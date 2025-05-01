@@ -30,6 +30,18 @@ class TestEditProductView(TestCase):
 
         self.assertEqual(response.func.view_class, views.ProductUpdateView)
 
+    def test_update_product_have_the_correct_template(self):
+        response = self.client.get(
+            reverse(
+                'staff:update_product', kwargs={'slug': self.product.slug}
+            )
+        )
+
+        self.assertTemplateUsed(
+            response,
+            'staff_management/pages/crud_item.html'
+        )
+
     def test_user_without_permission_redirects_from_staff_update_product(self):
         self.client.login(username='Test', password='Test')
 
@@ -56,18 +68,6 @@ class TestEditProductView(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-
-    def test_update_product_have_the_correct_template(self):
-        response = self.client.get(
-            reverse(
-                'staff:update_product', kwargs={'slug': self.product.slug}
-            )
-        )
-
-        self.assertTemplateUsed(
-            response,
-            'staff_management/pages/crud_item.html'
-        )
 
     def test_update_product_raises_404_if_not_found(self):
         response = self.client.post(

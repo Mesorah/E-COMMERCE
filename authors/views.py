@@ -8,7 +8,7 @@ from authors.forms import CustomUserCreationForm
 
 
 class AuthorRegisterView(CreateView):
-    template_name = "authors/pages/base_page.html"
+    template_name = 'authors/pages/base_page.html'
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('authors:login')
 
@@ -30,7 +30,7 @@ class AuthorRegisterView(CreateView):
 
 
 class AuthorLoginView(LoginView):
-    template_name = "authors/pages/base_page.html"
+    template_name = 'authors/pages/base_page.html'
     redirect_authenticated_user = True
     success_url = reverse_lazy('home:index')
 
@@ -49,7 +49,7 @@ class AuthorLoginView(LoginView):
 
 
 class AuthorLogoutView(LogoutView):
-    template_name = "authors/pages/base_page.html"
+    template_name = 'authors/pages/base_page.html'
     success_url = reverse_lazy('authors:login')
 
     def get_redirect_url(self):
@@ -57,7 +57,7 @@ class AuthorLogoutView(LogoutView):
 
 
 class AuthorPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
-    template_name = "authors/pages/base_page.html"
+    template_name = 'authors/pages/base_page.html'
     success_url = reverse_lazy('home:index')
     login_url = reverse_lazy('authors:login')
 

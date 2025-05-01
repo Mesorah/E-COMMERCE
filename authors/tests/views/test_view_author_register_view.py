@@ -22,6 +22,11 @@ class TestAuthorRegisterView(TestCase):
 
         self.assertEqual(response.func.view_class, views.AuthorRegisterView)
 
+    def test_author_register_load_correct_template(self):
+        response = self.client.get(reverse('authors:register'))
+
+        self.assertTemplateUsed(response, 'authors/pages/base_page.html')
+
     def test_the_correct_register_is_redirected(self):
         response = self.client.post(
             reverse('authors:register'),

@@ -33,6 +33,19 @@ class TestClientsListOrdered(TestCase):
             views.ClientListOrderedDetailView
         )
 
+    def test_staff_clients_list_have_the_correct_template(self):
+        response = self.client.get(
+            reverse(
+                'staff:client_list_ordered',
+                kwargs={'pk': '1'}
+                )
+            )
+
+        self.assertTemplateUsed(
+            response,
+            'staff_management/pages/ordered.html'
+        )
+
     def test_user_without_permission_redirects_from_staff_client_ordered(self):
         self.client.login(username='Test', password='Test')
 
@@ -54,16 +67,3 @@ class TestClientsListOrdered(TestCase):
             )
 
         self.assertEqual(response.status_code, 200)
-
-    def test_staff_clients_list_have_the_correct_template(self):
-        response = self.client.get(
-            reverse(
-                'staff:client_list_ordered',
-                kwargs={'pk': '1'}
-                )
-            )
-
-        self.assertTemplateUsed(
-            response,
-            'staff_management/pages/ordered.html'
-        )

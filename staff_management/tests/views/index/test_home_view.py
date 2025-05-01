@@ -22,6 +22,11 @@ class TestHomeView(TestCase):
 
         self.assertEqual(response.func.view_class, views.HomeListView)
 
+    def test_staff_index_have_the_correct_template(self):
+        response = self.client.get(reverse('staff:index'))
+
+        self.assertTemplateUsed(response, 'global/pages/base_page.html')
+
     def test_user_without_permission_redirects_from_staff_index(self):
         self.client.login(username='Test', password='Test')
 
@@ -33,8 +38,3 @@ class TestHomeView(TestCase):
         response = self.client.get(reverse('staff:index'))
 
         self.assertEqual(response.status_code, 200)
-
-    def test_staff_index_have_the_correct_template(self):
-        response = self.client.get(reverse('staff:index'))
-
-        self.assertTemplateUsed(response, 'global/pages/base_page.html')

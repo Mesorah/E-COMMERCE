@@ -78,17 +78,27 @@ class PaymentView(LoginRequiredMixin, View):
 
         return data
 
-    def get(self, *args, **kwargs):
-        form = PaymentForm()
+    def verify_if_user_has_cart(self):
         cart = self.request.session.get('cart', {})
 
         if not cart:
             messages.error(self.request, 'Nenhum item no carrinho.')
+            return False
+
+        return True
+
+    def get(self, *args, **kwargs):
+        if not self.verify_if_user_has_cart():
             return redirect('home:index')
+
+        form = PaymentForm()
 
         return self.get_render(form)
 
     def post(self, *args, **kwargs):
+        if not self.verify_if_user_has_cart():
+            return redirect('home:index')
+
         products, products_quantity = self.get_items()
 
         form = PaymentForm(self.request.POST)

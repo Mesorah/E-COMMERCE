@@ -27,6 +27,11 @@ class TestAuthorPasswordChangeView(TestCase):
             views.AuthorPasswordChangeView
         )
 
+    def test_author_password_change_load_correct_template(self):
+        response = self.client.get(reverse('authors:change_password'))
+
+        self.assertTemplateUsed(response, 'authors/pages/base_page.html')
+
     def test_the_correct_password_change_is_redirected(self):
         response = self.client.post(reverse('authors:change_password'),
                                     data=self.data)

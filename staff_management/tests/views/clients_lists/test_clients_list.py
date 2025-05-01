@@ -23,6 +23,14 @@ class TestClientsList(TestCase):
 
         self.assertEqual(response.func.view_class, views.ClientsListView)
 
+    def test_staff_clients_list_have_the_correct_template(self):
+        response = self.client.get(reverse('staff:clients'))
+
+        self.assertTemplateUsed(
+            response,
+            'staff_management/pages/clients.html'
+        )
+
     def test_user_without_permission_redirects_from_staff_clients_list(self):
         self.client.login(username='Test', password='Test')
 
@@ -34,11 +42,3 @@ class TestClientsList(TestCase):
         response = self.client.get(reverse('staff:clients'))
 
         self.assertEqual(response.status_code, 200)
-
-    def test_staff_clients_list_have_the_correct_template(self):
-        response = self.client.get(reverse('staff:clients'))
-
-        self.assertTemplateUsed(
-            response,
-            'staff_management/pages/clients.html'
-        )
